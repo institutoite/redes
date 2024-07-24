@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Schema\ForeignIdColumnDefinition;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -12,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 100);
-            $table->string('imagen',100);
-            $table->decimal('price',10,2);
-            $table->foreignId("categories_id")->constrained("categories")->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('latitud', 20);
+            $table->string('longitu', 20);
+            $table->string('zoom',5);
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('locations');
     }
 };

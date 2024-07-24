@@ -16,7 +16,7 @@ class WelcomeController extends Controller
         $products = Product::with('category')->get();
 
         // dd($socials);
-        return Inertia::render('Welcome', [
+        return view('Welcome', [
             'socials' => $socials,
             'products' => $products,
         ]);
