@@ -66,7 +66,8 @@ class ProductResource extends Resource
                     ->defaultImageUrl('path/to/default/image.jpg'),
 
                 Tables\Columns\TextColumn::make('price')
-                    ->money()
+                    // ->money()
+                    ->prefix("Bs. ")
                     ->sortable(),
                 Tables\Columns\TextColumn::make('category.description') // Accede al nombre de la categoría a través de la relación
                     ->label('Categoría') // Etiqueta para la columna

@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('locations', function (Blueprint $table) {
+        Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo', 20);
-            $table->string('latitud', 20);
-            $table->string('longitud', 20);
-            $table->string('zoom',5);
+            $table->string('client_name', 100);
+            $table->text('testimonial');
+            $table->string('client_image')->nullable();
+            $table->string('client_position')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('testimonials');
     }
 };

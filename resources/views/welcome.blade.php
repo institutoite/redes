@@ -85,6 +85,10 @@ a{
     text-decoration: none;
     transition: color 0.3s;
 }
+.product-imagen{
+    width: 100%;
+    height: 200px;
+}
 #mapid{
     width: 100%;
     height: 400px;
@@ -118,7 +122,7 @@ a{
                         </div>
                         <div class="card-body">
                             <p>Bs. {{ $product->price }}</p>
-                            <img src="{{ asset('storage/'.$product->imagen) }}" alt="Imagen">
+                            <img class="product-imagen" src="{{ asset('storage/'.$product->imagen) }}" alt="Imagen">
                         </div>
                     </div>
                 
