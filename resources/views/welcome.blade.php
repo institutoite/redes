@@ -89,11 +89,20 @@ a{
     width: 100%;
     height: 200px;
 }
-#mapid{
-    width: 100%;
-    height: 400px;
-}
-
+.map-container {
+            margin: 20px 0;
+        }
+        .map {
+            height: 300px;
+            width: 100%;
+        }
+        .location-info {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
 
     </style>
 </head>
@@ -135,22 +144,55 @@ a{
                 Header
             </div>
             <div class="card-body">
-                <div id="mapid">
+                <div id="locations-container">
+                    @foreach ($locations as $location)
+                        @if ($location->activo)
+                            <div class="map-container">
+                                <h3>{{ $location->titulo }}</h3>
+                                <div class="map" id="map-{{ $loop->index }}"></div>
+                                <div class="location-info">
+                                    <p><strong>Descripción:</strong> {{ $location->descripcion ?? 'No hay descripción disponible' }}</p>
+                                    <p><strong>Direccion:</strong> {{ $location->direccion }}</p>
+                                    <p><strong>Titulo:</strong> {{ $location->titulo }}</p>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
-    
-    
- 
     </div>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        var mymap = L.map('mapid').setView([-17.8016746, -63.1355868], 16);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(mymap);
-        L.marker([-17.8016746, -63.1355868]).addTo(mymap);
-        
+       // Datos de las ubicaciones
+       var locations = @json($locations);
+
+        locations.forEach(function(location, index) {
+            if (location.activo) {
+                var lat = parseFloat(location.latitud);
+                var lng = parseFloat(location.longitud);
+
+            if (!isNaN(lat) && !isNaN(lng)) {
+                // Crear un mapa para cada ubicación
+                var mapId = 'map-' + index;
+                var map = L.map(mapId).setView([lat, lng], 15);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 25
+                }).addTo(map);
+
+                var iconUrl = location.icono || 'https://unpkg.com/leaflet/dist/images/marker-icon.png';
+                var marker = L.marker([lat, lng], { icon: L.icon({ iconUrl: iconUrl }) }).addTo(map)
+                    .bindPopup('<b>' + location.titulo + '</b><br>' + (location.descripcion || 'No hay descripción disponible'))
+                    .openPopup();
+                marker.bindTooltip(location.titulo).openTooltip();
+            }
+        }
+    });
     </script>
 </body>
 </html>

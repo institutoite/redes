@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Location;
 use App\Models\Social;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -14,11 +15,12 @@ class WelcomeController extends Controller
     {
         $socials = Social::where('state', 1)->orderBy('priority')->get();
         $products = Product::with('category')->get();
+        $locations = Location::all();
 
-        // dd($socials);
         return view('Welcome', [
             'socials' => $socials,
             'products' => $products,
+            'locations' => $locations,
         ]);
     }
 }

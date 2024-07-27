@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('titulo', 20);
             $table->string('latitud', 20);
             $table->string('longitud', 20);
-            $table->string('zoom',5);
+            $table->text('direccion')->nullable();
+            $table->text('descripcion')->nullable();
+            $table->boolean('activo')->default(true);
             $table->timestamps();
         });
     }

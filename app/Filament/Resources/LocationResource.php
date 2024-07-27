@@ -32,9 +32,7 @@ class LocationResource extends Resource
                 Forms\Components\TextInput::make('longitud')
                     ->required()
                     ->maxLength(20),
-                Forms\Components\TextInput::make('zoom')
-                    ->required()
-                    ->maxLength(5),
+                
             ]);
     }
 
@@ -48,8 +46,7 @@ class LocationResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('longitud')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('zoom')
-                    ->searchable(),
+                
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
