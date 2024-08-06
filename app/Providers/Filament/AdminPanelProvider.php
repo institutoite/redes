@@ -28,17 +28,30 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                
+                'danger' => Color::Rose,
+                'gray' => Color::Gray,
+                'info' => Color::Blue,
+                'primary' => '#26BAA5',
+                'success' => Color::Emerald,
+                'warning' => Color::Orange,
             ])
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
+            ->font('Montserrat')
+            // ->brandName('itelinker')
+            ->brandLogo(asset('images/logo.png'))
+            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')// menu
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            /** son los paneles que quisieramos agregar */
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                // Widgets\FilamentInfoWidget::class,
+                // Widgets\StatsWidget::class,
+                // Widgets\SalesChartWidget::class,
+                // Widgets\UserInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -53,6 +66,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])->favicon(asset('images/logo.png'))
+            ->profile();
     }
 }

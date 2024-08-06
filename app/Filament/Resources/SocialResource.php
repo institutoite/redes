@@ -6,14 +6,12 @@ use App\Filament\Resources\SocialResource\Pages;
 use App\Filament\Resources\SocialResource\RelationManagers;
 use App\Models\Social;
 use Filament\Forms;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\ColorPicker;
 
 class SocialResource extends Resource
 {
@@ -25,30 +23,60 @@ class SocialResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('social')->required(),
-                ColorPicker::make('color')->required(),
-                TextInput::make('icon')->required(),
-                TextInput::make('link')->required(),
-                TextInput::make('priority')->required(),
-                Forms\Components\Toggle::make('state')->default(1),
+                Forms\Components\TextInput::make('social')
+                    ->required()
+                    ->maxLength(15),
+                Forms\Components\TextInput::make('color')
+                    ->required()
+                    ->maxLength(8),
+                Forms\Components\TextInput::make('icon')
+                    ->required()
+                    ->maxLength(25),
+                Forms\Components\TextInput::make('link')
+                    ->required()
+                    ->maxLength(150),
+                Forms\Components\TextInput::make('priority')
+                    ->required()
+                    ->maxLength(150),
+                Forms\Components\Toggle::make('state')
+                    ->required(),
+                Forms\Components\TextInput::make('clicks')
+                    ->required()
+                    ->numeric()
+                    ->default(0),
             ]);
     }
-
-
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('social'),
-                Tables\Columns\TextColumn::make('color'),
-                Tables\Columns\TextColumn::make('icon'),
-                Tables\Columns\TextColumn::make('link'),
-                Tables\Columns\TextColumn::make('priority'),
-                
+                Tables\Columns\TextColumn::make('social')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('color')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('icon')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('link')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('priority')
+                    ->searchable(),
+                Tables\Columns\IconColumn::make('state')
+                    ->boolean(),
+                Tables\Columns\TextColumn::make('clicks')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

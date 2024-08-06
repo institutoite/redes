@@ -25,14 +25,22 @@ class LocationResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('titulo')
                     ->required()
-                    ->maxLength(20),
+                    ->maxLength(40),
                 Forms\Components\TextInput::make('latitud')
                     ->required()
                     ->maxLength(20),
                 Forms\Components\TextInput::make('longitud')
                     ->required()
                     ->maxLength(20),
-                
+                Forms\Components\TextInput::make('zoom')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\Textarea::make('direccion')
+                    ->columnSpanFull(),
+                Forms\Components\Textarea::make('descripcion')
+                    ->columnSpanFull(),
+                Forms\Components\Toggle::make('activo')
+                    ->required(),
             ]);
     }
 
@@ -46,7 +54,11 @@ class LocationResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('longitud')
                     ->searchable(),
-                
+                Tables\Columns\TextColumn::make('zoom')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\IconColumn::make('activo')
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

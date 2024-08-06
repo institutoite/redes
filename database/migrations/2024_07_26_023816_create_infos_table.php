@@ -18,9 +18,8 @@ return new class extends Migration
             $table->string('slogan', 255)->nullable();
             $table->text('description')->nullable();
             $table->string('address')->nullable();
+            $table->string('code', 20)->nullable();
             $table->string('phone', 20)->nullable();
-            $table->string('email')->nullable();
-            $table->string('hours')->nullable();
             $table->timestamps();
         });
     }

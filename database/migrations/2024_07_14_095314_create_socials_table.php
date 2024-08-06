@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string("link",150);
             $table->string("priority",150);
             $table->boolean("state")->default(1);
+            $table->unsignedBigInteger("clicks")->default(0);
             $table->timestamps();
         });
     }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nombre', 100);
             $table->string('imagen',100);
             $table->decimal('price',10,2);
+            $table->unsignedBigInteger("clicks")->default();
             $table->foreignId("categories_id")->constrained("categories")->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });

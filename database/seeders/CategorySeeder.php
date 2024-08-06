@@ -14,11 +14,13 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         DB::table('categories')->insert([
-            ['description' => 'Technology', 'created_at' => now(), 'updated_at' => now()],
-            ['description' => 'Health', 'created_at' => now(), 'updated_at' => now()],
-            ['description' => 'Sports', 'created_at' => now(), 'updated_at' => now()],
-            ['description' => 'Education', 'created_at' => now(), 'updated_at' => now()],
-            ['description' => 'Entertainment', 'created_at' => now(), 'updated_at' => now()],
+            ['description' => 'primaria', 'created_at' => now(), 'updated_at' => now()],
+            ['description' => 'secundaria', 'created_at' => now(), 'updated_at' => now()],
+            ['description' => 'rubik', 'created_at' => now(), 'updated_at' => now()],
+            ['description' => 'ejedrez', 'created_at' => now(), 'updated_at' => now()],
+            ['description' => 'robotica', 'created_at' => now(), 'updated_at' => now()],
+            ['description' => 'computacion', 'created_at' => now(), 'updated_at' => now()],
+            ['description' => 'programacion', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

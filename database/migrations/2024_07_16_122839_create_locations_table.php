@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo', 20);
+            $table->string('titulo', 40);
             $table->string('latitud', 20);
             $table->string('longitud', 20);
+            $table->tinyInteger('zoom')->unsigned();
             $table->text('direccion')->nullable();
             $table->text('descripcion')->nullable();
             $table->boolean('activo')->default(true);
