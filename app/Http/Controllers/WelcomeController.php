@@ -21,7 +21,7 @@ class WelcomeController extends Controller
         $info = Info::all()->first();
        
         
-        return view('Welcome', [
+        return view('welcome', [
             'socials' => $socials,
             'products' => $products,
             'locations' => $locations,
