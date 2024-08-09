@@ -378,7 +378,7 @@ a{
                             <p>Bs. {{ $product->price }}</p>
                             <img class="product-imagen" src="{{ asset('storage/'.$product->imagen) }}" alt="Imagen">
                             <div class="button-container">
-                                <a href="https://wa.me/?text=¡Hola!%20Estoy%20interesado%20en%20el%20producto%20{{ urlencode($product->nombre) }}.%20¿Me%20puedes%20dar%20más%20información?" target="_blank" class="btn btn-whatsapp" title="Enviar por WhatsApp">
+                                <a href="https://wa.me/{{$info->code.$info->phone}}?text=¡Hola!%20Estoy%20interesado%20en%20el%20producto%20{{ urlencode($product->nombre) }}.%20¿Me%20puedes%20dar%20más%20información?" target="_blank" class="btn btn-whatsapp" title="Enviar por WhatsApp">
                                     <i class="fab fa-whatsapp"></i> Enviar
                                 </a>
                             </div>
