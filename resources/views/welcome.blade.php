@@ -234,6 +234,61 @@ a{
     .btn-whatsapp:hover {
         background-color: #25D366; /* Color verde oscuro de WhatsApp */
     }
+
+    /*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DESCRIPCION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+    .descripcion-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .descripcion-container img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .descripcion-container .descripcion-texto {
+            text-align: center;
+        }
+
+        .descripcion-container h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .descripcion-container p {
+            margin: 0;
+            color: #555;
+        }
+
+        @media (min-width: 768px) {
+            .descripcion-container {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            .descripcion-container img {
+                max-width: 150px;
+                margin-bottom: 0;
+                margin-right: 15px;
+            }
+
+            .descripcion-container .descripcion-texto {
+                text-align: left;
+            }
+        }
+        /*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% centra boton del modal login %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+        .center-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
@@ -249,7 +304,7 @@ a{
                         <img class="logo" src="{{ asset('storage/' . $info->logo) }}" alt="{{ $info->company_name }} Logo" style="max-height: 40px; vertical-align: middle;">
                     @endif
                 @endisset
-
+                
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -257,18 +312,19 @@ a{
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ route('home') }}">preguntas frecuentes</a>
+                        {{-- <a class="nav-link active" aria-current="page" href="{{ route('home') }}">preguntas frecuentes</a> --}}
                     </li>
                 </ul>
                 
                 <div class="d-flex ms-3">
                     @auth
+                        <a href="/admin" class="me-2">Admin</a>
                     <form action="{{ route('logout') }}" method="POST" class="d-inline">
                         @csrf
-                        <button type="submit" class="btn btn-outline-danger">Salir</button>
+                        <button type="submit" class="btn me-2">Salir</button>
                     </form>
                 @else
-                    <a href="{{ route('login') }}" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a>
+                    <a href="{{ route('login') }}" class="me-2" data-bs-toggle="modal" data-bs-target="#loginModal">login</a>
                 @endauth
                 
                 </div>
@@ -287,22 +343,21 @@ a{
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email address</label>
+                                <label for="email" class="form-label">Correo electrónico</label>
                                 <input type="email" class="form-control" id="email" name="email" required>
                             </div>
                             <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
+                                <label for="password" class="form-label">Contraseña</label>
                                 <input type="password" class="form-control" id="password" name="password" required>
                             </div>
                             <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                                <label class="form-check-label" for="remember">Remember me</label>
+                                <label class="form-check-label" for="remember">Recordar</label>
                             </div>
-                            <button type="submit" class="btn btn-primary">Login</button>
+                            <div class="center-button">
+                                <button type="submit" class="btn btn-success">Ingresar</button>
+                            </div>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -352,6 +407,13 @@ a{
 
 
 
+    <section class="descripcion-container">
+        <img src="{{ asset('storage/' . $info->logo) }}" alt="Descripción de la imagen">
+        <div class="descripcion-texto">
+            <h2>{{ $info->company_name }}</h2>
+            <p>Este es un texto descriptivo que explica o proporciona detalles sobre el contenido de la imagen. </p>
+        </div>
+    </section>
     <div class="container">
         <h1>Socials</h1>
         <div class="cards-container">
@@ -457,7 +519,7 @@ a{
                             @foreach ($socials as $social)
                                 
                                 <li class="list-inline-item border border-light rounded-circle text-center">
-                                    <a class="text-light text-decoration-none" target="_blank" href="{{ $social->social }}"><i class="{{ $social->icono }}"></i></a>
+                                    <a class="text-light text-decoration-none" target="_blank" href="{{ $social->social }}"><i class="{{ $social->icon }}"></i></a>
                                 </li>
                             @endforeach
                             

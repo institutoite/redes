@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'DAVID',
             'email' => 'informaciones.ite@gmail.com',
-            'password' => Hash::make('lobacude13'), // Cambia 'password' por una contraseña segura
+            'password' => Hash::make('12345678'), // Cambia 'password' por una contraseña segura
         ]);
     }
 }
