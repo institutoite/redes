@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Ventaja extends Model
 {
     use HasFactory;
+    protected $guarded=[];
+    public function modalidad()
+    {
+        return $this->belongsTo(Modalidad::class);
+    }
 }

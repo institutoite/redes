@@ -1,0 +1,28 @@
+use App\Models\Product;
+use App\Models\Modalidad;
+use App\Models\Horario;
+use App\Models\Ventaja;
+use App\Models\Dia;
+
+$prestamo=Product::find(1);
+use App\Models\Product;
+use App\Models\Modalidad;
+use App\Models\Horario;
+use App\Models\Ventaja;
+use App\Models\Dia;
+
+$prestamo=Product::all();
+use App\Models\Product;
+use App\Models\Modalidad;
+use App\Models\Horario;
+use App\Models\Ventaja;
+use App\Models\Dia;
+
+$prestamo=Product::find(1);
+use App\Models\Product;
+use App\Models\Modalidad;
+use App\Models\Horario;
+use App\Models\Ventaja;
+use App\Models\Dia;
+
+$prestamo=Product::find(1)->modalidades;

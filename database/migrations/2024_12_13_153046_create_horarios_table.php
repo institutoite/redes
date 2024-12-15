@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('horarios', function (Blueprint $table) {
             $table->id();
             $table->string("horario");
-            $table->boolean("estado");
+            $table->boolean("estado")->default(1);
+
+            $table->unsignedBigInteger("modalidad_id");
+            $table->foreign("modalidad_id")->references("id")->on("modalidads");
+
             $table->timestamps();
         });
     }

@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '097949c1d3dc05ea0732732bab87d27ef0439f2a',
+        'reference' => '6ed8b2911a1bece1200d8a867ac7aae22227c86a',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -616,7 +616,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '097949c1d3dc05ea0732732bab87d27ef0439f2a',
+            'reference' => '6ed8b2911a1bece1200d8a867ac7aae22227c86a',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -1384,6 +1384,15 @@
             'install_path' => __DIR__ . '/../spatie/laravel-package-tools',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'spatie/laravel-web-tinker' => array(
+            'pretty_version' => '1.9.0',
+            'version' => '1.9.0.0',
+            'reference' => '89b8aad509bddea495ab629e12930a38744141e6',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/laravel-web-tinker',
+            'aliases' => array(),
+            'dev_requirement' => true,
         ),
         'spatie/once' => array(
             'dev_requirement' => false,

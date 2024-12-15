@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('ventaja', 25)->nullable();
             $table->string('detalle', 100)->nullable();
+            $table->boolean("estado", true)->nullable();
+            
+            $table->unsignedBigInteger("modalidad_id");
+            $table->foreign("modalidad_id")->references("id")->on("modalidads");
             $table->timestamps();
         });
     }

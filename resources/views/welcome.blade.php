@@ -226,13 +226,31 @@ a{
         font-size: 14px; /* Tamaño de fuente más pequeño */
         margin-top: 10px;
     }
+    .btn-detalle {
+        display: inline-flex;
+        align-items: center;
+        background-color:rgb(55, 95, 122) ; /* Color de WhatsApp */
+        color: white;
+        padding: 6px 12px; /* Tamaño más pequeño */
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 14px; /* Tamaño de fuente más pequeño */
+        margin-top: 10px;
+    }
 
     .btn-whatsapp i {
+        margin-right: 6px; /* Espacio entre ícono y texto */
+    }
+    .btn-detalle i {
         margin-right: 6px; /* Espacio entre ícono y texto */
     }
 
     .btn-whatsapp:hover {
         background-color: #25D366; /* Color verde oscuro de WhatsApp */
+    }
+    .btn-detalle:hover {
+        background-color: rgb(55, 95, 122); /* Color verde oscuro de WhatsApp */
+        color:rgb(183, 243, 223);
     }
 
     /*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DESCRIPCION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
@@ -324,7 +342,7 @@ a{
                         <button type="submit" class="btn me-2">Salir</button>
                     </form>
                 @else
-                    <a href="{{ route('login') }}" class="me-2" data-bs-toggle="modal" data-bs-target="#loginModal">login</a>
+                    <a href="{{ url('admin/login') }}" class="me-2">login</a>
                 @endauth
                 
                 </div>
@@ -441,8 +459,12 @@ a{
                             <img class="product-imagen" src="{{ asset('storage/'.$product->imagen) }}" alt="Imagen">
                             <div class="button-container">
                                 <a href="https://wa.me/{{$info->code.$info->phone}}?text=¡Hola!%20Estoy%20interesado%20en%20el%20producto%20{{ urlencode($product->nombre) }}.%20¿Me%20puedes%20dar%20más%20información?" target="_blank" class="btn btn-whatsapp" title="Enviar por WhatsApp">
-                                    <i class="fab fa-whatsapp"></i> Enviar
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>&#160;
+                                <a href="{{route('modalidades',$product->id)}}" target="_blank" class="btn btn-detalle" title="Ver mas información">
+                                    <i class="fa-solid fa-list">Detalle</i>
                                 </a>
+
                             </div>
                         </div>
                     </div>
