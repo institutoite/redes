@@ -14,13 +14,66 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         DB::table('categories')->insert([
-            ['description' => 'primaria', 'created_at' => now(), 'updated_at' => now()],
-            ['description' => 'secundaria', 'created_at' => now(), 'updated_at' => now()],
-            ['description' => 'rubik', 'created_at' => now(), 'updated_at' => now()],
-            ['description' => 'ejedrez', 'created_at' => now(), 'updated_at' => now()],
-            ['description' => 'robotica', 'created_at' => now(), 'updated_at' => now()],
-            ['description' => 'computacion', 'created_at' => now(), 'updated_at' => now()],
-            ['description' => 'programacion', 'created_at' => now(), 'updated_at' => now()],
+            ['description' => 'Apoyo escolar Inicial', 
+            'created_at' => now(), 
+            'updated_at' => now()
+            ],
+            ['description' => 'Apoyo escolar primaria', 
+            'created_at' => now(), 
+            'updated_at' => now()
+            ],
+            ['description' => 'Apoyo escolar Secundaria', 
+            'created_at' => now(), 
+            'updated_at' => now()
+            ],
+            ['description' => 'PSA Y CUP PREUNIVERSITARIO', 
+            'created_at' => now(), 
+            'updated_at' => now()
+            ],
+            ['description' => 'CUBO RUBIK', 
+            'created_at' => now(), 
+            'updated_at' => now()
+            ],
+            ['description' => 'COMPUTACION', 
+            'created_at' => now(), 
+            'updated_at' => now()
+            ],
+            ['description' => 'AJEDREZ', 
+            'created_at' => now(), 
+            'updated_at' => now()
+            ],
+            ['description' => 'DACTILOGRAFIA', 
+            'created_at' => now(), 
+            'updated_at' => now()
+            ],
+            ['description' => 'ORATORIA', 
+            'created_at' => now(), 
+            'updated_at' => now()
+            ],
+            ['description' => 'LECTURA Y ESCRITURA', 
+            'created_at' => now(), 
+            'updated_at' => now()
+            ],
+            ['description' => 'SUPER MEMORIA', 
+            'created_at' => now(), 
+            'updated_at' => now()
+            ],
+            ['description' => 'ROBOTICA', 
+            'created_at' => now(), 
+            'updated_at' => now()
+            ],
+            ['description' => 'PROGRAMCION', 
+            'created_at' => now(), 
+            'updated_at' => now()
+            ],
+            ['description' => 'INTELIGENCIA ARTIFICIAL', 
+            'created_at' => now(), 
+            'updated_at' => now()
+            ],
+            ['description' => 'CREACION DE CONTENIDO', 
+            'created_at' => now(), 
+            'updated_at' => now()
+            ],
         ]);
     }
 }

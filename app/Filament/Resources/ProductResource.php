@@ -47,8 +47,7 @@ class ProductResource extends Resource
                     Select::make('categories_id')
                     ->label('Categoría')
                     ->options(Category::all()->pluck('description', 'id')) // Carga las categorías
-                    ->required() // Opcional: Define si el campo es requerido
-                    ->searchable(), // Opcional: Permite buscar en el select
+                    ->required(), // Opcional: Define si el campo es requerido
             ]);
     }
 
