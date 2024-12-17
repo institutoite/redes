@@ -13,52 +13,27 @@ class HorarioSeeder extends Seeder
      */
     public function run(): void
     {
-        Horario::create([
-            'horario' => 'Lunes a Viernes: 08:00 - 10:00 AM',
-            'estado' => 1,
-            'modalidad_id' => 1, // Presencial - Cubo Rubik
-        ]);
+        // Seeder para asignar horarios a cada modalidad
+        $horarios = [
+            '07:30 - 09:00',
+            '09:00 - 10:30',
+            '10:30 - 12:00',
+            '14:00 - 15:30',
+            '15:30 - 17:00',
+            '17:00 - 18:30',
+        ];
 
-        Horario::create([
-            'horario' => 'Sábados: 10:00 - 12:00 PM',
-            'estado' => 1,
-            'modalidad_id' => 1, // Presencial - Cubo Rubik
-        ]);
+        // Total de modalidades (18 modalidades creadas previamente)
+        $totalModalidades = 19;
 
-        Horario::create([
-            'horario' => 'Lunes a Miércoles: 07:00 - 09:00 PM',
-            'estado' => 1,
-            'modalidad_id' => 2, // Virtual - Cubo Rubik
-        ]);
-
-        Horario::create([
-            'horario' => 'Martes y Jueves: 06:00 - 08:00 PM',
-            'estado' => 1,
-            'modalidad_id' => 3, // Híbrido - Ajedrez
-        ]);
-
-        Horario::create([
-            'horario' => 'Viernes: 05:00 - 07:00 PM',
-            'estado' => 1,
-            'modalidad_id' => 3, // Híbrido - Ajedrez
-        ]);
-
-        Horario::create([
-            'horario' => 'Sábados: 09:00 - 11:00 AM',
-            'estado' => 1,
-            'modalidad_id' => 4, // Presencial - Computación
-        ]);
-
-        Horario::create([
-            'horario' => 'Lunes a Viernes: 07:00 - 09:00 PM',
-            'estado' => 1,
-            'modalidad_id' => 5, // Virtual - Diseño gráfico
-        ]);
-
-        Horario::create([
-            'horario' => 'Domingos: 10:00 AM - 12:00 PM',
-            'estado' => 1,
-            'modalidad_id' => 6, // Presencial - Dactilografía
-        ]);
+        for ($modalidadId = 1; $modalidadId <= $totalModalidades; $modalidadId++) {
+            foreach ($horarios as $horario) {
+                Horario::create([
+                    'horario' => $horario,
+                    'estado' => 1,
+                    'modalidad_id' => $modalidadId,
+                ]);
+            }
+        }
     }
 }

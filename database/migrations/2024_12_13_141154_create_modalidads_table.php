@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('modalidads', function (Blueprint $table) {
             $table->id();
-            $table->string('modalidad', 50)->nullable();
+            $table->string('modalidad', 80)->nullable();
             $table->decimal('inversion',6,2)->nullable();
             $table->string('descripcion',5000)->nullable();
             $table->boolean("estado")->default(1); 

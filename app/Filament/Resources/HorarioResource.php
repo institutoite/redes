@@ -46,8 +46,10 @@ class HorarioResource extends Resource
                     ->searchable(),
                 Tables\Columns\IconColumn::make('estado')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('modalidad_id')
+                Tables\Columns\TextColumn::make('modalidad.modalidad')
+                    ->label("Modalidad")
                     ->numeric()
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

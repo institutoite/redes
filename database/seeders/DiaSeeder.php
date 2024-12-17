@@ -13,57 +13,57 @@ class DiaSeeder extends Seeder
      */
     public function run(): void
     {
-        Dias::create([
-            'dia' => 'Lunes',
-            'modalidad_id' => 1, // Presencial - Cubo Rubik
-        ]);
+        // Días de la semana
+        $diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        
+        // Modalidades con días personalizados
+        $diasPersonalizados = [
+            4 => ['Lunes', 'Miércoles', 'Viernes'], // Tres veces por semana (Lun-Mie-Vie)
+            5 => ['Martes', 'Jueves', 'Sábado'],   // Tres veces por semana (Mar-Jue-Sab)
+            8 => ['Lunes', 'Miércoles', 'Viernes'], // Plan 2 semanas (Lun-Mie-Vie)
+            9 => ['Martes', 'Jueves', 'Sábado'],   // Plan 2 semanas (Mar-Jue-Sab)
+            11 => ['Lunes', 'Miércoles', 'Viernes'], // Plan Mensual (Lun-Mie-Vie)
+            12 => ['Martes', 'Jueves', 'Sábado'],   // Plan Mensual (Mar-Jue-Sab)
+            14 => ['Lunes', 'Miércoles', 'Viernes'], // Plan Bimestral (Lun-Mie-Vie)
+            15 => ['Martes', 'Jueves', 'Sábado'],   // Plan Bimestral (Mar-Jue-Sab)
+            17 => ['Lunes', 'Miércoles', 'Viernes'], // Plan Trimestral (Lun-Mie-Vie)
+            18 => ['Martes', 'Jueves', 'Sábado'],   // Plan Trimestral (Mar-Jue-Sab)
+        ];
 
-        Dias::create([
-            'dia' => 'Miércoles',
-            'modalidad_id' => 1, // Presencial - Cubo Rubik
-        ]);
+        // Modalidades de lunes a viernes
+        $modalidadesLunesAViernes = [6, 10, 13, 16, 19]; // IDs de modalidades lunes a viernes
+        
+        // Modalidades de lunes a sábado
+        $modalidadesLunesASabado = [7]; // ID de modalidades lunes a sábado
 
-        Dias::create([
-            'dia' => 'Viernes',
-            'modalidad_id' => 1, // Presencial - Cubo Rubik
-        ]);
+        // Asignar días a modalidades personalizadas (tres veces por semana)
+        foreach ($diasPersonalizados as $modalidadId => $dias) {
+            foreach ($dias as $dia) {
+                Dias::create([
+                    'dia' => $dia,
+                    'modalidad_id' => $modalidadId,
+                ]);
+            }
+        }
 
-        // Días para la modalidad 2 - Virtual Cubo Rubik
-        Dias::create([
-            'dia' => 'Martes',
-            'modalidad_id' => 2, // Virtual - Cubo Rubik
-        ]);
+        // Asignar días lunes a viernes
+        foreach ($modalidadesLunesAViernes as $modalidadId) {
+            foreach (array_slice($diasSemana, 0, 5) as $dia) { // Lunes a Viernes
+                Dias::create([
+                    'dia' => $dia,
+                    'modalidad_id' => $modalidadId,
+                ]);
+            }
+        }
 
-        Dias::create([
-            'dia' => 'Jueves',
-            'modalidad_id' => 2, // Virtual - Cubo Rubik
-        ]);
-
-        // Días para la modalidad 3 - Híbrido Ajedrez
-        Dias::create([
-            'dia' => 'Sábado',
-            'modalidad_id' => 3, // Híbrido - Ajedrez
-        ]);
-
-        Dias::create([
-            'dia' => 'Domingo',
-            'modalidad_id' => 3, // Híbrido - Ajedrez
-        ]);
-
-        // Días para la modalidad 4 - Presencial Computación
-        Dias::create([
-            'dia' => 'Lunes',
-            'modalidad_id' => 4, // Presencial - Computación
-        ]);
-
-        Dias::create([
-            'dia' => 'Miércoles',
-            'modalidad_id' => 4, // Presencial - Computación
-        ]);
-
-        Dias::create([
-            'dia' => 'Viernes',
-            'modalidad_id' => 4, // Presencial - Computación
-        ]);
+        // Asignar días lunes a sábado
+        foreach ($modalidadesLunesASabado as $modalidadId) {
+            foreach ($diasSemana as $dia) { // Lunes a Sábado
+                Dias::create([
+                    'dia' => $dia,
+                    'modalidad_id' => $modalidadId,
+                ]);
+            }
+        }
     }
 }
