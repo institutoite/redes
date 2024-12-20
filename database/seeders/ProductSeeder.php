@@ -16,13 +16,15 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         $products = [
-            ['nombre' => 'Apoyo Escolar Inicial', 'imagen' => 'apoyo_inicial.jpg', 'price' => 40.00],
-            ['nombre' => 'Apoyo Escolar primaria', 'imagen' => 'apoyo_primaria.jpg', 'price' => 40.00],
-            ['nombre' => 'Apoyo Escolar secundaria', 'imagen' => 'apoyo_secundaria.jpg', 'price' => 40.00],
-            ['nombre' => 'PREUNIVERSITARIOS PSA CUP', 'imagen' => 'psa.jpg', 'price' => 40.00],
+            ['nombre' => 'Nivel Inicial', 'imagen' => 'apoyo_inicial.jpg', 'price' => 40.00],
+            ['nombre' => 'Nivel primaria', 'imagen' => 'apoyo_primaria.jpg', 'price' => 40.00],
+            ['nombre' => 'Nivel secundaria', 'imagen' => 'apoyo_secundaria.jpg', 'price' => 40.00],
+            ['nombre' => 'PREUNIVERSITARIOS', 'imagen' => 'psa.jpg', 'price' => 45.00],
+            ['nombre' => 'NIVEL INSTITUTOS', 'imagen' => 'psa.jpg', 'price' => 48.00],
+            ['nombre' => 'NIVEL UNIVERSITARIO', 'imagen' => 'psa.jpg', 'price' => 50.00],
+            ['nombre' => 'Computación', 'imagen' => 'computacion.jpg', 'price' => 120.00],
             ['nombre' => 'Cubo Rubik', 'imagen' => 'cubo_rubik.jpg', 'price' => 50.00],
             ['nombre' => 'Ajedrez', 'imagen' => 'ajedrez.jpg', 'price' => 70.00],
-            ['nombre' => 'Computación', 'imagen' => 'computacion.jpg', 'price' => 120.00],
             ['nombre' => 'Diseño Gráfico', 'imagen' => 'diseno_grafico.jpg', 'price' => 150.00],
             ['nombre' => 'Dactilografía', 'imagen' => 'dactilografia.jpg', 'price' => 80.00],
             ['nombre' => 'Oratoria', 'imagen' => 'oratoria.jpg', 'price' => 100.00],

@@ -24,7 +24,7 @@ class HorarioSeeder extends Seeder
         ];
 
         // Total de modalidades (18 modalidades creadas previamente)
-        $totalModalidades = 19;
+        $totalModalidades = 89;
 
         for ($modalidadId = 1; $modalidadId <= $totalModalidades; $modalidadId++) {
             foreach ($horarios as $horario) {
