@@ -461,7 +461,7 @@ a{
                                 <a href="https://wa.me/{{$info->code.$info->phone}}?text=¡Hola!%20Estoy%20interesado%20en%20el%20producto%20{{ urlencode($product->nombre) }}.%20¿Me%20puedes%20dar%20más%20información?" target="_blank" class="btn btn-whatsapp" title="Enviar por WhatsApp">
                                     <i class="fab fa-whatsapp"></i>
                                 </a>&#160;
-                                <a href="{{route('modalidades',$product->id)}}" target="_blank" class="btn btn-detalle" title="Ver mas información">
+                                <a href="{{route('modalidades',$product->id)}}" class="btn btn-detalle" title="Ver mas información">
                                     <i class="fa-solid fa-list">Detalle</i>
                                 </a>
 

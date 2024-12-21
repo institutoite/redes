@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('modalidad', 80)->nullable();
             $table->decimal('inversion',6,2)->nullable();
             $table->string('descripcion',5000)->nullable();
+            $table->unsignedBigInteger('clicks')->default(0);
             $table->boolean("estado")->default(1); 
             $table->unsignedBigInteger("product_id");
             $table->foreign("product_id")->references("id")->on("products");
-
             $table->timestamps();
         });
     }

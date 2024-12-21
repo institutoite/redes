@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("horario");
             $table->boolean("estado")->default(1);
 
+            $table->unsignedBigInteger("clicks")->default(0);
             $table->unsignedBigInteger("modalidad_id");
             $table->foreign("modalidad_id")->references("id")->on("modalidads");
 
