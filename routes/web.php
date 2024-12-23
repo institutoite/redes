@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PDFController;
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
@@ -26,3 +27,6 @@ Route::middleware([
 });
 Route::get('/', [WelcomeController::class, 'index'])->name("home");
 Route::get('modalidades/{product}', [ProductController::class, 'modalidades'])->name("modalidades");
+
+
+Route::get('generar-pdf/{product}', [PDFController::class, 'generarPDF'])->name("generarpdf");

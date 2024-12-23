@@ -19,13 +19,14 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="mb-4">Modalidades para: {{ $product->nombre }}</h1>
-
+        <img src="{{ url('images/logo.png') }}" alt="Logotipo">
+        <h1 class="mb-4">Modalidades para: {{ $product->nombre }} <span><h1><a href="{{ route('generarpdf',$product) }}" class="btn btn-success">Exportar PDF</a></h1></span></h1>
+        
         @foreach ($product->modalidades as $modalidad)
         <div class="card mb-4">
             <div class="card-header bg-primary text-white">
-                <span class="fw-bold">{{ $modalidad->modalidad }}</span>
-                <span>Bs {{ number_format($modalidad->inversion, 2) }}</span>
+                <span class="fw-bold"><h1>{{ $modalidad->modalidad }}</h1></span>
+                <span><h1>Bs {{ number_format($modalidad->inversion, 2) }}</h1></span>
             </div>
             <div class="card-body">
                 <h5>Descripción:</h5>
