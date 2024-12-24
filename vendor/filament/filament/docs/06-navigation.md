@@ -1,6 +1,7 @@
 ---
 title: Navigation
 ---
+import AutoScreenshot from "@components/AutoScreenshot.astro"
 
 ## Overview
 
@@ -314,6 +315,35 @@ public function panel(Panel $panel): Panel
 }
 ```
 
+## Customizing the width of the sidebar
+
+You can customize the width of the sidebar by passing it to the `sidebarWidth()` method in the [configuration](configuration):
+
+```php
+use Filament\Panel;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->sidebarWidth('40rem');
+}
+```
+
+Additionally, if you are using the `sidebarCollapsibleOnDesktop()` method, you can customize width of the collapsed icons by using the `collapsedSidebarWidth()` method in the [configuration](configuration):
+
+```php
+use Filament\Panel;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->sidebarCollapsibleOnDesktop()
+        ->collapsedSidebarWidth('9rem');
+}
+```
+
 ## Advanced navigation customization
 
 The `navigation()` method can be called from the [configuration](configuration). It allows you to build a custom navigation that overrides Filament's automatically generated items. This API is designed to give you complete control over the navigation.
@@ -430,6 +460,8 @@ public function panel(Panel $panel): Panel
         ]);
 }
 ```
+
+<AutoScreenshot name="panels/navigation/user-menu" alt="User menu with custom menu item" version="3.x" />
 
 ### Customizing the profile link
 

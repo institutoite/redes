@@ -9,10 +9,13 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            position: relative;
         }
         .container {
             padding: 20px;
             margin: 20px auto;
+            position: relative;
+            z-index: 2; /* Asegura que el contenido esté delante */
         }
         header {
             position: fixed;
@@ -21,17 +24,28 @@
             background: white;
             padding: 10px 0;
             text-align: center;
-            z-index: 1000;
+            z-index: 1; /* Encabezado encima de todo */
         }
         header img {
             max-width: 120px;
+            float: right; /* Alinea la imagen a la derecha */
+            margin-right: 20px; /* Agrega espacio entre la imagen y el borde derecho */
         }
+
         header h1 {
             margin: 10px 0 5px;
             font-size: 24px;
         }
-        .container {
-            margin-top: 150px; /* Espacio para el encabezado */
+        .background-logo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Imagen detrás de todo */
+            opacity: 0.1; /* Transparencia para no obstruir la lectura */
+            background: url('file://{{ public_path("images/logo.png") }}') no-repeat center;
+            background-size: contain; /* Ajusta la imagen al tamaño del contenedor */
         }
         .modalidad {
             page-break-after: always;
@@ -41,7 +55,7 @@
             margin-bottom: 10px;
         }
         .card {
-            border: 1px solid #ddd;
+            /*border: 1px solid #ddd;*/
             margin-bottom: 20px;
             padding: 15px;
             border-radius: 5px;
@@ -63,17 +77,19 @@
     </style>
 </head>
 <body>
+    <!-- Imagen de fondo -->
+    <div class="background-logo"></div>
+
+    <!-- Encabezado -->
     <header>
         <img src="file://{{ public_path('images/logo.png') }}" alt="Logotipo">
-        
     </header>
+   
+    <!-- Contenido principal -->
     <div class="container">
         <p>{{ $product->nombre }}</p>
         @foreach ($product->modalidades as $modalidad)
         <div class="modalidad" style="@if (!$loop->last) page-break-after: always; @endif">
-            <h2>{{ $modalidad->modalidad }}</h2>
-            <h2>{{ $modalidad->modalidad }}</h2>
-            <h2>{{ $modalidad->modalidad }}</h2>
             <h2>{{ $modalidad->modalidad }}</h2>
             <div class="card">
                 <h5>Inversión:</h5>
@@ -85,7 +101,7 @@
                     @foreach ($modalidad->horarios as $horario)
                         <li>
                             @if ($horario->estado == 0)
-                                <span style="text-decoration: line-through; color: gray;">
+                                <span style="text-decoration: line-through; color: rgb(67, 67, 67);">
                                     {{ $horario->horario }} - <span class="text-danger">(SIN CUPO)</span>
                                 </span>
                             @else

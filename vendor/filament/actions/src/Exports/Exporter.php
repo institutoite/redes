@@ -28,8 +28,7 @@ abstract class Exporter
         protected Export $export,
         protected array $columnMap,
         protected array $options,
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<mixed>
@@ -144,7 +143,13 @@ abstract class Exporter
 
     public function getFileDisk(): string
     {
-        return config('filament.default_filesystem_disk');
+        $disk = config('filament.default_filesystem_disk');
+
+        if (($disk === 'public') && array_key_exists('local', config('filesystems.disks'))) {
+            return 'local';
+        }
+
+        return $disk;
     }
 
     public function getFileName(Export $export): string

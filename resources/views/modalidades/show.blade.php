@@ -35,23 +35,21 @@
                 <h5>Seleccione un horario:</h5>
                 <ul class="list-group">
                     @foreach ($modalidad->horarios as $horario)
-                    <li class="list-group-item">
-                        <li class="list-group-item d-flex align-items-center">
+                        <li class="d-flex align-items-center">
                             @if ($horario->estado == 0)
-                                <input type="checkbox" id="horario-{{ $loop->iteration }}" class="form-check-input me-2 horario-checkbox" 
+                                <input type="checkbox" id="horario-{{ $horario->id }}" class="form-check-input me-2 horario-checkbox" 
                                     value="{{ $horario->horario }}" disabled>
-                                <label for="horario-{{ $loop->iteration }}" class="flex-grow-1 mb-0 text-muted">
+                                <label for="horario-{{$horario->id }}" class="flex-grow-1 mb-0 text-muted">
                                     {{ $horario->horario }} - <span class="text-danger">(Sin cupos)</span>
                                 </label>
                             @else
-                                <input type="checkbox" id="horario-{{ $loop->iteration }}" class="form-check-input me-2 horario-checkbox" 
+                                <input type="checkbox" id="horario-{{ $horario->id }}" class="form-check-input me-2 horario-checkbox" 
                                     value="{{ $horario->horario }}">
-                                <label for="horario-{{ $loop->iteration }}" class="flex-grow-1 mb-0">
+                                <label for="horario-{{ $horario->id }}" class="flex-grow-1 mb-0">
                                     {{ $horario->horario }}
                                 </label>
                             @endif
                         </li>
-                    </li>
                     @endforeach
                 </ul>
                 <h5>Días:</h5>

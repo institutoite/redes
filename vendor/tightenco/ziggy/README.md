@@ -44,7 +44,7 @@ Add the `@routes` Blade directive to your main layout (_before_ your application
 
 ### `route()` function
 
-Ziggy's `route()` function works like [Laravel's `route()` helper](https://laravel.com/docs/10.x/helpers#method-route)—you can pass it the name of a route, and the parameters you want to pass to the route, and it will generate a URL.
+Ziggy's `route()` function works like [Laravel's `route()` helper](https://laravel.com/docs/helpers#method-route)—you can pass it the name of a route, and the parameters you want to pass to the route, and it will generate a URL.
 
 #### Basic usage
 
@@ -378,6 +378,16 @@ Now you can use the `route()` function anywhere in your Vue components and templ
 <a class="nav-link" :href="route('home')">Home</a>
 ```
 
+With `<script setup>` in Vue 3 you can use `inject` to make the `route()` function available in your component script:
+
+```vue
+<script setup>
+import { inject } from 'vue';
+
+const route = inject('route');
+</script>
+```
+
 If you are not using the `@routes` Blade directive, import Ziggy's configuration too and pass it to `.use()`:
 
 ```js
@@ -387,6 +397,16 @@ import { Ziggy } from './ziggy.js';
 import App from './App.vue';
 
 createApp(App).use(ZiggyVue, Ziggy);
+```
+
+If you're using TypeScript, you may need to add the following declaration to a `.d.ts` file in your project to avoid type errors when using the `route()` function in your Vue component templates:
+
+```ts
+declare module 'vue' {
+    interface ComponentCustomProperties {
+        route: typeof routeFn;
+    }
+}
 ```
 
 ### React
@@ -525,7 +545,7 @@ If you need to retrieve Ziggy's config from your Laravel backend over the networ
 
 use Tighten\Ziggy\Ziggy;
 
-Route::get('api/ziggy', fn () => response()->json(new Ziggy));
+Route::get('ziggy', fn () => response()->json(new Ziggy));
 ```
 
 ### Re-generating the routes file when your app routes change

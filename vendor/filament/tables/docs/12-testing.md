@@ -489,6 +489,28 @@ it('can load existing post data for editing', function () {
 });
 ```
 
+You may also find it useful to pass a function to the `assertTableActionDataSet()` and `assertTableBulkActionDataSet()` methods, which allow you to access the form `$state` and perform additional assertions:
+
+```php
+use Illuminate\Support\Str;
+use function Pest\Livewire\livewire;
+
+it('can automatically generate a slug from the title without any spaces', function () {
+    $post = Post::factory()->create();
+
+    livewire(PostResource\Pages\ListPosts::class)
+        ->mountTableAction(EditAction::class, $post)
+        ->assertTableActionDataSet(function (array $state) use ($post): array {
+            expect($state['slug'])
+                ->not->toContain(' ');
+                
+            return [
+                'slug' => Str::slug($post->title),
+            ];
+        });
+});
+```
+
 ### Action state
 
 To ensure that an action or bulk action exists or doesn't in a table, you can use the `assertTableActionExists()` / `assertTableActionDoesNotExist()` or  `assertTableBulkActionExists()` / `assertTableBulkActionDoesNotExist()` method:
@@ -637,6 +659,8 @@ it('can average values in a column', function () {
 ```
 
 The first argument is the column name, the second is the summarizer ID, and the third is the expected value.
+
+Note that the expected and actual values are normalized, such that `123.12` is considered the same as `"123.12"`, and `['Fred', 'Jim']` is the same as `['Jim', 'Fred']`.
 
 You may set a summarizer ID by passing it to the `make()` method:
 
