@@ -15,13 +15,21 @@
             width: 100%;
             margin: 10px 0;
         }
+
+        .text-right {
+            text-align: right; /* Alinea el contenido del div a la derecha */
+        }
+        .text-right a {
+            display: inline-block; /* Asegura que el enlace se respete como un elemento alineado */
+        }
+
     </style>
 </head>
 <body>
     <div class="container mt-5">
         <img src="{{ url('images/logo.png') }}" alt="Logotipo">
-        <h1 class="mb-4">Modalidades para: {{ $product->nombre }} <span><h1><a href="{{ route('generarpdf',$product) }}" class="btn btn-success">Exportar PDF</a></h1></span></h1>
-        
+        <h1 class="mb-4">Modalidades para: {{ $product->nombre }}</h1>
+
         @foreach ($product->modalidades as $modalidad)
         <div class="card mb-4">
             <div class="card-header bg-primary text-white">
@@ -29,6 +37,9 @@
                 <span><h1>Bs {{ number_format($modalidad->inversion, 2) }}</h1></span>
             </div>
             <div class="card-body">
+                <div class="text-right">
+                    <a href="{{ route('generarpdf',$product) }}" class="btn btn-success">Exportar PDF</a>
+                </div>
                 <h5>Descripción:</h5>
                 <p>{{ $modalidad->descripcion }}</p>
 
