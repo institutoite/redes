@@ -30,3 +30,4 @@ Route::get('modalidades/{product}', [ProductController::class, 'modalidades'])->
 
 
 Route::get('generar-pdf/{product}', [PDFController::class, 'generarPDF'])->name("generarpdf");
+Route::get('imprimir/modalidad/{modalidad}', [PDFController::class, 'modalidad_pdf'])->name("generarmodalidadpdf");

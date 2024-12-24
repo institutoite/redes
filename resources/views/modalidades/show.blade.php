@@ -29,6 +29,10 @@
     <div class="container mt-5">
         <img src="{{ url('images/logo.png') }}" alt="Logotipo">
         <h1 class="mb-4">Modalidades para: {{ $product->nombre }}</h1>
+        
+        <div class="text-right">
+            <a href="{{ route('generarpdf',$product) }}" class="btn btn-success">Exportar PDF</a>
+        </div>
 
         @foreach ($product->modalidades as $modalidad)
         <div class="card mb-4">
@@ -37,9 +41,6 @@
                 <span><h1>Bs {{ number_format($modalidad->inversion, 2) }}</h1></span>
             </div>
             <div class="card-body">
-                <div class="text-right">
-                    <a href="{{ route('generarpdf',$product) }}" class="btn btn-success">Exportar PDF</a>
-                </div>
                 <h5>Descripción:</h5>
                 <p>{{ $modalidad->descripcion }}</p>
 
@@ -80,6 +81,7 @@
             <div class="card-footer text-center">
                 <button class="btn btn-success" onclick="reservar('{{ $modalidad->modalidad }}')">Reservar</button>
                 <a href="{{ route("home") }}" class="btn btn-warning">Volver atras</a>
+                <a href="{{ route("generarmodalidadpdf",$modalidad) }}" class="btn btn-info">Imprimir</a>
             </div>
         </div>
         @endforeach

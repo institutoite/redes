@@ -19,9 +19,24 @@ class PDFController extends Controller
         ];
 
         // Cargar la vista y pasarle los datos
-        $pdf = Pdf::loadView('modalidades.pdfmodalidad', $datos);
+        $pdf = Pdf::loadView('modalidades.pdfproduct', $datos);
 
         // Descargar el PDF
         return $pdf->download($product->nombre."_Modalidades".'.pdf');
+    }
+
+    
+    public function modalidad_pdf(Modalidad $modalidad)
+    {
+        // Datos para pasar a la vista
+        $datos = [
+            'modalidad'=>$modalidad,
+        ];
+
+        // Cargar la vista y pasarle los datos
+        $pdf = Pdf::loadView('modalidades.pdfmodalidad', $datos);
+
+        // Descargar el PDF
+        return $pdf->download($modalidad->modalidad.'.pdf');
     }
 }

@@ -3,51 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte de Modalidades</title>
+    <title>Reporte de Servicio</title>
     <style>
-       /* Glypha LT Std Bold */
-        @font-face {
-            font-family: 'Glypha LT Std';
-            src: url('/fonts/GlyphaLTStd-Bold.otf') format('opentype');
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        /* Montserrat Black */
-        @font-face {
-            font-family: 'Montserrat';
-            src: url('/fonts/Montserrat-Black.otf') format('opentype');
-            font-weight: 900; /* Peso de fuente para 'Black' */
-            font-style: normal;
-        }
-
-        /* Montserrat Black Italic */
-        @font-face {
-            font-family: 'Montserrat';
-            src: url('/fonts/Montserrat-BlackItalic.ttf') format('truetype');
-            font-weight: 900; /* Peso de fuente para 'Black' */
-            font-style: italic;
-        }
-
-        /* Montserrat Bold */
-        @font-face {
-            font-family: 'Montserrat';
-            src: url('/fonts/Montserrat-Bold.otf') format('opentype');
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        /* Montserrat Bold Italic */
-        @font-face {
-            font-family: 'Montserrat';
-            src: url('/fonts/Montserrat-BoldItalic.ttf') format('truetype');
-            font-weight: bold;
-            font-style: italic;
-        }
-
-
         body {
-            font-family: 'Glypha LT Std',Arial, sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             position: relative;
@@ -71,10 +30,6 @@
             max-width: 120px;
             float: right; /* Alinea la imagen a la derecha */
             margin-right: 20px; /* Agrega espacio entre la imagen y el borde derecho */
-        }
-
-        h1{
-            font-family: 'Glypha LT Std', Arial, sans-serif;
         }
 
         header h1 {
@@ -132,8 +87,9 @@
    
     <!-- Contenido principal -->
     <div class="container">
-        
-        <div class="modalidad">
+        <p>{{ $product->nombre }}</p>
+        @foreach ($product->modalidades as $modalidad)
+        <div class="modalidad" style="@if (!$loop->last) page-break-after: always; @endif">
             <h2>{{ $modalidad->modalidad }}</h2>
             <div class="card">
                 <h5>Inversión:</h5>
@@ -168,6 +124,7 @@
                 </ul>
             </div>
         </div>
+        @endforeach
     </div>
 </body>
 </html>
