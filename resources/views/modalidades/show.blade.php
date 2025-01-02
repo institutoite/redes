@@ -71,7 +71,7 @@
                     @endforeach
                 </ul>
 
-                <h5>Ventajas:</h5>
+                <h5>Características:</h5>
                 <ul>
                     @foreach ($modalidad->ventajas as $ventaja)
                     <li>{{ $ventaja->ventaja }}: {{ $ventaja->detalle }}</li>

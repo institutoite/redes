@@ -116,7 +116,7 @@
                         <li>{{ $dia->dia }}</li>
                     @endforeach
                 </ul>
-                <h5>Beneficios:</h5>
+                <h5>Caracteristicas:</h5>
                 <ul>
                     @foreach ($modalidad->ventajas as $ventaja)
                         <li>{{ $ventaja->ventaja }}: {{ $ventaja->detalle }}</li>
