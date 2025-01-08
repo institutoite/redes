@@ -307,6 +307,69 @@ a{
             justify-content: center;
             align-items: center;
         }
+
+        /*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  descarga de tonos %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+.tones-section {
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 10px;
+}
+
+.tones-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.tone-card {
+    background: #fefefe;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    width: 180px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.tone-card:hover {
+    transform: translateY(-5px);
+}
+
+.tone-card h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.tone-card button {
+    padding: 10px 15px;
+    background: #26BAA5;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.tone-card button:hover {
+    background: #26BAA5;
+}
+
     </style>
 </head>
 <body>
@@ -478,6 +541,7 @@ a{
             @endif
         </div>
 
+       
 
         <div class="row">
             <div class="card-header" style="background-color:teal">
@@ -488,6 +552,35 @@ a{
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="tones-container">
+                <div class="tone-card">
+                    <h2>Formato MP3</h2>
+                    <a href="{{ route('descargar', ['formato' => 'mp3']) }}" class="btn">Descargar MP3</a>
+                </div>
+                <div class="tone-card">
+                    <h2>Formato OGG</h2>
+                    <a href="{{ route('descargar', ['formato' => 'ogg']) }}" class="btn">Descargar OGG</a>
+                </div>
+                <div class="tone-card">
+                    <h2>Formato AMR</h2>
+                    <a href="{{ route('descargar', ['formato' => 'amr']) }}" class="btn">Descargar AMR</a>
+                </div>
+                <div class="tone-card">
+                    <h2>Formato WAV</h2>
+                    <a href="{{ route('descargar', ['formato' => 'wav']) }}" class="btn">Descargar WAV</a>
+                </div>
+                <div class="tone-card">
+                    <h2>Formato AAC</h2>
+                    <a href="{{ route('descargar', ['formato' => 'aac']) }}" class="btn">Descargar AAC</a>
+                </div>
+            </div>
+            
+        </div>
+        
+
+
         <footer class="bg-dark" id="tempaltemo_footer">
             <div class="container-fluid">
                 <div class="row">
@@ -616,6 +709,7 @@ a{
             @endforeach
         }
         google.maps.event.addDomListener(window, 'load', initMap);
+
     </script>
 </body>
 </html>

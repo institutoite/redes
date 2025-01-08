@@ -70,7 +70,6 @@
                     <li>{{ $dia->dia }}</li>
                     @endforeach
                 </ul>
-
                 <h5>Características:</h5>
                 <ul>
                     @foreach ($modalidad->ventajas as $ventaja)
@@ -79,6 +78,7 @@
                 </ul>
             </div>
             <div class="card-footer text-center">
+                <a href="#" onclick="reservar('{{ $modalidad->modalidad }}')" class="btn btn-warning"><i class="fa-brands fa-whatsapp fa-beat" style="color: #2fc804;"></i></a>
                 <button class="btn btn-success" onclick="reservar('{{ $modalidad->modalidad }}')">Reservar</button>
                 <a href="{{ route("home") }}" class="btn btn-warning">Volver atras</a>
                 <a href="{{ route("generarmodalidadpdf",$modalidad) }}" class="btn btn-info">Imprimir</a>
