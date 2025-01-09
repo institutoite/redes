@@ -32,10 +32,11 @@ Route::get('modalidades/{product}', [ProductController::class, 'modalidades'])->
 Route::get('generar-pdf/{product}', [PDFController::class, 'generarPDF'])->name("generarpdf");
 Route::get('imprimir/modalidad/{modalidad}', [PDFController::class, 'modalidad_pdf'])->name("generarmodalidadpdf");
 
-Route::get('/descargar/{formato}', function ($formato) {
-    $filePath = storage_path("app/tones/calamar.$formato");
+Route::get('/descargar/{nombre}/{formato}', function ($nombre,$formato) {
+    $filePath = storage_path("app\\public\\tones\\$nombre.$formato");
+    // dd($filePath);
     if (!file_exists($filePath)) {
         abort(404, 'El archivo no existe.');
     }
-    return response()->download($filePath, "tono.$formato");
+    return response()->download($filePath, "tonocalamar.$formato");
 })->name('descargar');

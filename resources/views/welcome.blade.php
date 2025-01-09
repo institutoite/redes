@@ -599,23 +599,23 @@ a{
                         <source src="{{ asset('storage/tones/juego_calamar.mp3') }}" type="audio/mpeg">
                         Tu navegador no soporta el elemento de audio.
                     </audio>
-                    <a href="{{ route('descargar', ['formato' => 'mp3']) }}" class="btn">Descargar MP3</a>
+                    <a href="{{ route('descargar', ['nombre'=>'juego_calamar','formato' => 'mp3']) }}" class="btn">Descargar MP3</a>
                 </div>
                 <div class="tone-card">
                     <h2>Formato MP3</h2>
                     <audio controls>
-                        <source src="{{ asset('storage/tones/tono2.mp3') }}" type="audio/mpeg">
+                        <source src="{{ asset('storage/tones/juego_calamar2.mp3') }}" type="audio/mpeg">
                         Tu navegador no soporta el elemento de audio.
                     </audio>
-                    <a href="{{ route('descargar', ['formato' => 'mp3']) }}" class="btn">Descargar MP3</a>
+                    <a href="{{ route('descargar', ['nombre'=>'juego_calamar2','formato' => 'mp3']) }}" class="btn">Descargar MP3</a>
                 </div>
                 <div class="tone-card">
                     <h2>Formato MP3</h2>
                     <audio controls>
-                        <source src="{{ asset('storage/tones/tono3.mp3') }}" type="audio/mpeg">
+                        <source src="{{ asset('storage/tones/juego_calamar3.mp3') }}" type="audio/mpeg">
                         Tu navegador no soporta el elemento de audio.
                     </audio>
-                    <a href="{{ route('descargar', ['formato' => 'mp3']) }}" class="btn">Descargar MP3</a>
+                    <a href="{{ route('descargar', ['nombre'=>'juego_calamar3','formato' => 'mp3']) }}" class="btn">Descargar MP3</a>
                 </div>
             
                 <div class="tone-card">
@@ -624,7 +624,7 @@ a{
                         <source src="{{ asset('storage/tones/juego_calamar.ogg') }}" type="audio/ogg">
                         Tu navegador no soporta el elemento de audio.
                     </audio>
-                    <a href="{{ route('descargar', ['formato' => 'ogg']) }}" class="btn">Descargar OGG</a>
+                    <a href="{{ route('descargar', ['nombre'=>'juego_calamar','formato' => 'ogg']) }}" class="btn">Descargar OGG</a>
                 </div>
             
                 
@@ -634,7 +634,7 @@ a{
                         <source src="{{ asset('storage/tones/juego_calamar.wav') }}" type="audio/wav">
                         Tu navegador no soporta el elemento de audio.
                     </audio>
-                    <a href="{{ route('descargar', ['formato' => 'wav']) }}" class="btn">Descargar WAV</a>
+                    <a href="{{ route('descargar', ['nombre'=>'juego_calamar','formato' => 'wav']) }}" class="btn">Descargar WAV</a>
                 </div>
             
                 <div class="tone-card">
@@ -643,7 +643,7 @@ a{
                         <source src="{{ asset('storage/tones/juego_calamar.aac') }}" type="audio/aac">
                         Tu navegador no soporta el elemento de audio.
                     </audio>
-                    <a href="{{ route('descargar', ['formato' => 'aac']) }}" class="btn">Descargar AAC</a>
+                    <a href="{{ route('descargar', ['nombre'=>'juego_calamar','formato' => 'aac']) }}" class="btn">Descargar AAC</a>
                 </div>
             </div>
             
