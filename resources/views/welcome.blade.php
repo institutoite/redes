@@ -310,65 +310,95 @@ a{
 
         /*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  descarga de tonos %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
         body {
-    font-family: Arial, sans-serif;
+    font-family: 'Squid Game', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
-}
-
-.tones-section {
-    text-align: center;
-    padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px auto;
-    width: 90%;
-    max-width: 800px;
-    border-radius: 10px;
+    background-color: #101010;
+    color: #ffffff;
 }
 
 .tones-container {
+    padding: 2rem;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.intro h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #e50914; /* Color rojo característico */
+}
+
+.intro p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
 }
 
 .tone-card {
-    background: #fefefe;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    text-align: center;
-    width: 180px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
+    background: #222222;
+    border: 2px solid #e50914;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    width: 90%;
+    max-width: 400px;
+    transition: transform 0.3s, background 0.3s;
 }
 
 .tone-card:hover {
+    background: #e50914;
+    color: #ffffff;
     transform: translateY(-5px);
 }
 
 .tone-card h2 {
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
 }
 
-.tone-card button {
-    padding: 10px 15px;
-    background: #26BAA5;
-    color: #fff;
-    border: none;
+.tone-card .btn {
+    display: inline-block;
+    background: #ffffff;
+    color: #e50914;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
     border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background 0.3s;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.3s, color 0.3s;
 }
 
-.tone-card button:hover {
-    background: #26BAA5;
+.tone-card .btn:hover {
+    background: #e50914;
+    color: #ffffff;
 }
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .intro h1 {
+        font-size: 2rem;
+    }
+
+    .intro p {
+        font-size: 1rem;
+    }
+
+    .tone-card {
+        width: 95%;
+    }
+}
+
+
+.tone-card audio {
+    width: 100%;
+    margin-top: 1rem;
+    outline: none;
+    border-radius: 5px;
+}
+
 
     </style>
 </head>
@@ -555,27 +585,68 @@ a{
 
         <div class="row">
             <div class="tones-container">
+                <div class="intro">
+                    <h1>Tonos del Juego del Calamar 🎶</h1>
+                    <p>
+                        ¡Escucha y descarga los tonos más icónicos de la serie! Disponible en formatos MP3, OGG, AMR, WAV, y AAC.
+                        Personaliza tus llamadas con el toque único del *Juego del Calamar*.
+                    </p>
+                </div>
+            
                 <div class="tone-card">
                     <h2>Formato MP3</h2>
+                    <audio controls>
+                        <source src="{{ asset('storage/tones/juego_calamar.mp3') }}" type="audio/mpeg">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
                     <a href="{{ route('descargar', ['formato' => 'mp3']) }}" class="btn">Descargar MP3</a>
                 </div>
                 <div class="tone-card">
+                    <h2>Formato MP3</h2>
+                    <audio controls>
+                        <source src="{{ asset('storage/tones/tono2.mp3') }}" type="audio/mpeg">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
+                    <a href="{{ route('descargar', ['formato' => 'mp3']) }}" class="btn">Descargar MP3</a>
+                </div>
+                <div class="tone-card">
+                    <h2>Formato MP3</h2>
+                    <audio controls>
+                        <source src="{{ asset('storage/tones/tono3.mp3') }}" type="audio/mpeg">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
+                    <a href="{{ route('descargar', ['formato' => 'mp3']) }}" class="btn">Descargar MP3</a>
+                </div>
+            
+                <div class="tone-card">
                     <h2>Formato OGG</h2>
+                    <audio controls>
+                        <source src="{{ asset('storage/tones/juego_calamar.ogg') }}" type="audio/ogg">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
                     <a href="{{ route('descargar', ['formato' => 'ogg']) }}" class="btn">Descargar OGG</a>
                 </div>
-                <div class="tone-card">
-                    <h2>Formato AMR</h2>
-                    <a href="{{ route('descargar', ['formato' => 'amr']) }}" class="btn">Descargar AMR</a>
-                </div>
+            
+                
                 <div class="tone-card">
                     <h2>Formato WAV</h2>
+                    <audio controls>
+                        <source src="{{ asset('storage/tones/juego_calamar.wav') }}" type="audio/wav">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
                     <a href="{{ route('descargar', ['formato' => 'wav']) }}" class="btn">Descargar WAV</a>
                 </div>
+            
                 <div class="tone-card">
                     <h2>Formato AAC</h2>
+                    <audio controls>
+                        <source src="{{ asset('storage/tones/juego_calamar.aac') }}" type="audio/aac">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
                     <a href="{{ route('descargar', ['formato' => 'aac']) }}" class="btn">Descargar AAC</a>
                 </div>
             </div>
+            
             
         </div>
         

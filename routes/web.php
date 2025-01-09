@@ -33,11 +33,9 @@ Route::get('generar-pdf/{product}', [PDFController::class, 'generarPDF'])->name(
 Route::get('imprimir/modalidad/{modalidad}', [PDFController::class, 'modalidad_pdf'])->name("generarmodalidadpdf");
 
 Route::get('/descargar/{formato}', function ($formato) {
-    $filePath = storage_path("app/tones/tono.$formato");
-
+    $filePath = storage_path("app/tones/calamar.$formato");
     if (!file_exists($filePath)) {
         abort(404, 'El archivo no existe.');
     }
-
     return response()->download($filePath, "tono.$formato");
 })->name('descargar');
