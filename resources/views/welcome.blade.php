@@ -313,8 +313,8 @@ a{
     font-family: 'Squid Game', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #101010;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #26baa5;
 }
 
 .tones-container {
