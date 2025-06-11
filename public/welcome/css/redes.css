@@ -1,0 +1,228 @@
+/* Estilos para la sección de redes sociales dinámicas */
+.redes-sociales-dinamicas {
+    padding: 3rem 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.titulo-redes {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #374151;
+    position: relative;
+}
+
+.titulo-redes::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+}
+
+.redes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.red-social-item {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.red-social-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.red-social-item:hover::before {
+    left: 100%;
+}
+
+.red-social-item:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.red-social-contenido {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.icono-red-social {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.red-social-item:hover .icono-red-social {
+    transform: rotate(360deg) scale(1.1);
+}
+
+.red-social-info {
+    flex: 1;
+}
+
+.nombre-red-social {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #374151;
+}
+
+.descripcion-red-social {
+    font-size: 0.875rem;
+    color: #6b7280;
+    line-height: 1.4;
+}
+
+.contador-seguidores {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-top: 0.5rem;
+    font-weight: 500;
+}
+
+/* Colores específicos para cada red social */
+.red-social-item[data-red="facebook"] {
+    border-color: #1877f2;
+}
+
+.red-social-item[data-red="facebook"]:hover {
+    border-color: #1877f2;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+}
+
+.red-social-item[data-red="instagram"] {
+    border-color: #e4405f;
+}
+
+.red-social-item[data-red="instagram"]:hover {
+    border-color: #e4405f;
+    background: linear-gradient(135deg, #ffffff 0%, #fdf2f8 100%);
+}
+
+.red-social-item[data-red="twitter"] {
+    border-color: #1da1f2;
+}
+
+.red-social-item[data-red="twitter"]:hover {
+    border-color: #1da1f2;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+}
+
+.red-social-item[data-red="linkedin"] {
+    border-color: #0077b5;
+}
+
+.red-social-item[data-red="linkedin"]:hover {
+    border-color: #0077b5;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+}
+
+.red-social-item[data-red="youtube"] {
+    border-color: #ff0000;
+}
+
+.red-social-item[data-red="youtube"]:hover {
+    border-color: #ff0000;
+    background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
+}
+
+.red-social-item[data-red="tiktok"] {
+    border-color: #000000;
+}
+
+.red-social-item[data-red="tiktok"]:hover {
+    border-color: #000000;
+    background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+}
+
+.red-social-item[data-red="whatsapp"] {
+    border-color: #25d366;
+}
+
+.red-social-item[data-red="whatsapp"]:hover {
+    border-color: #25d366;
+    background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .redes-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .titulo-redes {
+        font-size: 1.5rem;
+    }
+    
+    .red-social-item {
+        padding: 1rem;
+    }
+    
+    .icono-red-social {
+        width: 40px;
+        height: 40px;
+        font-size: 1.25rem;
+    }
+}
+
+/* Animaciones adicionales */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.red-social-item {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.red-social-item:nth-child(1) { animation-delay: 0.1s; }
+.red-social-item:nth-child(2) { animation-delay: 0.2s; }
+.red-social-item:nth-child(3) { animation-delay: 0.3s; }
+.red-social-item:nth-child(4) { animation-delay: 0.4s; }
+.red-social-item:nth-child(5) { animation-delay: 0.5s; }
+.red-social-item:nth-child(6) { animation-delay: 0.6s; }
