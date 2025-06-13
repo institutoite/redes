@@ -106,6 +106,7 @@
                 message += `No seleccioné ningún horario.`;
             }
 
+            
             // Abrir WhatsApp
             if (isLoggedIn) {
                 const url = `https://wa.me/?text=${encodeURIComponent(message)}`;

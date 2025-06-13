@@ -1,0 +1,67 @@
+<footer class="footer-custom">
+    <div class="footer-custom-container">
+        <!-- Información de la empresa -->
+        <div class="footer-custom-section footer-custom-company-info">
+            <div class="footer-custom-company-logo">
+                <img src="{{ asset('storage/' . $info->logo) }}" alt="Logo de {{ $info->company_name }}" id="company-logo">
+            </div>
+            <h3 id="company-name">{{ $info->company_name }}</h3>
+            @if($info->slogan)
+                <p id="company-slogan">{{ $info->slogan }}</p>
+            @endif
+            @if($info->description)
+                <p id="company-description">{{ $info->description }}</p>
+            @endif
+        </div>
+
+        <!-- Información de contacto -->
+        <div class="footer-custom-section footer-custom-contact-info">
+            <h4>Información de Contacto</h4>
+            @if($info->address)
+                <div class="footer-custom-contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="company-address">{{ $info->address }}</span>
+                </div>
+            @endif
+            @if($info->phone)
+                <div class="footer-custom-contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span id="company-phone">{{ $info->phone }}</span>
+                </div>
+            @endif
+            @if($info->mail)
+                <div class="footer-custom-contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span id="company-email">{{ $info->mail }}</span>
+                </div>
+            @endif
+        </div>
+
+        <!-- Redes sociales -->
+        <div class="footer-custom-section footer-custom-social-media">
+            <h4>Síguenos en Redes Sociales</h4>
+            <div class="footer-custom-social-icons" id="social-icons">
+                @foreach($socials as $social)
+                    @if($social->state)
+                        <a href="{{ $social->link }}" 
+                           class="footer-custom-social-icon {{ $social->social }}" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           title="Síguenos en {{ ucfirst($social->social) }}"
+                           style="background-color: {{ $social->color }};">
+                            <i class="{{ $social->icon }}"></i>
+                        </a>
+                    @endif
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    <!-- Línea divisoria -->
+    <div class="footer-custom-divider"></div>
+
+    <!-- Copyright -->
+    <div class="footer-custom-bottom">
+        <p>&copy; {{ date('Y') }} <span id="copyright-company-name">{{ $info->company_name }}</span>. Todos los derechos reservados.</p>
+    </div>
+</footer> 

@@ -27,7 +27,7 @@
     
     <link rel="stylesheet" href="{{ asset('welcome/css/welcome.css')}}">
     <link rel="stylesheet" href="{{ asset('welcome/css/redes.css')}}">
-    
+    <link rel="stylesheet" href="{{ asset('welcome/css/footer.css')}}">
 </head>
 <body>
     <!-- Loading Screen -->
@@ -100,12 +100,14 @@
                             <p class="product-description">{{ $product->nombre }}</p>
                             <div class="product-footer">
                                 <span class="product-price">Bs. {{ $product->price }}</span>
-                                <button class="btn-primary" onclick="consultarProducto('${producto.nombre}')">
+                                
+                                <a class="btn-primary" href="https://wa.me/{{$info->code.$info->phone}}?text=¡Hola!%20Estoy%20interesado%20en%20el%20producto%20{{ urlencode($product->nombre) }}.%20¿Me%20puedes%20dar%20más%20información?" target="_blank" class="btn btn-whatsapp" title="Enviar por WhatsApp">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+
+                                <!-- <button class="btn-primary" onclick="consultarProducto('${producto.nombre}')">
                                     Consultar
-                                </button>
-                                <button class="btn-primary" onclick="consultarProducto('${producto.nombre}')">
-                                    Consultar
-                                </button>
+                                </button> -->
                             </div>
                         </div>
                     </div>
@@ -126,9 +128,9 @@
                                 <a href="https://wa.me/{{$info->code.$info->phone}}?text=¡Hola!%20Estoy%20interesado%20en%20el%20producto%20{{ urlencode($product->nombre) }}.%20¿Me%20puedes%20dar%20más%20información?" target="_blank" class="btn btn-whatsapp" title="Enviar por WhatsApp">
                                     <i class="fab fa-whatsapp"></i>
                                 </a>&#160;
-                                <a href="{{route('modalidades',$product->id)}}" class="btn btn-detalle" title="Ver mas información">
+                                <!-- <a href="{{route('modalidades',$product->id)}}" class="btn btn-detalle" title="Ver mas información">
                                     <i class="fa-solid fa-list">Detalle</i>
-                                </a>
+                                </a> -->
 
                             </div>
                         </div>
@@ -194,44 +196,82 @@
         </div>
     </section> --}}
 
+
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-info">
-                    <h3 class="footer-title">Información</h3>
-                    <div class="footer-item">
-                        <p class="footer-label">Dirección</p>
-                        <p class="footer-text">123 Calle Principal, Ciudad, País 12345</p>
-                    </div>
-                    <div class="footer-item">
-                        <p class="footer-label">Horarios</p>
-                        <p class="footer-text">Lunes a Viernes: 9:00 AM - 6:00 PM</p>
-                    </div>
+    <footer class="footer-custom">
+    <div class="footer-custom-container">
+        <!-- Información de la empresa -->
+        <div class="footer-custom-section footer-custom-company-info">
+            <div class="logo-container animate-fade-in-up">
+                <div class="footer-custom-company-logo logo-circle-custom">
+                    <img src="{{ asset('storage/' . $info->logo) }}" alt="Logo de {{ $info->company_name }}" id="company-logo" class="logo-image">
                 </div>
 
-                <div class="footer-commitment">
-                    <h3 class="footer-title">Nuestro Compromiso</h3>
-                    <p class="footer-commitment-text">
-                        "Comprometidos con la excelencia y la innovación en cada proyecto que emprendemos"
-                    </p>
-                </div>
             </div>
-
-            <div class="footer-bottom">
-                <div class="footer-legal">
-                    <p>© 2024 María González - Todos los derechos reservados | RUC: 123456789</p>
-                </div>
-                <div class="footer-links">
-                    <a href="#" class="footer-link">Política de Privacidad</a>
-                    <a href="#" class="footer-link">Términos y Condiciones</a>
-                </div>
-            </div>
-
-            <div class="footer-decoration"></div>
+            <h3 id="company-name">{{ $info->company_name }}</h3>
+            @if($info->slogan)
+                <p id="company-slogan">{{ $info->slogan }}</p>
+            @endif
+            @if($info->description)
+                <p id="company-description">{{ $info->description }}</p>
+            @endif
         </div>
-    </footer>
+
+        <!-- Información de contacto -->
+        <div class="footer-custom-section footer-custom-contact-info">
+            <h4>Información de Contacto</h4>
+            @if($info->address)
+                <div class="footer-custom-contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="company-address">{{ $info->address }}</span>
+                </div>
+            @endif
+            @if($info->phone)
+                <div class="footer-custom-contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span id="company-phone">{{ $info->phone }}</span>
+                </div>
+            @endif
+            @if($info->mail)
+                <div class="footer-custom-contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span id="company-email">{{ $info->mail }}</span>
+                </div>
+            @endif
+        </div>
+
+        <!-- Redes sociales -->
+        <div class="footer-custom-section footer-custom-social-media">
+            <h4>Síguenos en Redes Sociales</h4>
+            <div class="footer-custom-social-icons" id="social-icons">
+                @foreach($socials as $social)
+                    @if($social->state)
+                        <a href="{{ $social->link }}" 
+                           class="footer-custom-social-icon {{ $social->social }}" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           title="Síguenos en {{ ucfirst($social->social) }}"
+                           style="background-color: {{ $social->color }};">
+                            <i class="{{ $social->icon }}"></i>
+                        </a>
+                    @endif
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    <!-- Línea divisoria -->
+    <div class="footer-custom-divider"></div>
+
+    <!-- Copyright -->
+    <div class="footer-custom-bottom">
+        <p>&copy; {{ date('Y') }} <span id="copyright-company-name">{{ $info->company_name }}</span>. Todos los derechos reservados.</p>
+    </div>
+</footer> 
+
+
     <script src="{{ asset('welcome/js/welcome.js')}}"></script>
     <script src="{{ asset('welcome/js/redes.js')}}"></script>
+    <script src="{{ asset('welcome/js/footer.js')}}"></script>
 </body>
 </html>

@@ -1,0 +1,372 @@
+/* Reset y estilos base específicos para el footer */
+.footer-custom-reset {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.footer-custom-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-custom-main {
+    flex: 1;
+    padding: 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-align: center;
+}
+
+/* Estilos del Footer */
+.footer-custom {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: #ecf0f1;
+    padding: 3rem 0 1rem 0;
+    margin-top: auto;
+    width: 100%;
+    overflow: hidden;
+}
+
+.footer-custom-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    align-items: start;
+}
+
+/* Sección de información de la empresa */
+.footer-custom-section {
+    width: 100%;
+    min-width: 0; /* Previene desbordamiento */
+}
+
+.footer-custom-company-info {
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.footer-custom-company-logo {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-custom-company-logo img {
+    max-width: 120px;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    object-fit: contain;
+}
+
+.footer-custom-company-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    color: #3498db;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+
+.footer-custom-company-info p {
+    margin-bottom: 0.8rem;
+    opacity: 0.9;
+    line-height: 1.6;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Sección de información de contacto */
+.footer-custom-contact-info {
+    padding: 0 1rem;
+}
+
+.footer-custom-contact-info h4 {
+    color: #3498db;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.footer-custom-contact-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    min-height: 50px;
+}
+
+.footer-custom-contact-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.footer-custom-contact-item i {
+    color: #3498db;
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    min-width: 20px;
+    text-align: center;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+}
+
+.footer-custom-contact-item span {
+    flex: 1;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.4;
+}
+
+/* Sección de redes sociales */
+.footer-custom-social-media {
+    padding: 0 1rem;
+}
+
+.footer-custom-social-media h4 {
+    color: #3498db;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.footer-custom-social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.footer-custom-social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-decoration: none;
+    color: white;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.footer-custom-social-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.3s ease;
+}
+
+.footer-custom-social-icon:hover::before {
+    left: 100%;
+}
+
+.footer-custom-social-icon:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Línea divisoria */
+.footer-custom-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #3498db, transparent);
+    margin: 2rem auto;
+    max-width: 1200px;
+    width: 90%;
+}
+
+/* Sección inferior del footer */
+.footer-custom-bottom {
+    text-align: center;
+    padding: 1rem 2rem;
+    background: rgba(0, 0, 0, 0.2);
+    width: 100%;
+}
+
+.footer-custom-bottom p {
+    opacity: 0.8;
+    font-size: 0.9rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .footer-custom-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        padding: 0 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-custom {
+        padding: 2rem 0 1rem 0;
+    }
+
+    .footer-custom-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 1rem;
+        text-align: center;
+    }
+
+    .footer-custom-company-info,
+    .footer-custom-contact-info,
+    .footer-custom-social-media {
+        padding: 0;
+    }
+
+    .footer-custom-contact-item {
+        justify-content: center;
+        text-align: left;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .footer-custom-contact-item i {
+        margin-top: 0;
+    }
+
+    .footer-custom-social-icons {
+        justify-content: center;
+        gap: 0.8rem;
+    }
+
+    .footer-custom-company-info h3 {
+        font-size: 1.3rem;
+    }
+
+    .footer-custom-contact-info h4,
+    .footer-custom-social-media h4 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-custom {
+        padding: 1.5rem 0 1rem 0;
+    }
+
+    .footer-custom-container {
+        gap: 1.5rem;
+        padding: 0 0.8rem;
+    }
+
+    .footer-custom-social-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+
+    .footer-custom-company-logo img {
+        max-width: 100px;
+    }
+
+    .footer-custom-company-info h3 {
+        font-size: 1.2rem;
+    }
+
+    .footer-custom-contact-item {
+        padding: 0.6rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-custom-contact-item i {
+        font-size: 1.1rem;
+        margin-right: 0.8rem;
+    }
+
+    .footer-custom-bottom {
+        padding: 1rem 0.8rem;
+    }
+
+    .footer-custom-bottom p {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .footer-custom-container {
+        padding: 0 0.5rem;
+    }
+
+    .footer-custom-social-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .footer-custom-contact-item {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .footer-custom-contact-item i {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    .footer-custom-company-info h3 {
+        font-size: 1.1rem;
+    }
+}
+
+/* Animaciones */
+@keyframes footer-custom-fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.footer-custom-section {
+    animation: footer-custom-fadeInUp 0.6s ease-out;
+}
+
+.footer-custom-section:nth-child(1) { animation-delay: 0.1s; }
+.footer-custom-section:nth-child(2) { animation-delay: 0.2s; }
+.footer-custom-section:nth-child(3) { animation-delay: 0.3s; }
+
+/* Efectos de hover adicionales */
+.footer-custom-section:hover {
+    transform: translateY(-2px);
+    transition: transform 0.3s ease;
+}
+
+/* Estilos para iconos específicos de redes sociales */
+.footer-custom-social-icon.facebook { background: #1877f2; }
+.footer-custom-social-icon.twitter { background: #1da1f2; }
+.footer-custom-social-icon.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.footer-custom-social-icon.linkedin { background: #0077b5; }
+.footer-custom-social-icon.youtube { background: #ff0000; }
+.footer-custom-social-icon.whatsapp { background: #25d366; }
+.footer-custom-social-icon.telegram { background: #0088cc; }
+.footer-custom-social-icon.tiktok { background: #000000; }
+.footer-custom-social-icon.snapchat { background: #fffc00; color: #000; }
+.footer-custom-social-icon.pinterest { background: #e60023; }
+.footer-custom-social-icon.discord { background: #7289da; } 
