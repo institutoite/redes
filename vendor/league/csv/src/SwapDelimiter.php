@@ -17,12 +17,18 @@ use php_user_filter;
 use RuntimeException;
 use TypeError;
 
+use function get_resource_type;
+use function gettype;
 use function in_array;
+use function is_resource;
 use function str_replace;
 use function stream_bucket_append;
 use function stream_bucket_make_writeable;
+use function stream_bucket_new;
+use function stream_filter_append;
 use function stream_filter_register;
 use function stream_get_filters;
+use function stream_get_meta_data;
 
 use const PSFS_PASS_ON;
 
@@ -54,10 +60,19 @@ final class SwapDelimiter extends php_user_filter
     {
         self::register();
 
-        $csv->addStreamFilter(self::getFiltername(), [
+        if ($csv instanceof Reader) {
+            $csv->appendStreamFilterOnRead(self::getFiltername(), [
+                'mb_separator' => $inputDelimiter,
+                'separator' => $csv->getDelimiter(),
+                'mode' => self::MODE_READ,
+            ]);
+            return;
+        }
+
+        $csv->appendStreamFilterOnWrite(self::getFiltername(), [
             'mb_separator' => $inputDelimiter,
             'separator' => $csv->getDelimiter(),
-            'mode' => $csv instanceof Writer ? self::MODE_WRITE : self::MODE_READ,
+            'mode' => self::MODE_WRITE,
         ]);
     }
 
@@ -76,13 +91,12 @@ final class SwapDelimiter extends php_user_filter
         is_resource($stream) || throw new TypeError('Argument passed must be a stream resource, '.gettype($stream).' given.');
         'stream' === ($type = get_resource_type($stream)) || throw new TypeError('Argument passed must be a stream resource, '.$type.' resource given');
 
-        set_error_handler(fn (int $errno, string $errstr, string $errfile, int $errline) => true);
-        $filter = stream_filter_append($stream, self::getFiltername(), params: [
+        /** @var resource|false $filter */
+        $filter = Warning::cloak(fn () => stream_filter_append($stream, self::getFiltername(), params: [
             'mb_separator' => $inputDelimiter,
             'separator' => $delimiter,
             'mode' => str_contains(stream_get_meta_data($stream)['mode'], 'r') ? self::MODE_READ : self::MODE_WRITE,
-        ]);
-        restore_error_handler();
+        ]));
 
         is_resource($filter) || throw new RuntimeException('Could not append the registered stream filter: '.self::getFiltername());
 
@@ -105,14 +119,12 @@ final class SwapDelimiter extends php_user_filter
         'stream' === ($type = get_resource_type($stream)) || throw new TypeError('Argument passed must be a stream resource, '.$type.' resource given');
 
         $filtername = self::getFiltername();
-        set_error_handler(fn (int $errno, string $errstr, string $errfile, int $errline) => true);
-        $filter = stream_filter_append($stream, $filtername, params: [
+        /** @var resource|false $filter */
+        $filter = Warning::cloak(fn () => stream_filter_append($stream, $filtername, params: [
             'mb_separator' => $inputDelimiter,
             'separator' => $delimiter,
             'mode' => str_contains(stream_get_meta_data($stream)['mode'], 'r') ? self::MODE_READ : self::MODE_WRITE,
-        ]);
-        restore_error_handler();
-
+        ]));
         is_resource($filter) || throw new RuntimeException('Could not prepend the registered stream filter: '.$filtername);
 
         return $filter;
@@ -140,12 +152,16 @@ final class SwapDelimiter extends php_user_filter
 
     public function filter($in, $out, &$consumed, bool $closing): int
     {
+        $data = '';
         while (null !== ($bucket = stream_bucket_make_writeable($in))) {
-            $content = $bucket->data;
-            $bucket->data = str_replace($this->search, $this->replace, $content);
+            $data .= $bucket->data;
             $consumed += $bucket->datalen;
-            stream_bucket_append($out, $bucket);
         }
+
+        $data = str_replace($this->search, $this->replace, $data);
+        Warning::cloak(function () use ($data, $out) {
+            stream_bucket_append($out, stream_bucket_new($this->stream, $data));
+        });
 
         return PSFS_PASS_ON;
     }

@@ -2,6 +2,26 @@
 
 All notable changes to `color` will be documented in this file
 
+## 1.7.0 - 2024-12-30
+
+### What's Changed
+
+* Extended HSL/HSLA/HSB Handling with Float Support by @danielebarbaro in https://github.com/spatie/color/pull/93
+
+**Full Changelog**: https://github.com/spatie/color/compare/1.6.3...1.7.0
+
+## 1.6.3 - 2024-12-23
+
+### What's Changed
+
+* Test Enhancements for Contrast Calculations (and mini refactor for contrast class) by @danielebarbaro in https://github.com/spatie/color/pull/92
+
+### New Contributors
+
+* @danielebarbaro made their first contribution in https://github.com/spatie/color/pull/92
+
+**Full Changelog**: https://github.com/spatie/color/compare/1.6.2...1.6.3
+
 ## 1.6.2 - 2024-12-09
 
 ### What's Changed

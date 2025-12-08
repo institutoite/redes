@@ -16,6 +16,7 @@ namespace League\Csv;
 use Deprecated;
 use InvalidArgumentException;
 use php_user_filter;
+use Throwable;
 use TypeError;
 
 use function array_map;
@@ -25,10 +26,15 @@ use function str_replace;
 use function strcspn;
 use function stream_bucket_append;
 use function stream_bucket_make_writeable;
+use function stream_bucket_new;
 use function stream_filter_register;
 use function stream_get_filters;
 use function strlen;
+use function trigger_error;
 
+use const E_USER_WARNING;
+use const PSFS_ERR_FATAL;
+use const PSFS_PASS_ON;
 use const STREAM_FILTER_READ;
 use const STREAM_FILTER_WRITE;
 
@@ -76,7 +82,7 @@ class RFC4180Field extends php_user_filter
         $params = [
             'enclosure' => $csv->getEnclosure(),
             'escape' => $csv->getEscape(),
-            'mode' => $csv->supportsStreamFilterOnWrite() ? STREAM_FILTER_WRITE : STREAM_FILTER_READ,
+            'mode' => $csv instanceof Writer ? STREAM_FILTER_WRITE : STREAM_FILTER_READ,
         ];
 
         if ($csv instanceof Writer && '' !== $whitespace_replace) {
@@ -130,11 +136,23 @@ class RFC4180Field extends php_user_filter
      */
     public function filter($in, $out, &$consumed, bool $closing): int
     {
+        $data = '';
         while (null !== ($bucket = stream_bucket_make_writeable($in))) {
-            $bucket->data = str_replace($this->search, $this->replace, $bucket->data);
+            $data .= $bucket->data;
             $consumed += $bucket->datalen;
-            stream_bucket_append($out, $bucket);
         }
+
+        try {
+            $data = str_replace($this->search, $this->replace, $data);
+        } catch (Throwable $exception) {
+            trigger_error('An error occurred while executing the stream filter `'.$this->filtername.'`: '.$exception->getMessage(), E_USER_WARNING);
+
+            return PSFS_ERR_FATAL;
+        }
+
+        Warning::cloak(function () use ($data, $out) {
+            stream_bucket_append($out, stream_bucket_new($this->stream, $data));
+        });
 
         return PSFS_PASS_ON;
     }

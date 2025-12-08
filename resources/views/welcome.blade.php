@@ -101,6 +101,9 @@
                             <div class="product-footer">
                                 <span class="product-price">Bs. {{ $product->price }}</span>
                                 
+                                <a href="{{ route('modalidades', $product->id) }}" class="btn-primary" title="Ver curso">
+                                    Ver curso
+                                </a>
                                 <a class="btn-primary" href="https://wa.me/{{$info->code.$info->phone}}?text=¡Hola!%20Estoy%20interesado%20en%20el%20producto%20{{ urlencode($product->nombre) }}.%20¿Me%20puedes%20dar%20más%20información?" target="_blank" class="btn btn-whatsapp" title="Enviar por WhatsApp">
                                     <i class="fab fa-whatsapp"></i>
                                 </a>

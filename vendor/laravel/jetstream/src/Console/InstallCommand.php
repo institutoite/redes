@@ -150,7 +150,7 @@ class InstallCommand extends Command implements PromptsForMissingInput
     protected function installLivewireStack()
     {
         // Install Livewire...
-        if (! $this->requireComposerPackages('livewire/livewire:^3.0')) {
+        if (! $this->requireComposerPackages('livewire/livewire:^3.6.4')) {
             return false;
         }
 
@@ -344,7 +344,7 @@ EOF;
     protected function installInertiaStack()
     {
         // Install Inertia...
-        if (! $this->requireComposerPackages('inertiajs/inertia-laravel:^1.0', 'tightenco/ziggy:^2.0')) {
+        if (! $this->requireComposerPackages('inertiajs/inertia-laravel:^2.0', 'tightenco/ziggy:^2.0')) {
             return false;
         }
 
@@ -355,7 +355,7 @@ EOF;
         // Install NPM packages...
         $this->updateNodePackages(function ($packages) {
             return [
-                '@inertiajs/vue3' => '^1.0.14',
+                '@inertiajs/vue3' => '^2.0',
                 '@tailwindcss/forms' => '^0.5.7',
                 '@tailwindcss/typography' => '^0.5.10',
                 '@vitejs/plugin-vue' => '^5.0.0',
@@ -609,13 +609,19 @@ EOF;
             ->whenNotEmpty(function ($names) use ($bootstrapApp, $group, $modifier) {
                 $names = $names->map(fn ($name) => "$name")->implode(','.PHP_EOL.'            ');
 
-                $bootstrapApp = str_replace(
+                $stubs = [
                     '->withMiddleware(function (Middleware $middleware) {',
-                    '->withMiddleware(function (Middleware $middleware) {'
+                    '->withMiddleware(function (Middleware $middleware): void {',
+                ];
+
+                $bootstrapApp = str_replace(
+                    $stubs,
+                    collect($stubs)->transform(fn ($stub) => $stub
                         .PHP_EOL."        \$middleware->$group($modifier: ["
                         .PHP_EOL."            $names,"
                         .PHP_EOL.'        ]);'
-                        .PHP_EOL,
+                        .PHP_EOL
+                    )->all(),
                     $bootstrapApp,
                 );
 

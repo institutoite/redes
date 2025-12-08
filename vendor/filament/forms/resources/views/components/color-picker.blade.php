@@ -15,6 +15,7 @@
     $suffixIcon = $getSuffixIcon();
     $suffixLabel = $getSuffixLabel();
     $statePath = $getStatePath();
+    $placeholder = $getPlaceholder();
 @endphp
 
 <x-dynamic-component
@@ -41,13 +42,12 @@
         "
     >
         <div
-            x-ignore
             @if (FilamentView::hasSpaMode())
-                {{-- format-ignore-start --}}ax-load="visible || event (ax-modal-opened)"{{-- format-ignore-end --}}
+                {{-- format-ignore-start --}}x-load="visible || event (ax-modal-opened)"{{-- format-ignore-end --}}
             @else
-                ax-load
+                x-load
             @endif
-            ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('color-picker', 'filament/forms') }}"
+            x-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('color-picker', 'filament/forms') }}"
             x-data="colorPickerFormComponent({
                         isAutofocused: @js($isAutofocused()),
                         isDisabled: @js($isDisabled),
@@ -72,7 +72,7 @@
                             'id' => $getId(),
                             'inlinePrefix' => $isPrefixInline && (count($prefixActions) || $prefixIcon || filled($prefixLabel)),
                             'inlineSuffix' => $isSuffixInline && (count($suffixActions) || $suffixIcon || filled($suffixLabel)),
-                            'placeholder' => $getPlaceholder(),
+                            'placeholder' => filled($placeholder) ? e($placeholder) : null,
                             'required' => $isRequired() && (! $isConcealed()),
                             'type' => 'text',
                             'x-model' . ($isLiveDebounced ? '.debounce.' . $liveDebounce : null) => 'state',

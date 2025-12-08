@@ -6,6 +6,7 @@
     $isInline = $isInline();
     $isMultiple = $isMultiple();
     $statePath = $getStatePath();
+    $areButtonLabelsHidden = $areButtonLabelsHidden();
 @endphp
 
 <x-dynamic-component
@@ -60,7 +61,6 @@
                     @endif
                     type="{{ $isMultiple ? 'checkbox' : 'radio' }}"
                     value="{{ $value }}"
-                    wire:loading.attr="disabled"
                     {{ $applyStateBindingModifiers('wire:model') }}="{{ $statePath }}"
                     {{ $getExtraInputAttributeBag()->class(['peer pointer-events-none absolute opacity-0']) }}
                 />
@@ -70,6 +70,7 @@
                     :disabled="$shouldOptionBeDisabled"
                     :for="$inputId"
                     :icon="$getIcon($value)"
+                    :label-sr-only="$areButtonLabelsHidden"
                     tag="label"
                 >
                     {{ $label }}

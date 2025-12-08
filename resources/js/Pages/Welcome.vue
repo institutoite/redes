@@ -79,8 +79,16 @@ function handleImageError() {
 
                         <h2>Productos</h2>
                         <ul>
-                            <li v-for="product in products" :key="product.id">
-                                {{ product.nombre }} - {{ product.price }} USD
+                            <li v-for="product in products" :key="product.id" class="flex items-center gap-3 py-1">
+                                <span>
+                                    {{ product.nombre }} - {{ product.price }} USD
+                                </span>
+                                <Link
+                                    :href="route('modalidades', product.id)"
+                                    class="inline-flex items-center rounded-md bg-green-600 px-3 py-1.5 text-white text-sm hover:bg-green-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+                                >
+                                    Ver curso
+                                </Link>
                             </li>
                         </ul>
                     </div>

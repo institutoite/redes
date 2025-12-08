@@ -34,87 +34,86 @@
             <a href="{{ route('generarpdf',$product) }}" class="btn btn-success">Exportar PDF</a>
         </div>
 
-        @foreach ($product->modalidades as $modalidad)
         <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
-                <span class="fw-bold"><h1>{{ $modalidad->modalidad }}</h1></span>
-                <span><h1>Bs {{ number_format($modalidad->inversion, 2) }}</h1></span>
+            <div class="card-header bg-secondary text-white">
+                <h4 class="mb-0">Horarios disponibles</h4>
             </div>
             <div class="card-body">
-                <h5>Descripción:</h5>
-                <p>{{ $modalidad->descripcion }}</p>
-
-                <h5>Seleccione un horario:</h5>
-                <ul class="list-group">
-                    @foreach ($modalidad->horarios as $horario)
-                        <li class="d-flex align-items-center">
-                            @if ($horario->estado == 0)
-                                <input type="checkbox" id="horario-{{ $horario->id }}" class="form-check-input me-2 horario-checkbox" 
-                                    value="{{ $horario->horario }}" disabled>
-                                <label for="horario-{{$horario->id }}" class="flex-grow-1 mb-0 text-muted">
-                                    {{ $horario->horario }} - <span class="text-danger">(Sin cupos)</span>
-                                </label>
-                            @else
-                                <input type="checkbox" id="horario-{{ $horario->id }}" class="form-check-input me-2 horario-checkbox" 
-                                    value="{{ $horario->horario }}">
-                                <label for="horario-{{ $horario->id }}" class="flex-grow-1 mb-0">
-                                    {{ $horario->horario }}
-                                </label>
-                            @endif
-                        </li>
-                    @endforeach
-                </ul>
-                <h5>Días:</h5>
-                <ul>
-                    @foreach ($modalidad->dias as $dia)
-                    <li>{{ $dia->dia }}</li>
-                    @endforeach
-                </ul>
-                <h5>Características:</h5>
-                <ul>
-                    @foreach ($modalidad->ventajas as $ventaja)
-                    <li>{{ $ventaja->ventaja }}: {{ $ventaja->detalle }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            <div class="card-footer text-center">
-                <a href="#" onclick="reservar('{{ $modalidad->modalidad }}')" class="btn btn-warning"><i class="fa-brands fa-whatsapp fa-beat" style="color: #2fc804;"></i></a>
-                <button class="btn btn-success" onclick="reservar('{{ $modalidad->modalidad }}')">Reservar</button>
-                <a href="{{ route("home") }}" class="btn btn-warning">Volver atras</a>
-                <a href="{{ route("generarmodalidadpdf",$modalidad) }}" class="btn btn-info">Imprimir</a>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Modalidad</th>
+                                <th>Horario</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($product->modalidades as $modalidad)
+                                @foreach ($modalidad->horarios as $horario)
+                                    <tr>
+                                        <td>{{ $modalidad->modalidad }}</td>
+                                        <td>{{ $horario->horario }}</td>
+                                        <td>
+                                            @if ($horario->estado == 0)
+                                                <span class="badge bg-danger">Sin cupos</span>
+                                            @else
+                                                <span class="badge bg-success">Disponible</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        @endforeach
+
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Modalidades</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Modalidad</th>
+                                <th>Descripción</th>
+                                <th>Inversión (Bs)</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($product->modalidades as $modalidad)
+                                <tr>
+                                    <td>{{ $modalidad->modalidad }}</td>
+                                    <td>{{ $modalidad->descripcion }}</td>
+                                    <td>{{ number_format($modalidad->inversion, 2) }}</td>
+                                    <td class="d-flex gap-2">
+                                        <a href="#" class="btn btn-success btn-sm" title="Quiero este servicio" onclick="whatsappModalidad('{{ $modalidad->modalidad }}')">
+                                            <i class="fab fa-whatsapp"></i>
+                                        </a>
+                                        <a href="{{ route('generarmodalidadpdf', $modalidad) }}" class="btn btn-info btn-sm" title="Convertir a PDF">
+                                            PDF
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        function reservar(modalidad) {
-            const isLoggedIn = false; // Cambiar a `true` para simular usuario logueado.
-            const phoneNumber = "59171039910";
-
-            // Obtener los horarios seleccionados
-            const horariosSeleccionados = Array.from(document.querySelectorAll('.horario-checkbox:checked'))
-                .map(checkbox => checkbox.value)
-                .join('\n');
-
-            // Crear el mensaje
-            let message = `*Hola, deseo reservar la modalidad:*\n ${modalidad}.\n`;
-            if (horariosSeleccionados) {
-                message += `*Horarios seleccionados:*\n${horariosSeleccionados}.`;
-                message += "\n*Nivel:*\n {{$product->nombre}}";
-            } else {
-                message += `No seleccioné ningún horario.`;
-            }
-
-            
-            // Abrir WhatsApp
-            if (isLoggedIn) {
-                const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
-                window.open(url, '_blank');
-            } else {
-                const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-                window.open(url, '_blank');
-            }
+        function whatsappModalidad(modalidad) {
+            const phoneNumber = "59171039910"; // Ajusta con tu número / $info si está disponible en la vista
+            const message = `Quiero este servicio: ${modalidad} (Nivel: {{$product->nombre}})`;
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
         }
     </script>
 
