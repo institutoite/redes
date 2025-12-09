@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Info;
 
 class ProductController extends Controller
 {
 
     public function modalidades(Product $product){
-        $product->load('modalidades.horarios', 'modalidades.dias', 'modalidades.ventajas');
-        return view('modalidades.show', compact('product'));
+        // Cargar relaciones necesarias: modalidades y horarios a nivel de producto
+        $product->load('modalidades.dias', 'modalidades.ventajas', 'horarios');
+        $info = Info::first();
+        return view('modalidades.show', compact('product','info'));
     }
     /**
      * Display a listing of the resource.

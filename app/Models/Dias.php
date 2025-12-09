@@ -9,8 +9,8 @@ class Dias extends Model
 {
     use HasFactory;
     protected $guarded=[];
-    public function modalidad()
+    public function modalidades()
     {
-        return $this->belongsTo(Modalidad::class);
+        return $this->belongsToMany(Modalidad::class, 'dia_modalidad', 'dias_id', 'modalidad_id');
     }
 }

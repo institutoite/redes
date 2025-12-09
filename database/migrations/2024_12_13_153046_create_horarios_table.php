@@ -17,8 +17,8 @@ return new class extends Migration
             $table->boolean("estado")->default(1);
 
             $table->unsignedBigInteger("clicks")->default(0);
-            $table->unsignedBigInteger("modalidad_id");
-            $table->foreign("modalidad_id")->references("id")->on("modalidads");
+            $table->unsignedBigInteger("product_id");
+            $table->foreign("product_id")->references("id")->on("products");
 
             $table->timestamps();
         });

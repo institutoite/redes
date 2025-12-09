@@ -16,4 +16,17 @@ class Product extends Model
     {
         return $this->hasMany(Modalidad::class);
     }
+    public function horarios()
+    {
+        return $this->hasMany(Horario::class);
+    }
+    public function contenidos()
+    {
+        return $this->hasMany(Contenido::class);
+    }
+    public function materiales()
+    {
+        return $this->hasMany(Material::class);
+    }
+    // Nota: Los días se relacionan con modalidades vía muchos-a-muchos.
 }

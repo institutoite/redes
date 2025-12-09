@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Modalidad;
 use App\Models\Product;
+use App\Models\Info;
+use App\Models\Social;
+use App\Models\Location;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -11,11 +14,12 @@ class PDFController extends Controller
 {
     public function generarPDF(Product $product)
     {
-        // Datos para pasar a la vista
+        $product->load('modalidades.dias','modalidades.horarios','modalidades.ventajas','contenidos','materiales');
         $datos = [
-            'titulo' => 'Reporte de Ejemplo',
-            'contenido' => 'Este es el contenido del reporte.',
-            'product'=>$product,
+            'product' => $product,
+            'info' => Info::first(),
+            'socials' => Social::where('state', true)->orderBy('priority')->get(),
+            'location' => Location::first(),
         ];
 
         // Cargar la vista y pasarle los datos
@@ -28,9 +32,12 @@ class PDFController extends Controller
     
     public function modalidad_pdf(Modalidad $modalidad)
     {
-        // Datos para pasar a la vista
+        $modalidad->load('dias','horarios','ventajas','product.contenidos','product.materiales','product.modalidades.ventajas');
         $datos = [
-            'modalidad'=>$modalidad,
+            'modalidad' => $modalidad,
+            'info' => Info::first(),
+            'socials' => Social::where('state', true)->orderBy('priority')->get(),
+            'location' => Location::first(),
         ];
 
         // Cargar la vista y pasarle los datos

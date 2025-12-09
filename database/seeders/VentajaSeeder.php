@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
 use App\Models\Ventaja;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class VentajaSeeder extends Seeder
@@ -13,60 +13,52 @@ class VentajaSeeder extends Seeder
      */
     public function run(): void
     {
-        Ventaja::create([
-            'ventaja' => 'Accesible',
-            'detalle' => 'Horarios flexibles para todos',
-            'estado' => true,
-            'modalidad_id' => 1, // Presencial - Cubo Rubik
-        ]);
+        // Sembramos ventajas para todas las modalidades del producto "Nivel Inicial"
+        $inicial = Product::where('nombre', 'Nivel Inicial')->first();
+        if (!$inicial) {
+            return; // Si no existe el producto, no hacemos nada
+        }
 
-        Ventaja::create([
-            'ventaja' => 'Práctico',
-            'detalle' => 'Materiales incluidos en la inscripción',
-            'estado' => true,
-            'modalidad_id' => 1, // Presencial - Cubo Rubik
-        ]);
+        // Ventajas generales para el nivel (no específicas por modalidad)
+        $primeraModalidad = $inicial->modalidades()->first();
+        if (!$primeraModalidad) {
+            return;
+        }
 
-        Ventaja::create([
-            'ventaja' => 'Dinámico',
-            'detalle' => 'Clases interactivas con ejercicios',
-            'estado' => true,
-            'modalidad_id' => 2, // Virtual - Cubo Rubik
-        ]);
+        $generales = [
+            [
+                'ventaja' => 'Clases personalizadas',
+                'detalle' => 'Atención individual y adaptación al ritmo de cada niño/a.',
+            ],
+            [
+                'ventaja' => 'Cantidad reducida de estudiantes',
+                'detalle' => 'Grupos pequeños para favorecer la participación y seguimiento.',
+            ],
+            [
+                'ventaja' => 'Docentes especializados',
+                'detalle' => 'Equipo con experiencia en Nivel Inicial y primera infancia.',
+            ],
+            [
+                'ventaja' => 'Material didáctico incluido',
+                'detalle' => 'Juegos, fichas y recursos lúdicos para aprender haciendo.',
+            ],
+            [
+                'ventaja' => 'Comunicación con familias',
+                'detalle' => 'Reporte de avances y recomendaciones vía WhatsApp.',
+            ],
+            [
+                'ventaja' => 'Ambiente seguro y lúdico',
+                'detalle' => 'Espacios adecuados para explorar, experimentar y divertirse.',
+            ],
+        ];
 
-        Ventaja::create([
-            'ventaja' => 'Económico',
-            'detalle' => 'Precios ajustados al mercado',
-            'estado' => true,
-            'modalidad_id' => 3, // Híbrido - Ajedrez
-        ]);
-
-        Ventaja::create([
-            'ventaja' => 'Exclusivo',
-            'detalle' => 'Acceso a contenido premium',
-            'estado' => true,
-            'modalidad_id' => 4, // Presencial - Computación
-        ]);
-
-        Ventaja::create([
-            'ventaja' => 'Certificado',
-            'detalle' => 'Certificado avalado por ITE',
-            'estado' => true,
-            'modalidad_id' => 4, // Presencial - Computación
-        ]);
-
-        Ventaja::create([
-            'ventaja' => 'Rápido',
-            'detalle' => 'Métodos eficaces para aprender',
-            'estado' => true,
-            'modalidad_id' => 5, // Virtual - Diseño gráfico
-        ]);
-
-        Ventaja::create([
-            'ventaja' => 'Soporte',
-            'detalle' => 'Asistencia técnica durante el curso',
-            'estado' => true,
-            'modalidad_id' => 5, // Virtual - Diseño gráfico
-        ]);
+        foreach ($generales as $v) {
+            Ventaja::create([
+                'ventaja' => $v['ventaja'],
+                'detalle' => $v['detalle'],
+                'estado' => true,
+                'modalidad_id' => $primeraModalidad->id,
+            ]);
+        }
     }
 }

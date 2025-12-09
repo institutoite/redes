@@ -15,55 +15,53 @@ class DiaSeeder extends Seeder
     {
         // Días de la semana
         $diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-        
-        // Modalidades con días personalizados
-        $diasPersonalizados = [
-            4 => ['Lunes', 'Miércoles', 'Viernes'], // Tres veces por semana (Lun-Mie-Vie)
-            5 => ['Martes', 'Jueves', 'Sábado'],   // Tres veces por semana (Mar-Jue-Sab)
-            8 => ['Lunes', 'Miércoles', 'Viernes'], // Plan 2 semanas (Lun-Mie-Vie)
-            9 => ['Martes', 'Jueves', 'Sábado'],   // Plan 2 semanas (Mar-Jue-Sab)
-            11 => ['Lunes', 'Miércoles', 'Viernes'], // Plan Mensual (Lun-Mie-Vie)
-            12 => ['Martes', 'Jueves', 'Sábado'],   // Plan Mensual (Mar-Jue-Sab)
-            14 => ['Lunes', 'Miércoles', 'Viernes'], // Plan Bimestral (Lun-Mie-Vie)
-            15 => ['Martes', 'Jueves', 'Sábado'],   // Plan Bimestral (Mar-Jue-Sab)
-            17 => ['Lunes', 'Miércoles', 'Viernes'], // Plan Trimestral (Lun-Mie-Vie)
-            18 => ['Martes', 'Jueves', 'Sábado'],   // Plan Trimestral (Mar-Jue-Sab)
-        ];
 
-        // Modalidades de lunes a viernes
-        $modalidadesLunesAViernes = [6, 10, 13, 16, 19]; // IDs de modalidades lunes a viernes
+        // Crear días base si no existen
+        $diaIds = [];
+        foreach ($diasSemana as $nombreDia) {
+            $dia = \App\Models\Dias::firstOrCreate(['dia' => $nombreDia]);
+            $diaIds[$nombreDia] = $dia->id;
+        }
         
-        // Modalidades de lunes a sábado
-        $modalidadesLunesASabado = [7]; // ID de modalidades lunes a sábado
+        // Grupos de días por opción
+        $opcionLMV = ['Lunes', 'Miércoles', 'Viernes'];
+        $opcionMJS = ['Martes', 'Jueves', 'Sábado'];
+        $opcionLAV = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
 
         // Asignar días a modalidades personalizadas (tres veces por semana)
-        foreach ($diasPersonalizados as $modalidadId => $dias) {
-            foreach ($dias as $dia) {
-                Dias::create([
-                    'dia' => $dia,
+        // Asignar opciones a modalidades: ejemplo
+        // Semanal 3 Veces -> dos opciones (LMV y MJS)
+        $idsSemanal3Veces = \App\Models\Modalidad::where('modalidad', 'like', '%Semanal 3 Veces%')->pluck('id');
+        foreach ($idsSemanal3Veces as $modalidadId) {
+            \DB::table('dia_modalidad')->insertOrIgnore(
+                collect($opcionLMV)->map(fn($d) => [
+                    'dias_id' => $diaIds[$d],
                     'modalidad_id' => $modalidadId,
-                ]);
-            }
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ])->toArray()
+            );
+            \DB::table('dia_modalidad')->insertOrIgnore(
+                collect($opcionMJS)->map(fn($d) => [
+                    'dias_id' => $diaIds[$d],
+                    'modalidad_id' => $modalidadId,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ])->toArray()
+            );
         }
 
-        // Asignar días lunes a viernes
-        foreach ($modalidadesLunesAViernes as $modalidadId) {
-            foreach (array_slice($diasSemana, 0, 5) as $dia) { // Lunes a Viernes
-                Dias::create([
-                    'dia' => $dia,
+        // Semanal lunes a viernes -> una opción LAV
+        $idsLunesAViernes = \App\Models\Modalidad::where('modalidad', 'like', '%Lunes a Viernes%')->pluck('id');
+        foreach ($idsLunesAViernes as $modalidadId) {
+            \DB::table('dia_modalidad')->insertOrIgnore(
+                collect($opcionLAV)->map(fn($d) => [
+                    'dias_id' => $diaIds[$d],
                     'modalidad_id' => $modalidadId,
-                ]);
-            }
-        }
-
-        // Asignar días lunes a sábado
-        foreach ($modalidadesLunesASabado as $modalidadId) {
-            foreach ($diasSemana as $dia) { // Lunes a Sábado
-                Dias::create([
-                    'dia' => $dia,
-                    'modalidad_id' => $modalidadId,
-                ]);
-            }
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ])->toArray()
+            );
         }
     }
 }

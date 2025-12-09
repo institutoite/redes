@@ -15,9 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string("dia",15);
 
-            $table->unsignedBigInteger("modalidad_id");
-            $table->foreign("modalidad_id")->references("id")->on("modalidads");
-
             $table->timestamps();
         });
     }

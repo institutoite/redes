@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('ventajas', function (Blueprint $table) {
             $table->id();
-            $table->string('ventaja', 25)->nullable();
-            $table->string('detalle', 100)->nullable();
+            $table->string('ventaja', 80)->nullable();
+            $table->string('detalle', 160)->nullable();
             $table->boolean("estado", true)->nullable();
             
             $table->unsignedBigInteger("modalidad_id");
