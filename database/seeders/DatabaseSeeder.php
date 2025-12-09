@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
             LocationSeeder::class,
             UserSeeder::class,
             InfoSeeder::class,
+            PrimarySeeder::class,
+            SecondarySeeder::class,
         ]);
     }
 }

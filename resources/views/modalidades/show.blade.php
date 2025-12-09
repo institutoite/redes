@@ -61,6 +61,8 @@
         }
         .contenidos-table .contenido-titulo i { width: 18px; }
         .contenidos-table .badge-subnivel { font-size: .75rem; }
+        /* Ocultar meta por defecto en pantallas grandes */
+        .mobile-meta { display: none; }
         @media (max-width: 576px) {
             /* Solo la tabla de modalidades se adapta tipo tarjeta y oculta thead */
             .table-modalidades thead { display: none; }
@@ -71,6 +73,7 @@
             .table-modalidades td[data-label="Acciones"] { display: none; }
             /* Solo se muestra la columna Descripción y dentro se renderiza todo */
             .table-modalidades td[data-label="Descripción"] { display: block; border: none !important; padding: .25rem .5rem; }
+            /* Mostrar meta solo en pantallas pequeñas */
             .mobile-meta { display: flex; flex-wrap: wrap; gap: .25rem; justify-content: space-between; align-items: center; margin-bottom: .25rem; }
             .meta-chip { display: inline-block; font-size: .7rem; padding: .1rem .35rem; border-radius: 999px; background: #f1f3f5; color: #495057; border: 1px solid #dee2e6; }
             .mobile-actions { display: flex; gap: .35rem; justify-content: flex-end; }
@@ -165,7 +168,17 @@
                         <tbody>
                             @foreach ($product->modalidades as $modalidad)
                                 <tr>
-                                    <td data-label="Modalidad">{{ $modalidad->modalidad }}</td>
+                                    <td data-label="Modalidad">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span>{{ $modalidad->modalidad }}</span>
+                                            <button type="button"
+                                                    class="btn btn-outline-primary btn-sm btn-ver-ventajas"
+                                                    data-mod-nombre="{{ e($modalidad->modalidad) }}"
+                                                    data-ventajas='@json($modalidad->ventajas->map(fn($v)=>["ventaja"=>$v->ventaja,"detalle"=>$v->detalle]))'>
+                                                Ver ventajas
+                                            </button>
+                                        </div>
+                                    </td>
                                     <td data-label="Descripción">
                                         <div class="desc-cell">
                                             <!-- Encabezados como chips + valores compactos (solo móvil) -->
@@ -174,8 +187,8 @@
                                                 <span class="meta-chip">Inversión</span>
                                             </div>
                                             <div class="mobile-meta">
-                                                <span>{{ $modalidad->modalidad }}</span>
-                                                <span>Bs {{ number_format($modalidad->inversion, 2) }}</span>
+                                                <span><strong>{{ $modalidad->modalidad }}</strong></span>
+                                                <span><strong>Bs {{ number_format($modalidad->inversion, 2) }}</strong> </span>
                                             </div>
                                             <div class="desc-text">{{ $modalidad->descripcion }}</div>
 
@@ -252,10 +265,30 @@
         </div>
     </div>
 
-        <div class="card mb-5">
-        <div class="card-header bg-secondary text-white">
-            <h4 class="mb-0">Ventajas</h4>
+    <!-- Modal: Ventajas por Modalidad -->
+    <div class="modal fade" id="ventajasModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ventajasModalLabel">Ventajas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="ventajasLista"></div>
+                    <hr/>
+                    <div id="recomendacionTexto" style="font-weight:600;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
         </div>
+    </div>
+
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Ventajas ({{ $product->nombre }})</h4>
+            </div>
         <div class="card-body">
             @php
                 $ventajas = collect($product->modalidades)
@@ -285,7 +318,7 @@
 
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Contenidos (Nivel Inicial)</h4>
+            <h4 class="mb-0">Contenidos {{ $product->nombre }}</h4>
         </div>
         <div class="card-body">
             @php
@@ -333,7 +366,7 @@
 
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Materiales (Nivel Inicial)</h4>
+            <h4 class="mb-0">Materiales {{ $product->nombre }} </h4>
         </div>
         <div class="card-body">
             @php $materiales = $product->materiales()->where('estado', true)->orderBy('orden')->get(); @endphp
@@ -390,6 +423,45 @@
             var inv = el.getAttribute('data-inv');
             whatsappModalidad(id, mod, inv);
         }
+
+        // Recomendación según modalidad
+        function construirRecomendacion(nombre) {
+            const n = (nombre || '').toLowerCase();
+            if (n.includes('hora libre')) return 'Ideal para una duda concreta, ejercicio específico o aclaración puntual. Si necesitas más refuerzo, considera Semana o Quincena.';
+            if (n.includes('semana') && n.includes('3')) return 'Buena para preparar exámenes o exposiciones si tu avance es regular. Si estás rezagado, prefiere Lunes a Viernes.';
+            if (n.includes('semana') && n.includes('lunes a viernes')) return 'Recomendado si estás con urgencia o en riesgo de reprobar. Refuerzo diario según materias y temas pendientes.';
+            if (n.includes('quincena') && n.includes('3')) return 'Permite abordar prácticos y exposiciones más largas. Si necesitas mayor recuperación, elige Lunes a Viernes.';
+            if (n.includes('quincena') && n.includes('lunes a viernes')) return 'Refuerzo sostenido para varias áreas a la vez. Útil si el avance está rezagado.';
+            if (n.includes('mes') && n.includes('3') && !n.includes('2 meses') && !n.includes('3 meses')) return 'Tiempo suficiente para nivelar hasta dos materias si tu avance es regular.';
+            if (n.includes('mes') && n.includes('lunes a viernes') && !n.includes('2 meses') && !n.includes('3 meses')) return 'Nivelación intensiva para consolidar contenidos con mayor rapidez.';
+            if (n.includes('2 meses') && n.includes('3')) return 'Plan para trabajar hasta tres materias con profundidad y progreso sostenido.';
+            if (n.includes('2 meses') && n.includes('lunes a viernes')) return 'Recuperación de varias materias si estás por reprobar; mayor carga horaria para resultados visibles.';
+            if (n.includes('3 meses') && n.includes('3')) return 'Acompañamiento continuo tipo trimestral, construyendo base sólida y preparando evaluaciones.';
+            if (n.includes('3 meses') && n.includes('lunes a viernes')) return 'Mejor opción para casos críticos: cobertura completa diaria si peligra el año.';
+            return 'A mayor urgencia y cantidad de temas, recomienda modalidades con más carga horaria (L-V).';
+        }
+
+        // Abrir modal con ventajas
+        document.addEventListener('DOMContentLoaded', function(){
+            const modalEl = document.getElementById('ventajasModal');
+            const ventajasLista = document.getElementById('ventajasLista');
+            const recomendacionTexto = document.getElementById('recomendacionTexto');
+            document.querySelectorAll('.btn-ver-ventajas').forEach(function(btn){
+                btn.addEventListener('click', function(){
+                    const nombre = btn.getAttribute('data-mod-nombre');
+                    const ventajasJson = btn.getAttribute('data-ventajas');
+                    let ventajas = [];
+                    try { ventajas = JSON.parse(ventajasJson || '[]'); } catch(e) {}
+                    document.getElementById('ventajasModalLabel').textContent = `Ventajas — ${nombre}`;
+                    ventajasLista.innerHTML = ventajas.length
+                        ? ventajas.map(v=>`<div>• ${v.ventaja}: ${v.detalle}</div>`).join('')
+                        : 'Sin ventajas registradas.';
+                    recomendacionTexto.textContent = construirRecomendacion(nombre);
+                    const bsModal = new bootstrap.Modal(modalEl);
+                    bsModal.show();
+                });
+            });
+        });
 
         // Toggle "Ver más" de ventajas por modalidad
         document.addEventListener('click', function(e){
