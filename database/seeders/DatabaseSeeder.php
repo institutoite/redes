@@ -29,6 +29,22 @@ class DatabaseSeeder extends Seeder
             InfoSeeder::class,
             PrimarySeeder::class,
             SecondarySeeder::class,
+            InstitutosSeeder::class,
+            UniversitarioSeeder::class,
+            ComputacionSeeder::class,
+            CuboRubikSeeder::class,
+            AjedrezSeeder::class,
+            DiseñoGraficoSeeder::class,
+            CreacionContenidoSeeder::class,
+            DactilografiaSeeder::class,
+            OratoriaSeeder::class,
+            Impresion3DSeeder::class,
+            RoboticaSeeder::class,
+            LecturaEscrituraSeeder::class,
+            SuperMemoriaSeeder::class,
+            ProgramacionSeeder::class,
+            InteligenciaArtificialSeeder::class,
+            InteligenciaArtificialUsuarioSeeder::class,
         ]);
     }
 }

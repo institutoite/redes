@@ -74,6 +74,10 @@ class CategorySeeder extends Seeder
             'created_at' => now(), 
             'updated_at' => now()
             ],
+            ['description' => 'Institutos', 
+            'created_at' => now(), 
+            'updated_at' => now()
+            ],
         ]);
     }
 }

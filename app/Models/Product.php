@@ -22,11 +22,11 @@ class Product extends Model
     }
     public function contenidos()
     {
-        return $this->hasMany(Contenido::class);
+        return $this->hasMany(Contenido::class)->orderBy('orden');
     }
     public function materiales()
     {
-        return $this->hasMany(Material::class);
+        return $this->hasMany(Material::class)->orderBy('orden');
     }
     // Nota: Los días se relacionan con modalidades vía muchos-a-muchos.
 }

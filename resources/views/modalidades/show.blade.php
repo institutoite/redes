@@ -92,6 +92,15 @@
         .btn-success { background-color: var(--brand-teal); border-color: var(--brand-teal); }
         .btn-info { background-color: var(--brand-blue); border-color: var(--brand-blue); }
         .badge.text-bg-info { background-color: var(--brand-blue) !important; }
+        /* Modal styling */
+        .modal-header.brand {
+            background: var(--brand-blue);
+            color: #fff;
+        }
+        .modal-footer.brand {
+            background: rgba(55,95,122,0.06);
+        }
+        .ventaja-pill { display:inline-block; margin:.15rem .2rem; padding:.2rem .45rem; border-radius:999px; background: rgba(38,186,165,.12); color: var(--brand-blue); border:1px solid rgba(38,186,165,.35); font-size:.85rem; }
         .badge.text-bg-success { background-color: var(--brand-teal) !important; }
         .table thead th { color: #fff; background-color: var(--brand-blue); border-color: var(--brand-blue); }
         .table-striped tbody tr:nth-of-type(odd) { background-color: rgba(55,95,122,.03); }
@@ -171,12 +180,7 @@
                                     <td data-label="Modalidad">
                                         <div class="d-flex align-items-center gap-2">
                                             <span>{{ $modalidad->modalidad }}</span>
-                                            <button type="button"
-                                                    class="btn btn-outline-primary btn-sm btn-ver-ventajas"
-                                                    data-mod-nombre="{{ e($modalidad->modalidad) }}"
-                                                    data-ventajas='@json($modalidad->ventajas->map(fn($v)=>["ventaja"=>$v->ventaja,"detalle"=>$v->detalle]))'>
-                                                Ver ventajas
-                                            </button>
+                                            
                                         </div>
                                     </td>
                                     <td data-label="Descripción">
@@ -244,7 +248,7 @@
                                         </div>
                                     </td>
                                     <td data-label="Inversión">{{ number_format($modalidad->inversion, 2) }}</td>
-                                    <td data-label="Acciones" class="d-flex gap-2">
+                                    <td data-label="Acciones" class="d-flex gap-2 align-items-center">
                                         <a href="#" class="btn btn-success btn-sm" title="Quiero este servicio"
                                            data-id="{{ $modalidad->id }}"
                                            data-mod="{{ e($modalidad->modalidad) }}"
@@ -255,6 +259,13 @@
                                         <a href="{{ route('generarmodalidadpdf', $modalidad) }}" class="btn btn-info btn-sm" title="Convertir a PDF">
                                             <i class="fa-solid fa-file-pdf"></i>
                                         </a>
+                                        <button type="button"
+                                                class="btn btn-outline-primary btn-sm btn-ver-ventajas"
+                                                title="Ver ventajas"
+                                                data-mod-nombre="{{ e($modalidad->modalidad) }}"
+                                                data-ventajas='@json($modalidad->ventajas->map(fn($v)=>["ventaja"=>$v->ventaja,"detalle"=>$v->detalle]))'>
+                                            <i class="fa-solid fa-list-check"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -269,16 +280,16 @@
     <div class="modal fade" id="ventajasModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header brand">
                     <h5 class="modal-title" id="ventajasModalLabel">Ventajas</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="ventajasLista"></div>
+                    <div id="ventajasLista" class="mb-2"></div>
                     <hr/>
                     <div id="recomendacionTexto" style="font-weight:600;"></div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer brand">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
@@ -454,8 +465,8 @@
                     try { ventajas = JSON.parse(ventajasJson || '[]'); } catch(e) {}
                     document.getElementById('ventajasModalLabel').textContent = `Ventajas — ${nombre}`;
                     ventajasLista.innerHTML = ventajas.length
-                        ? ventajas.map(v=>`<div>• ${v.ventaja}: ${v.detalle}</div>`).join('')
-                        : 'Sin ventajas registradas.';
+                        ? ventajas.map(v=>`<span class="ventaja-pill"><strong>${v.ventaja}</strong>: ${v.detalle}</span>`).join('')
+                        : '<div class="text-muted">Sin ventajas registradas.</div>';
                     recomendacionTexto.textContent = construirRecomendacion(nombre);
                     const bsModal = new bootstrap.Modal(modalEl);
                     bsModal.show();

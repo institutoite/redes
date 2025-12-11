@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Horario;
+use App\Models\Product;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -23,15 +24,15 @@ class HorarioSeeder extends Seeder
             '17:00 - 18:30',
         ];
 
-        // Asignar mismos horarios base a los primeros N productos
-        $totalProductos = 5; // ajustar según cantidad real
-
-        for ($productId = 1; $productId <= $totalProductos; $productId++) {
+        // Asignar horarios base a TODOS los productos existentes
+        $productos = Product::all(['id']);
+        foreach ($productos as $producto) {
             foreach ($horarios as $horario) {
-                Horario::create([
+                Horario::firstOrCreate([
+                    'product_id' => $producto->id,
                     'horario' => $horario,
+                ], [
                     'estado' => 1,
-                    'product_id' => $productId,
                 ]);
             }
         }

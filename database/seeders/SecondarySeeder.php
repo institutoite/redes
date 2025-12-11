@@ -24,20 +24,6 @@ class SecondarySeeder extends Seeder
             'clicks' => 0,
             'categories_id' => $catId,
         ]);
-
-        // Horarios (mismos que primaria/inicial)
-        $horarios = [
-            ['horario' => '08:00 - 09:30', 'estado' => 1],
-            ['horario' => '09:45 - 11:15', 'estado' => 1],
-            ['horario' => '11:30 - 13:00', 'estado' => 1],
-        ];
-        foreach ($horarios as $h) {
-            Horario::firstOrCreate([
-                'product_id' => $product->id,
-                'horario' => $h['horario'],
-            ], ['estado' => $h['estado']]);
-        }
-
         // Modalidades (idénticas a Inicial)
         $modalidadesData = [
             ['modalidad' => 'Hora Libre', 'inversion' => 50.00, 'descripcion' => 'Flexibilidad total por hora. Carga horaria: 1 h (Bs 50/hora).', 'dias' => []],

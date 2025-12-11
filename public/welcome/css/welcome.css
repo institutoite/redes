@@ -411,6 +411,23 @@ body {
   }
 }
 
+/* Fix de visibilidad en pantallas pequeñas */
+@media (max-width: 576px) {
+  /* Evitar que las secciones animadas queden invisibles si el observer no dispara */
+  .animate-fade-in-up {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  /* Asegurar una sola columna para productos */
+  .products-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+  }
+  .product-image {
+    height: 180px;
+  }
+}
+
 /* Efectos especiales */
 .product-card::before {
   content: '';
