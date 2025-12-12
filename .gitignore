@@ -18,3 +18,8 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Ignore logs
+*.log
+storage/logs/*.log
+public/images/*.log
