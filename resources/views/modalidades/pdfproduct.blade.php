@@ -47,9 +47,6 @@
             width: 100%;
             height: 100%;
             z-index: 1; /* Imagen detrás de todo */
-            opacity: 0.1; /* Transparencia para no obstruir la lectura */
-            background: url('file://{{ public_path("images/logo.png") }}') no-repeat center;
-            background-size: contain; /* Ajusta la imagen al tamaño del contenedor */
         }
         .modalidad { page-break-after: always; }
         .modalidad h2 {
@@ -80,11 +77,29 @@
 </head>
 <body>
     <!-- Imagen de fondo -->
-    <div class="background-logo"></div>
+    @php
+        $logoJpg = public_path('images/logo.jpg');
+        $logoPng = public_path('images/logo.png');
+        $bgStyle = '';
+        if (file_exists($logoJpg)) {
+            $bgStyle = "background: url('file://$logoJpg') no-repeat center; background-size: contain; opacity: 0.1;";
+        } elseif (file_exists($logoPng)) {
+            // Nota: PNG con alpha puede causar problemas; idealmente usar JPG.
+            $bgStyle = "background: url('file://$logoPng') no-repeat center; background-size: contain; opacity: 0.1;";
+        }
+    @endphp
+    <div class="background-logo" @if($bgStyle) style="{{ $bgStyle }}" @endif></div>
 
     <!-- Encabezado -->
     <header>
-        <img src="file://{{ public_path('images/logo.png') }}" alt="Logotipo">
+        @php
+            $logoHeader = null;
+            if (file_exists($logoJpg)) { $logoHeader = $logoJpg; }
+            elseif (file_exists($logoPng)) { $logoHeader = $logoPng; }
+        @endphp
+        @if($logoHeader)
+            <img src="file://{{ $logoHeader }}" alt="Logotipo">
+        @endif
         <div style="text-align:left; margin-left:20px; color: rgb(55,95,122);">
             <div style="font-size:18px; font-weight:bold;">Instituto ITE</div>
             @if(isset($location))
