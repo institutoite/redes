@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             ComputacionSeeder::class,
             CuboRubikSeeder::class,
             AjedrezSeeder::class,
-            DiseñoGraficoSeeder::class,
+            DisenGraficoSeeder::class,
             CreacionContenidoSeeder::class,
             DactilografiaSeeder::class,
             OratoriaSeeder::class,
