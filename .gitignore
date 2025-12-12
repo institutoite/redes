@@ -23,3 +23,7 @@ yarn-error.log
 *.log
 storage/logs/*.log
 public/images/*.log
+
+# Ignore misplaced env files under public/images
+public/images/env
+public/images/*.env
