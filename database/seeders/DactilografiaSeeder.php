@@ -21,7 +21,7 @@ class DactilografiaSeeder extends Seeder
                 'nombre' => 'Dactilografía Computarizada',
             ], [
                 'imagen' => 'dactilografia.jpg',
-                'price' => 60.00,
+                'price' => 200.00,
                 'clicks' => 0,
                 'categories_id' => \DB::table('categories')->where('description', 'DACTILOGRAFIA')->value('id')
                     ?? \DB::table('categories')->where('description', 'COMPUTACION')->value('id')
@@ -33,19 +33,19 @@ class DactilografiaSeeder extends Seeder
         $modalidadesData = [
             [
                 'modalidad' => 'Tres Veces por Semana',
-                'inversion' => 180.00,
+                'inversion' => 200,
                 'descripcion' => 'Práctica guiada 3x/semana con métricas de velocidad y precisión.',
                 'dias' => ['Lunes','Miércoles','Viernes'],
             ],
             [
                 'modalidad' => 'Lunes a Viernes',
-                'inversion' => 240.00,
+                'inversion' => 420,
                 'descripcion' => 'Entrenamiento diario con progresión por niveles y reportes.',
                 'dias' => ['Lunes','Martes','Miércoles','Jueves','Viernes'],
             ],
             [
                 'modalidad' => 'Solo Sábados',
-                'inversion' => 150.00,
+                'inversion' => 250,
                 'descripcion' => 'Sesión extendida con evaluación semanal y correcciones.',
                 'dias' => ['Sábado'],
             ],

@@ -109,22 +109,33 @@
     </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <img src="{{ url('images/logo.png') }}" alt="Logotipo">
-        <h1 class="mb-4">Modalidades para: {{ $product->nombre }}</h1>
-        
-        <div class="text-right">
-            <a href="{{ route('generarpdf',$product) }}" class="btn btn-success">Exportar PDF</a>
+    <div class="container mt-4">
+        <div class="rounded-4 p-4 mb-4" style="background: linear-gradient(135deg, rgba(38,186,165,.12), rgba(55,95,122,.12)); border: 1px solid rgba(55,95,122,.15);">
+            <div class="d-flex align-items-center gap-3">
+                <img src="{{ url('images/logo.png') }}" alt="Logotipo" style="height:54px; width:auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,.15));">
+                <div>
+                    <h1 class="mb-1" style="color: var(--brand-blue);">{{ $product->nombre }}</h1>
+                    <div class="text-muted">Explora horarios, modalidades, contenidos y materiales</div>
+                </div>
+                <div class="ms-auto">
+                    <a href="{{ route('generarpdf',$product) }}" class="btn btn-success">
+                        <i class="fa-solid fa-file-pdf me-1"></i> Exportar PDF
+                    </a>
+                </div>
+            </div>
         </div>
         
+        
+        
 
-        <div class="card mb-4">
-            <div class="card-header bg-secondary text-white">
+        <div class="card mb-4 shadow-sm rounded-4 overflow-hidden" style="border: 1px solid rgba(55,95,122,.15);">
+            <div class="card-header bg-secondary text-white d-flex align-items-center" style="border-bottom: none;">
+                <i class="fa-solid fa-clock me-2"></i>
                 <h4 class="mb-0">Horarios del servicio</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover mb-0">
                         <thead>
                             <tr>
                                 <th>Horario</th>
@@ -159,13 +170,14 @@
             </div>
         </div>
 
-        <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
+        <div class="card mb-4 shadow-sm rounded-4 overflow-hidden" style="border: 1px solid rgba(55,95,122,.15);">
+            <div class="card-header bg-primary text-white d-flex align-items-center" style="border-bottom: none;">
+                <i class="fa-solid fa-layer-group me-2"></i>
                 <h4 class="mb-0">Modalidades</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover align-middle table-modalidades">
+                    <table class="table table-bordered table-hover align-middle table-modalidades mb-0">
                         <thead>
                             <tr>
                                 <th>Modalidad</th>
@@ -274,132 +286,144 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Modal: Ventajas por Modalidad -->
-    <div class="modal fade" id="ventajasModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header brand">
-                    <h5 class="modal-title" id="ventajasModalLabel">Ventajas</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="ventajasLista" class="mb-2"></div>
-                    <hr/>
-                    <div id="recomendacionTexto" style="font-weight:600;"></div>
-                </div>
-                <div class="modal-footer brand">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <!-- Modal: Ventajas por Modalidad -->
+        <div class="modal fade" id="ventajasModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header brand">
+                        <h5 class="modal-title" id="ventajasModalLabel">Ventajas</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="ventajasLista" class="mb-2"></div>
+                        <hr/>
+                        <div id="recomendacionTexto" style="font-weight:600;"></div>
+                    </div>
+                    <div class="modal-footer brand">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
         <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">Ventajas ({{ $product->nombre }})</h4>
-            </div>
-        <div class="card-body">
-            @php
-                $ventajas = collect($product->modalidades)
-                    ->flatMap(fn($m) => $m->ventajas)
-                    ->unique('ventaja')
-                    ->values();
-                $maxShow = 5; $total = $ventajas->count();
-            @endphp
-            @if($total)
-                <ul class="ventajas-list list-unstyled">
-                    @foreach ($ventajas as $index => $v)
-                        <li class="ventaja-item {{ $index >= $maxShow ? 'd-none extra-ventaja-general' : '' }}">
-                            <i class="fa-solid fa-circle-check text-success me-1"></i>
-                            <strong>{{ $v->ventaja }}:</strong>
-                            <span class="text-muted">{{ $v->detalle }}</span>
-                        </li>
-                    @endforeach
-                </ul>
-                @if ($total > $maxShow)
-                    <button type="button" class="btn btn-link p-0 ver-mas-btn" data-target="general">Ver más</button>
-                @endif
-            @else
-                <div class="text-muted">Sin ventajas registradas.</div>
-            @endif
-        </div>
-    </div>
-
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Contenidos {{ $product->nombre }}</h4>
-        </div>
-        <div class="card-body">
-            @php
-                $contenidos = $product->contenidos()
-                    ->where('estado', true)
-                    ->orderBy('subnivel')
-                    ->orderBy('orden')
-                    ->get()
-                    ->groupBy(fn($i) => $i->subnivel ?? 'General');
-            @endphp
-            @if($contenidos->count())
-                <div class="table-responsive">
-                    <table class="table table-hover contenidos-table">
-                        <thead>
-                            <tr>
-                                <th style="width: 300px;">Contenido</th>
-                                <th>Descripción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($contenidos as $subnivel => $items)
-                                <tr class="section-row">
-                                    <th colspan="2">
-                                        <span class="badge badge-subnivel rounded-pill text-bg-info">{{ $subnivel }}</span>
-                                    </th>
-                                </tr>
-                                @foreach($items as $c)
-                                    <tr>
-                                        <td class="contenido-titulo">
-                                            <i class="fa-solid fa-book-open text-info me-2"></i>
-                                            {{ $c->titulo }}
-                                        </td>
-                                        <td class="text-muted">{{ $c->descripcion }}</td>
-                                    </tr>
-                                @endforeach
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Ventajas ({{ $product->nombre }})</h4>
                 </div>
-            @else
-                <div class="text-muted">Sin contenidos registrados para este nivel.</div>
-            @endif
+            <div class="card-body">
+                @php
+                    $ventajas = collect($product->modalidades)
+                        ->flatMap(fn($m) => $m->ventajas)
+                        ->unique('ventaja')
+                        ->values();
+                    $maxShow = 5; $total = $ventajas->count();
+                @endphp
+                @if($total)
+                    <ul class="ventajas-list list-unstyled">
+                        @foreach ($ventajas as $index => $v)
+                            <li class="ventaja-item {{ $index >= $maxShow ? 'd-none extra-ventaja-general' : '' }}">
+                                <i class="fa-solid fa-circle-check text-success me-1"></i>
+                                <strong>{{ $v->ventaja }}:</strong>
+                                <span class="text-muted">{{ $v->detalle }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                    @if ($total > $maxShow)
+                        <button type="button" class="btn btn-link p-0 ver-mas-btn" data-target="general">Ver más</button>
+                    @endif
+                @else
+                    <div class="text-muted">Sin ventajas registradas.</div>
+                @endif
+            </div>
         </div>
+
+        <div class="card mb-4 shadow-sm rounded-4 overflow-hidden" style="border: 1px solid rgba(55,95,122,.15);">
+            <div class="card-header bg-primary text-white d-flex align-items-center" style="border-bottom: none;">
+                <i class="fa-solid fa-book-open me-2"></i>
+                <h4 class="mb-0">Contenidos {{ $product->nombre }}</h4>
+            </div>
+            <div class="card-body">
+                @php
+                    $contenidos = $product->contenidos()
+                        ->where('estado', true)
+                        ->orderBy('subnivel')
+                        ->orderBy('orden')
+                        ->get()
+                        ->groupBy(fn($i) => $i->subnivel ?? 'General');
+                @endphp
+                @if($contenidos->count())
+                    <div class="accordion" id="accordionContenidos">
+                        @foreach($contenidos as $subnivel => $items)
+                            @php $subId = 'subnivel_'.md5($subnivel); @endphp
+                            <div class="accordion-item" style="border:1px solid rgba(55,95,122,.15); border-radius: .75rem; overflow:hidden; margin-bottom:.5rem;">
+                                <h2 class="accordion-header" id="heading_{{ $subId }}">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{ $subId }}" aria-expanded="false" aria-controls="collapse_{{ $subId }}">
+                                        <span class="badge badge-subnivel rounded-pill text-bg-info me-2">{{ $subnivel }}</span>
+                                        <span style="color: var(--brand-blue);">{{ $product->nombre }} — {{ $subnivel }}</span>
+                                    </button>
+                                </h2>
+                                <div id="collapse_{{ $subId }}" class="accordion-collapse collapse" aria-labelledby="heading_{{ $subId }}" data-bs-parent="#accordionContenidos">
+                                    <div class="accordion-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover contenidos-table mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 320px;">Contenido</th>
+                                                        <th>Descripción</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($items as $c)
+                                                        <tr>
+                                                            <td class="contenido-titulo">
+                                                                <i class="fa-solid fa-circle-chevron-right text-info me-2"></i>
+                                                                {{ $c->titulo }}
+                                                            </td>
+                                                            <td class="text-muted">{{ $c->descripcion }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="text-muted">Sin contenidos registrados para este nivel.</div>
+                @endif
+            </div>
+        </div>
+
+        <div class="card mb-4 shadow-sm rounded-4 overflow-hidden" style="border: 1px solid rgba(55,95,122,.15);">
+            <div class="card-header bg-primary text-white d-flex align-items-center" style="border-bottom: none;">
+                <i class="fa-solid fa-toolbox me-2"></i>
+                <h4 class="mb-0">Materiales {{ $product->nombre }} </h4>
+            </div>
+            <div class="card-body">
+                @php $materiales = $product->materiales()->where('estado', true)->orderBy('orden')->get(); @endphp
+                @if($materiales->count())
+                    <ul class="mb-0 list-unstyled d-flex flex-wrap gap-2">
+                        @foreach($materiales as $mat)
+                            <li class="ventaja-pill" style="background: rgba(55,95,122,.06); border-color: rgba(55,95,122,.25); color: var(--brand-blue);">
+                                <i class="fa-solid fa-check me-1" style="color: var(--brand-teal);"></i>
+                                <strong>{{ $mat->nombre }}</strong>
+                                @if($mat->descripcion)
+                                    <span class="text-muted">— {{ $mat->descripcion }}</span>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <div class="text-muted">Sin materiales registrados para este nivel.</div>
+                @endif
+            </div>
+        </div>
+
     </div>
 
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Materiales {{ $product->nombre }} </h4>
-        </div>
-        <div class="card-body">
-            @php $materiales = $product->materiales()->where('estado', true)->orderBy('orden')->get(); @endphp
-            @if($materiales->count())
-                <ul class="mb-0">
-                    @foreach($materiales as $mat)
-                        <li>
-                            <i class="fa-solid fa-circle text-primary me-1" style="font-size: 6px;"></i>
-                            <strong>{{ $mat->nombre }}</strong>
-                            @if($mat->descripcion)
-                                <span class="text-muted">— {{ $mat->descripcion }}</span>
-                            @endif
-                        </li>
-                    @endforeach
-                </ul>
-            @else
-                <div class="text-muted">Sin materiales registrados para este nivel.</div>
-            @endif
-        </div>
-    </div>
-
-    
 
     <script>
         function whatsappModalidad(modalidadId, modalidad, inversion) {

@@ -23,7 +23,7 @@ class AjedrezSeeder extends Seeder
                 'nombre' => 'Ajedrez',
             ], [
                 'imagen' => 'ajedrez.jpg',
-                'price' => 70.00,
+                'price' => 250,
                 'clicks' => 0,
                 'categories_id' => $catId,
             ]);
@@ -33,19 +33,19 @@ class AjedrezSeeder extends Seeder
         $modalidadesData = [
             [
                 'modalidad' => 'Tres Veces por Semana',
-                'inversion' => 200.00,
+                'inversion' => 350.00,
                 'descripcion' => 'Clases 3 veces por semana (LMV/MJS). Fundamentos, táctica y práctica guiada.',
                 'dias' => ['Lunes','Miércoles','Viernes'],
             ],
             [
                 'modalidad' => 'Lunes a Viernes',
-                'inversion' => 260.00,
+                'inversion' => 450.00,
                 'descripcion' => 'Entrenamiento diario L-V: teoría, ejercicios y partidas comentadas.',
                 'dias' => ['Lunes','Martes','Miércoles','Jueves','Viernes'],
             ],
             [
                 'modalidad' => 'Solo Sábados',
-                'inversion' => 150.00,
+                'inversion' => 250.00,
                 'descripcion' => 'Sesión extendida los sábados: revisión semanal y torneos internos.',
                 'dias' => ['Sábado'],
             ],

@@ -23,7 +23,7 @@ class CuboRubikSeeder extends Seeder
                 'nombre' => 'Cubo Rubik',
             ], [
                 'imagen' => 'cubo_rubik.jpg',
-                'price' => 50.00,
+                'price' => 250,
                 'clicks' => 0,
                 'categories_id' => $catId,
             ]);
@@ -39,13 +39,13 @@ class CuboRubikSeeder extends Seeder
             ],
             [
                 'modalidad' => 'Entrenamiento Lunes a Viernes',
-                'inversion' => 420.00,
+                'inversion' => 450,
                 'descripcion' => 'Curso intensivo L-V: teoría + práctica guiada + tiempos.',
                 'dias' => ['Lunes','Martes','Miércoles','Jueves','Viernes'],
             ],
             [
                 'modalidad' => 'Entrenamiento Solo Sábados',
-                'inversion' => 350,
+                'inversion' => 250,
                 'descripcion' => 'Curso sesión extendida los sábados: repaso y corrección técnica.',
                 'dias' => ['Sábado'],
             ],

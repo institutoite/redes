@@ -23,7 +23,7 @@ class ComputacionSeeder extends Seeder
                 'nombre' => 'Computación',
             ], [
                 'imagen' => 'computacion.jpg',
-                'price' => 120.00,
+                'price' => 200,
                 'clicks' => 0,
                 'categories_id' => $catId,
             ]);

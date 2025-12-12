@@ -24,7 +24,7 @@ class CreacionContenidoSeeder extends Seeder
                 'nombre' => 'Creación de Contenido',
             ], [
                 'imagen' => 'creacion_contenido.jpg',
-                'price' => 180.00,
+                'price' => 550,
                 'clicks' => 0,
                 'categories_id' => $catId,
             ]);
@@ -32,9 +32,9 @@ class CreacionContenidoSeeder extends Seeder
 
         // Modalidades
         $modalidadesData = [
-            ['modalidad' => 'Tres Veces por Semana', 'inversion' => 240.00, 'descripcion' => 'Entrenamiento práctico en texto, imagen y video corto (3x/semana).', 'dias' => ['Lunes','Miércoles','Viernes']],
-            ['modalidad' => 'Lunes a Viernes', 'inversion' => 300.00, 'descripcion' => 'Plan intensivo: calendario, producción y publicación diaria.', 'dias' => ['Lunes','Martes','Miércoles','Jueves','Viernes']],
-            ['modalidad' => 'Solo Sábados', 'inversion' => 200.00, 'descripcion' => 'Sesión extendida de laboratorio con proyecto para redes.', 'dias' => ['Sábado']],
+            ['modalidad' => 'Tres Veces por Semana', 'inversion' => 550, 'descripcion' => 'Entrenamiento práctico en texto, imagen y video corto (3x/semana).', 'dias' => ['Lunes','Miércoles','Viernes']],
+            ['modalidad' => 'Lunes a Viernes', 'inversion' => 1000, 'descripcion' => 'Plan intensivo: calendario, producción y publicación diaria.', 'dias' => ['Lunes','Martes','Miércoles','Jueves','Viernes']],
+            ['modalidad' => 'Solo Sábados', 'inversion' => 400, 'descripcion' => 'Sesión extendida de laboratorio con proyecto para redes.', 'dias' => ['Sábado']],
         ];
 
         $modalidades = [];

@@ -24,7 +24,8 @@
     
     <!-- Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <!-- Nuevo CSS específico del header -->
+    <link rel="stylesheet" href="{{ asset('welcome/css/header.css')}}">
     <link rel="stylesheet" href="{{ asset('welcome/css/welcome.css')}}">
     <link rel="stylesheet" href="{{ asset('welcome/css/redes.css')}}">
     <link rel="stylesheet" href="{{ asset('welcome/css/footer.css')}}">
@@ -66,43 +67,49 @@
         <div class="loading-spinner"></div>
     </div>
 
-    <!-- Hero -->
-    <header class="header">
-      <div class="header-background"></div>
-      <div class="container hero">
-        <div>
-          <div class="logo-container" style="margin-bottom:1rem;">
-            <div class="logo-circle">
-                @isset($info)
-                    @if($info->logo)
-                        <img class="logo-image" src="{{ asset('storage/' . $info->logo) }}" alt="{{ $info->company_name }} Logo" style="max-height:80px;">
-                    @endif
-                @endisset
-            </div>
+    <!-- Header totalmente nuevo -->
+    <header class="site-header header-v2" data-header>
+      <div class="header-bg"></div>
+      <div class="container header-top">
+        <div class="header-brand">
+          <div class="brand-emblem">
+            @isset($info)
+              @if($info->logo)
+                <img src="{{ asset('storage/' . $info->logo) }}" alt="Logo {{ $info->company_name }}">
+              @endif
+            @endisset
           </div>
-          <h1 class="main-title" style="color:var(--brand-blue);">{{ $info->company_name }}</h1>
-          <p class="main-subtitle" style="color:var(--text-muted);">{{ $info->slogan }}</p>
-          <div class="cta">
-            <a href="https://wa.me/{{$info->code.$info->phone}}?text=Hola%2C%20quisiera%20más%20información" target="_blank" class="btn-primary"><i class="fab fa-whatsapp"></i> Consultar por WhatsApp</a>
-            <a href="#productos" class="btn-primary" style="background:var(--brand-blue)"><i class="fa-solid fa-list"></i> Ver productos</a>
+          <div class="brand-text">
+            <h1 class="brand-title">{{ $info->company_name }}</h1>
+            <p class="brand-slogan">{{ $info->slogan }}</p>
           </div>
         </div>
-        <div class="stat">
-          <div style="font-weight:700; color:var(--brand-blue);">Apoyo Escolar Integral</div>
-          <div style="font-size:.9rem; color:var(--text-muted);">Inicial • Primaria • Secundaria</div>
-          <hr>
-          <div style="display:flex; gap:.75rem; justify-content:space-between;">
-            <div>
-              <div style="font-weight:700;">Modalidades</div>
-              <div style="color:var(--text-muted);">Hora libre a trimestral</div>
-            </div>
-            <div>
-              <div style="font-weight:700;">Plan de estudio</div>
-              <div style="color:var(--text-muted);">Reporte y seguimiento</div>
-            </div>
-          </div>
-        </div>
+        <nav class="header-nav" aria-label="Navegación principal">
+          <a href="#productos" class="nav-pill"><i class="fa-solid fa-list" aria-hidden="true"></i><span>Productos</span></a>
+          <a href="#redes" class="nav-pill"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i><span>Redes</span></a>
+          <a href="#opiniones" class="nav-pill"><i class="fa-solid fa-comments" aria-hidden="true"></i><span>Opiniones</span></a>
+          <a href="#contacto" class="nav-pill"><i class="fa-solid fa-envelope" aria-hidden="true"></i><span>Contacto</span></a>
+        </nav>
       </div>
+
+      <!-- Frases poderosas de educación con fondo -->
+      <section class="quotes-hero" aria-live="polite" data-quotes-hero
+        style="background-image: linear-gradient(rgba(55,95,122,.25), rgba(38,186,165,.25));">
+        <div class="quotes-hero-bg" data-quotes-bg></div>
+        <div class="quotes-hero-overlay"></div>
+        <div class="quotes-hero-content">
+          <i class="fa-solid fa-quote-left" aria-hidden="true"></i>
+          <h2 class="quote-text" data-quotes>
+            "La educación es el arma más poderosa para cambiar el mundo." — Nelson Mandela
+          </h2>
+        </div>
+      </section>
+
+    
+
+ 
+
+      <div class="header-divider" role="presentation"></div>
     </header>
 
     <!-- Redes Sociales -->
@@ -284,6 +291,8 @@
     </div>
     </footer>
 
+    <!-- Nuevo JS específico del header -->
+    <script src="{{ asset('welcome/js/header.js')}}"></script>
     <script src="{{ asset('welcome/js/welcome.js')}}"></script>
     <script src="{{ asset('welcome/js/redes.js')}}"></script>
     <script src="{{ asset('welcome/js/footer.js')}}"></script>

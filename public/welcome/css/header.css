@@ -1,0 +1,254 @@
+.quotes-hero{position:relative; margin-top:.75rem; min-height:320px; display:flex; align-items:center; justify-content:center; overflow:hidden}
+.quotes-hero-bg{position:absolute; inset:0; background-position:center; background-size:cover; filter:saturate(105%) contrast(102%)}
+.quotes-hero-overlay{position:absolute; inset:0; background: linear-gradient(180deg, rgba(var(--brand-blue), .25), rgba(var(--brand-teal), .25))}
+.quotes-hero-content{position:relative; z-index:2; padding:1rem; text-align:center; max-width:900px}
+.quotes-hero-content i{color:#fff; font-size:1.25rem; opacity:.9}
+.quote-text{color:#fff; font-weight:800; line-height:1.2; font-size: clamp(1.6rem, 4.5vw, 2.6rem); text-shadow: 0 2px 10px rgba(0,0,0,.35)}
+
+@media (max-width: 576px){
+  .quotes-hero{min-height:260px}
+  .quote-text{font-size: clamp(1.4rem, 6vw, 2.1rem)}
+}
+/*
+  =====================================================
+  Variables básicas
+  =====================================================
+*/
+:root {
+  --brand-teal: 38,186,165;    /* Verde corporativo (RGB sin rgb()) */
+  --brand-blue: 55,95,122;     /* Azul corporativo (RGB sin rgb()) */
+  --text-dark: #0f172a;        /* Texto principal */
+  --text-muted: #64748b;       /* Texto secundario */
+}
+
+/*
+  =====================================================
+  Contenedor principal del header
+  =====================================================
+*/
+.site-header {
+  position: relative;
+  overflow: hidden;
+}
+.header-bg {
+  position: absolute;
+  inset: 0;
+  background: --brand-teal;
+ 
+}
+
+/*
+  =====================================================
+  Barra superior v2 (logo + título + navegación)
+  =====================================================
+*/
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+}
+.brand-emblem {
+  display: inline-flex;
+  width: 68px;
+  height: 68px;
+  border-radius: .75rem;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(var(--brand-blue), .15);
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.brand-emblem img {
+  max-height: 60px;
+  border-radius: .5rem;
+}
+.brand-text {}
+.brand-title {
+  color: rgb(var(--brand-blue));
+  margin: 0;
+  line-height: 1;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  font-weight: 800;
+}
+.brand-slogan {
+  color: var(--text-muted);
+  margin: .15rem 0 0;
+}
+
+.header-nav {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .45rem .75rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(var(--brand-blue), .18);
+  color: rgb(var(--brand-blue));
+  font-weight: 600;
+  transition: background .2s ease, transform .2s ease;
+}
+.nav-pill i { color: rgb(var(--brand-blue)); }
+.nav-pill:hover { background: rgba(var(--brand-teal), .08); }
+
+/*
+  =====================================================
+  Botones compartidos
+  =====================================================
+*/
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  border: none;
+  border-radius: .5rem;
+  padding: .55rem .9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter .2s ease, transform .2s ease;
+}
+.btn:hover { filter: brightness(.97); }
+.btn:active { transform: scale(.99); }
+.btn-wa { background: rgb(var(--brand-teal)); color: #fff; }
+.btn-primary-alt { background: rgb(var(--brand-blue)); color: #fff; }
+.btn-primary { background: rgb(var(--brand-teal)); color: #fff; }
+.btn-secondary { background: rgb(var(--brand-blue)); color: #fff; }
+
+/*
+  =====================================================
+  CTA principal v2 (centradas)
+  =====================================================
+*/
+.header-cta {
+  display: flex;
+  gap: .75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: .75rem 0 1rem;
+}
+
+/*
+  =====================================================
+  Chips de estadísticas (v2)
+  =====================================================
+*/
+.header-stats {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 0 1rem;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem .75rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(var(--brand-blue), .18);
+  color: rgb(var(--brand-blue));
+}
+.chip i { color: rgb(var(--brand-blue)); }
+
+.header-divider {
+  height: 24px;
+  background: linear-gradient(0deg, rgba(var(--brand-blue), .08), rgba(var(--brand-blue), 0));
+}
+
+/*
+  =====================================================
+  Sticky y reducción al scroll
+  =====================================================
+*/
+.site-header[data-header].is-sticky .header-top {
+  position: sticky;
+  top: 0;
+  backdrop-filter: saturate(180%) blur(8px);
+  background: rgba(255,255,255,.7);
+  z-index: 10;
+}
+.site-header[data-header].is-sticky .brand-emblem { width: 56px; height: 56px; }
+.site-header[data-header].is-sticky .brand-emblem img { max-height: 50px; }
+
+/*
+  =====================================================
+  Frases poderosas (hero con fondo)
+  =====================================================
+*/
+.quotes-hero {
+  position: relative;
+  margin-top: .75rem;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.quotes-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  filter: saturate(105%) contrast(102%);
+}
+.quotes-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(var(--brand-blue), .25), rgba(var(--brand-teal), .25));
+}
+.quotes-hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 1rem;
+  text-align: center;
+  max-width: 900px;
+}
+.quotes-hero-content i {
+    color: #fff;
+    font-size: 1.25rem;
+    opacity: .9;
+}
+.quote-text {
+    color: #fff;
+    font-weight: 800;
+    line-height: 1.2;
+    font-size: clamp(1.6rem, 4.5vw, 2.6rem);
+    text-shadow: 0 2px 10px rgba(0,0,0,.35);
+}
+
+/* Fade suave para texto y fondo */
+.fade-enter { opacity: 0; }
+.fade-enter-active { opacity: 1; transition: opacity .6s ease; }
+.fade-exit { opacity: 1; }
+.fade-exit-active { opacity: 0; transition: opacity .6s ease; }
+
+.quotes-toggle { margin-top: .75rem; }
+
+/*
+  =====================================================
+  Responsive
+  =====================================================
+*/
+@media (max-width: 992px) {
+  .header-top { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 576px) {
+  .brand-emblem { width: 54px; height: 54px; }
+  .brand-emblem img { max-height: 48px; }
+  .header-nav .nav-pill span { display: none; }
+  .quotes-hero { min-height: 260px; }
+  .quote-text { font-size: clamp(1.4rem, 6vw, 2.1rem); }
+}
