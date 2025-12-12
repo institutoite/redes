@@ -37,7 +37,7 @@
   const defaultBg = ''; // deja vacío si no tienes imágenes por defecto en /images
   const quoteBackgrounds = [
     defaultBg,
-    '/images/education-2.jpg',
+    '/images/-2.jpg',
     '/images/education-3.jpg',
   ];
   // Índice de la cita actual (-1 para forzar cambio inmediato al primer step)
