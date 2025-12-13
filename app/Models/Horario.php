@@ -9,6 +9,9 @@ class Horario extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    protected $casts = [
+        'estado' => 'boolean',
+    ];
     public function product()
     {
         return $this->belongsTo(Product::class);

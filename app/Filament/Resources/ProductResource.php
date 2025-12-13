@@ -8,6 +8,9 @@ use App\Models\Category;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Radio;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -86,6 +89,72 @@ class ProductResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('horarios')
+                    ->label('Horarios')
+                    ->icon('heroicon-o-clock')
+                    ->modalHeading('Gestionar horarios del producto')
+                    ->modalSubmitActionLabel('Guardar cambios')
+                    ->modalCancelActionLabel('Cerrar')
+                    ->form([
+                        Repeater::make('horarios')
+                            ->label('Horarios')
+                            ->addActionLabel('Agregar horario')
+                            ->default(fn (Product $record) => $record->horarios->map(function ($h) {
+                                return [
+                                    'id' => $h->id,
+                                    'horario' => $h->horario,
+                                    'estado' => (bool) $h->estado,
+                                ];
+                            })->toArray())
+                            ->schema([
+                                Hidden::make('id'),
+                                Forms\Components\TextInput::make('horario')
+                                    ->label('Horario')
+                                    ->required()
+                                    ->maxLength(191),
+                                Radio::make('estado')
+                                    ->label('Estado')
+                                    ->options([
+                                        1 => 'Habilitado',
+                                        0 => 'Deshabilitado',
+                                    ])
+                                    ->inline()
+                                    ->default(1)
+                                    ->required(),
+                            ])
+                            ->reorderable()
+                            ->deletable()
+                            ->cloneable(),
+                    ])
+                    ->action(function (Product $record, array $data) {
+                        // Sin relationship() gestionamos manualmente CRUD de horarios
+                        $existing = $record->horarios()->get()->keyBy('id');
+                        $seenIds = [];
+
+                        foreach (($data['horarios'] ?? []) as $item) {
+                            $id = $item['id'] ?? null;
+                            $payload = [
+                                'horario' => $item['horario'] ?? '',
+                                'estado' => (bool) ($item['estado'] ?? false),
+                            ];
+
+                            if ($id && isset($existing[$id])) {
+                                // Update
+                                $existing[$id]->update($payload);
+                                $seenIds[] = $id;
+                            } else {
+                                // Create
+                                $record->horarios()->create($payload);
+                            }
+                        }
+
+                        // Delete removed items
+                        $toDelete = $existing->keys()->diff($seenIds);
+                        if ($toDelete->isNotEmpty()) {
+                            $record->horarios()->whereIn('id', $toDelete->all())->delete();
+                        }
+                    })
+                    ->tooltip('Gestionar horarios del producto en modal'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -97,7 +166,7 @@ class ProductResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\HorariosRelationManager::class,
         ];
     }
 

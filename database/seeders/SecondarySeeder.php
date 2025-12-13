@@ -19,7 +19,7 @@ class SecondarySeeder extends Seeder
         $product = Product::firstOrCreate([
             'nombre' => 'Nivel secundaria',
         ], [
-            'imagen' => 'apoyo_secundaria.jpg',
+            'imagen' => 'apoyo_secundaria.png',
             'price' => 40.00,
             'clicks' => 0,
             'categories_id' => $catId,

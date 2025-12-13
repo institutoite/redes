@@ -25,10 +25,10 @@
     <!-- Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Nuevo CSS específico del header -->
-    <link rel="stylesheet" href="{{ asset('welcome/css/header.css')}}">
-    <link rel="stylesheet" href="{{ asset('welcome/css/welcome.css')}}">
-    <link rel="stylesheet" href="{{ asset('welcome/css/redes.css')}}">
-    <link rel="stylesheet" href="{{ asset('welcome/css/footer.css')}}">
+    <link rel="stylesheet" href="{{ asset('welcome/css/header.css') }}?v=2">
+    <link rel="stylesheet" href="{{ asset('welcome/css/welcome.css') }}?v=2">
+    <link rel="stylesheet" href="{{ asset('welcome/css/redes.css') }}?v=2">
+    <link rel="stylesheet" href="{{ asset('welcome/css/footer.css') }}?v=2">
 
     <style>
       :root { --brand-teal: rgb(38,186,165); --brand-blue: rgb(55,95,122); --text-dark:#0f172a; --text-muted:#64748b; }
@@ -59,6 +59,197 @@
       @media (max-width: 576px) {
         .features-grid, .products-grid { grid-template-columns: 1fr; }
       }
+
+      /** Loading Screen Styles **/
+      /* Header general */
+      .site-header {
+        position: relative;
+        overflow: hidden;
+        color: white;
+      }
+
+      .header-bg {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, #1e3a5f, #2c7a7b);
+        z-index: -2;
+      }
+
+      .header-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem 0;
+        position: relative;
+        z-index: 2;
+      }
+
+      .header-brand {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .brand-emblem img {
+        height: 60px;
+        width: auto;
+        object-fit: contain;
+      }
+
+      .brand-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .brand-text h1 {
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+
+      .brand-slogan {
+        margin: 0.25rem 0 0;
+        font-size: 1rem;
+        opacity: 0.9;
+        font-style: italic;
+      }
+
+      /* Navegación */
+      .header-nav {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .nav-pill {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 50px;
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+      }
+
+      .nav-pill:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-2px);
+      }
+
+      .nav-pill i {
+        font-size: 1.1rem;
+      }
+
+      .nav-login {
+        background: rgba(255, 255, 255, 0.25);
+        font-weight: 600;
+      }
+
+      /* Sección hero con citas */
+      .quotes-hero {
+        position: relative;
+        min-height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .quotes-hero-bg {
+        position: absolute;
+        inset: 0;
+        background: url('/images/hero-education-bg.jpg') center/cover no-repeat; /* Cambia por tu imagen */
+        z-index: -2;
+      }
+
+      .quotes-hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(rgba(55,95,122,.4), rgba(38,186,165,.4));
+        z-index: -1;
+      }
+
+      .quotes-hero-content {
+        max-width: 900px;
+        padding: 2rem;
+        position: relative;
+      }
+
+      .quotes-hero-content i.fa-quote-left {
+        font-size: 3rem;
+        opacity: 0.4;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      .quote-text {
+        font-size: 2.2rem;
+        line-height: 1.4;
+        font-weight: 600;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 1.2s ease;
+      }
+
+      .quote-text.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Divisor */
+      .header-divider {
+        height: 4px;
+        background: linear-gradient(90deg, transparent, #fff, transparent);
+        opacity: 0.5;
+        margin: 0 2rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 992px) {
+        .quote-text {
+          font-size: 1.8rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .header-top {
+          flex-direction: column;
+          text-align: center;
+          gap: 1.5rem;
+        }
+
+        .header-nav {
+          justify-content: center;
+        }
+
+        .quote-text {
+          font-size: 1.6rem;
+        }
+
+        .quotes-hero {
+          min-height: 350px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .nav-pill {
+          padding: 0.6rem 1rem;
+          font-size: 0.9rem;
+        }
+
+        .nav-pill span {
+          display: none;
+        }
+
+        .nav-pill i {
+          font-size: 1.3rem;
+        }
+      }
     </style>
 </head>
 <body>
@@ -73,14 +264,29 @@
       <div class="container header-top">
         <div class="header-brand">
           <div class="brand-emblem">
-            @isset($info)
-              @if($info->logo)
-                <img src="{{ asset('storage/' . $info->logo) }}" alt="Logo {{ $info->company_name }}">
-              @endif
-            @endisset
+            @php
+              $logoUrl = null;
+              if (!empty($info?->logo)) {
+                $pStorage = public_path('storage/'.$info->logo);
+                $pPublic = public_path($info->logo);
+                if (file_exists($pStorage)) {
+                  $logoUrl = asset('storage/'.$info->logo);
+                } elseif (file_exists($pPublic)) {
+                  $logoUrl = asset($info->logo);
+                }
+              }
+              if (!$logoUrl) {
+                foreach (['images/logo.jpg','images/logo.png'] as $rel) {
+                  if (file_exists(public_path($rel))) { $logoUrl = asset($rel); break; }
+                }
+              }
+            @endphp
+            @if($logoUrl)
+              <img src="{{ $logoUrl }}" alt="Logo {{ $info->company_name }}">
+            @endif
           </div>
           <div class="brand-text">
-            <h1 class="brand-title">{{ $info->company_name }}</h1>
+           
             <p class="brand-slogan">{{ $info->slogan }}</p>
           </div>
         </div>
@@ -89,6 +295,7 @@
           <a href="#redes" class="nav-pill"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i><span>Redes</span></a>
           <a href="#opiniones" class="nav-pill"><i class="fa-solid fa-comments" aria-hidden="true"></i><span>Opiniones</span></a>
           <a href="#contacto" class="nav-pill"><i class="fa-solid fa-envelope" aria-hidden="true"></i><span>Contacto</span></a>
+          <a href="{{ url('/admin') }}" class="nav-pill nav-login"><i class="fa-solid fa-right-to-bracket"></i><span>Login</span></a>
         </nav>
       </div>
 
@@ -113,7 +320,7 @@
     </header>
 
     <!-- Redes Sociales -->
-    <section class="redes-sociales-dinamicas">
+    <section id="redes" class="redes-sociales-dinamicas">
         <div class="container">
             <h2 class="titulo-redes">Síguenos en Redes Sociales</h2>
             <div class="redes-grid" id="redes-container">
@@ -169,12 +376,12 @@
                         </div>
                         <div class="product-content">
                             <h3 class="product-title">{{ $product->nombre }}</h3>
-                            <p class="product-description" style="color:var(--text-muted);">Modalidades y contenidos por nivel. Preparación para evaluaciones.</p>
+                            <p class="product-description" style="color:var(--text-muted);">{{ $product->descripcion }}</p>
                             <div class="product-footer">
-                                <span class="product-price">Bs. {{ $product->price }}</span>
+                                
                                 <a href="{{ route('modalidades', $product->id) }}" class="btn-primary" title="Ver curso">Ver curso</a>
-                                <a class="btn-primary" href="https://wa.me/{{$info->code.$info->phone}}?text=¡Hola!%20Estoy%20interesado%20en%20el%20producto%20{{ urlencode($product->nombre) }}.%20¿Me%20puedes%20dar%20más%20información?" target="_blank" title="Enviar por WhatsApp">
-                                    <i class="fab fa-whatsapp"></i>
+                                <a href="https://wa.me/{{$info->code.$info->phone}}?text=¡Hola!%20Estoy%20interesado%20en%20el%20servicio%20{{ urlencode($product->nombre) }}.%20¿Me%20puedes%20dar%20más%20información?" target="_blank" title="Enviar por WhatsApp">
+                                    <i class="fa-brands fa-whatsapp fa-beat fa-2x" style="color: #0ec444;"></i>
                                 </a>
                             </div>
                         </div>
@@ -185,7 +392,7 @@
     </section>
 
     <!-- Testimonials -->
-    <section class="animate-fade-in-up" style="padding:2rem 0;">
+    <section id="opiniones" class="animate-fade-in-up" style="padding:2rem 0;">
       <div class="container">
         <h2 class="section-title">Opiniones</h2>
         <div class="testimonial-grid">
@@ -206,7 +413,7 @@
     </section>
 
     <!-- Contact CTA -->
-    <section class="animate-fade-in-up" style="padding:2rem 0;">
+    <section id="contacto" class="animate-fade-in-up" style="padding:2rem 0;">
       <div class="container">
         <div class="contact-strip">
           <div>
@@ -214,7 +421,7 @@
             <div style="color:var(--text-muted);">Escríbenos y arma tu plan hoy.</div>
           </div>
           <div>
-            <a href="https://wa.me/{{$info->code.$info->phone}}?text=Hola%2C%20quisiera%20iniciar%20mi%20plan%20de%20estudio" target="_blank" class="btn-primary"><i class="fab fa-whatsapp"></i> Contactar</a>
+            <a href="https://wa.me/{{$info->code.$info->phone}}?text=Hola%2C%20quisiera%20iniciar%20mi%20plan%20de%20estudio" target="_blank" class=""><i class="fa-brands fa-whatsapp fa-beat fa-2x" style="color: #0ec444;"></i></a>
           </div>
         </div>
       </div>
@@ -292,9 +499,48 @@
     </footer>
 
     <!-- Nuevo JS específico del header -->
-    <script src="{{ asset('welcome/js/header.js')}}"></script>
-    <script src="{{ asset('welcome/js/welcome.js')}}"></script>
-    <script src="{{ asset('welcome/js/redes.js')}}"></script>
-    <script src="{{ asset('welcome/js/footer.js')}}"></script>
+    <script src="{{ asset('welcome/js/header.js') }}?v=2"></script>
+    <script src="{{ asset('welcome/js/welcome.js') }}?v=2"></script>
+    <script src="{{ asset('welcome/js/redes.js') }}?v=2"></script>
+    <script src="{{ asset('welcome/js/footer.js') }}?v=2"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+  const quotes = [
+    "La educación es el arma más poderosa para cambiar el mundo. — Nelson Mandela",
+    "La educación no cambia el mundo, cambia a las personas que van a cambiar el mundo. — Paulo Freire",
+    "Dime y lo olvido, enséñame y lo recuerdo, involúcrame y lo aprendo. — Benjamin Franklin",
+    "La educación es el pasaporte hacia el futuro, el mañana pertenece a aquellos que se preparan para él hoy. — Malcolm X",
+    "Educar la mente sin educar el corazón no es educación en absoluto. — Aristóteles",
+    "Enseñar es aprender dos veces. — Joseph Joubert",
+    "La educación es lo que sobrevive cuando lo aprendido ha sido olvidado. — B.F. Skinner"
+  ];
+
+  const quoteElement = document.querySelector('[data-quotes]');
+  if (!quoteElement) return;
+
+  let currentIndex = 0;
+
+  function showNextQuote() {
+    // Quitar clase active
+    quoteElement.classList.remove('active');
+
+    // Cambiar texto después de la transición de salida
+    setTimeout(() => {
+      currentIndex = (currentIndex + 1) % quotes.length;
+      quoteElement.textContent = `"${quotes[currentIndex]}"`;
+      quoteElement.classList.add('active');
+    }, 600); // Tiempo para que termine la transición de salida
+  }
+
+  // Mostrar la primera cita inmediatamente
+  quoteElement.textContent = `"${quotes[0]}"`;
+  quoteElement.classList.add('active');
+
+  // Cambiar cada 7 segundos
+  setInterval(showNextQuote, 7000);
+});  
+
+</script>
+    
 </body>
 </html>

@@ -135,6 +135,24 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('keydown', onKey);
 
+  // Navegación con desplazamiento suave y compensación del header
+  const navLinks = document.querySelectorAll('.header-nav a[href^="#"]');
+  const getOffset = () => {
+    const top = header.querySelector('.header-top');
+    return top ? (top.offsetHeight + 8) : 72;
+  };
+  navLinks.forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if(target){
+        e.preventDefault();
+        const y = target.getBoundingClientRect().top + window.scrollY - getOffset();
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    });
+  });
+
   // Primer cálculo
   onScroll();
 })();

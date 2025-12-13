@@ -20,7 +20,7 @@ class PrimarySeeder extends Seeder
         $product = Product::firstOrCreate([
             'nombre' => 'Nivel primaria',
         ], [
-            'imagen' => 'apoyo_primaria.jpg',
+            'imagen' => 'apoyo_primaria.png',
             'price' => 40.00,
             'clicks' => 0,
             'categories_id' => $catId,

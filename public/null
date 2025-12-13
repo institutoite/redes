@@ -1,1 +1,6 @@
-Social::where('state', true)->orderBy('priority')->get()
+use App\Models\Product;
+
+$p=Product::findOrFail(1);
+use App\Models\Product;
+
+$p=Product::findOrFail(1)->horarios;

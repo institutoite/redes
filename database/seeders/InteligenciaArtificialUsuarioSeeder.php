@@ -23,9 +23,10 @@ class InteligenciaArtificialUsuarioSeeder extends Seeder
             $product = Product::firstOrCreate([
                 'nombre' => 'Inteligencia Artificial para Usuarios',
             ], [
-                'imagen' => 'ia_usuarios.jpg',
+                'imagen' => 'inteligencia_artificial.png',
                 'price' => 220.00,
                 'clicks' => 0,
+                'descripcion' => 'Aprende a usar la IA para estudiar, trabajar más rápido y aprovechar la tecnología del futuro.',
                 'categories_id' => $catId,
             ]);
         }
