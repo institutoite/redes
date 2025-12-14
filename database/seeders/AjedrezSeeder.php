@@ -52,7 +52,9 @@ class AjedrezSeeder extends Seeder
         ];
 
         $modalidades = [];
+        $ordenModalidad = Modalidad::where('product_id', $product->id)->max('orden') ?? 0;
         foreach ($modalidadesData as $md) {
+            $ordenModalidad++;
             $m = Modalidad::firstOrCreate([
                 'product_id' => $product->id,
                 'modalidad' => $md['modalidad'],
@@ -60,6 +62,7 @@ class AjedrezSeeder extends Seeder
                 'descripcion' => $md['descripcion'],
                 'inversion' => $md['inversion'],
                 'estado' => true,
+                'orden' => $ordenModalidad,
             ]);
             $modalidades[] = $m;
 
@@ -133,13 +136,14 @@ class AjedrezSeeder extends Seeder
             ['subnivel' => 'Intermedio', 'titulo' => 'Plan semanal de estudio', 'descripcion' => 'Rutina sugerida: táctica diaria, estrategia 2x/semana, finales 1x/semana, partidas y análisis.', 'orden' => 14],
         ];
         foreach ($contenidos as $c) {
+            $maxOrden = Contenido::where('product_id', $product->id)->max('orden') ?? 0;
             Contenido::firstOrCreate([
                 'product_id' => $product->id,
                 'titulo' => $c['titulo'],
             ], [
                 'subnivel' => $c['subnivel'],
                 'descripcion' => $c['descripcion'],
-                'orden' => $c['orden'],
+                'orden' => $maxOrden + 1,
                 'estado' => true,
             ]);
         }

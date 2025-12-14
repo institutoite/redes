@@ -32,7 +32,9 @@ class LecturaEscrituraSeeder extends Seeder
         ];
 
         $modalidades = [];
+        $ordenModalidad = Modalidad::where('product_id', $product->id)->max('orden') ?? 0;
         foreach ($modalidadesData as $md) {
+            $ordenModalidad++;
             $m = Modalidad::firstOrCreate([
                 'product_id' => $product->id,
                 'modalidad' => $md['modalidad'],
@@ -40,6 +42,7 @@ class LecturaEscrituraSeeder extends Seeder
                 'descripcion' => $md['descripcion'],
                 'inversion' => $md['inversion'],
                 'estado' => true,
+                'orden' => $ordenModalidad,
             ]);
             $modalidades[] = $m;
             $diaIds = [];
@@ -86,7 +89,16 @@ class LecturaEscrituraSeeder extends Seeder
             ['subnivel' => 'Proyecto', 'titulo' => 'Evaluación y seguimiento', 'descripcion' => 'Pruebas de lectura y escritura con plan de refuerzo personalizado.', 'orden' => 10],
         ];
         foreach ($contenidos as $c) {
-            Contenido::firstOrCreate(['product_id' => $product->id, 'titulo' => $c['titulo']], ['subnivel' => $c['subnivel'], 'descripcion' => $c['descripcion'], 'orden' => $c['orden'], 'estado' => true]);
+            $maxOrden = Contenido::where('product_id', $product->id)->max('orden') ?? 0;
+            Contenido::firstOrCreate([
+                'product_id' => $product->id,
+                'titulo' => $c['titulo'],
+            ], [
+                'subnivel' => $c['subnivel'],
+                'descripcion' => $c['descripcion'],
+                'orden' => $maxOrden + 1,
+                'estado' => true,
+            ]);
         }
     }
 }

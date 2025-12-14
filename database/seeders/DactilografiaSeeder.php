@@ -52,7 +52,9 @@ class DactilografiaSeeder extends Seeder
         ];
 
         $modalidades = [];
+        $ordenModalidad = Modalidad::where('product_id', $product->id)->max('orden') ?? 0;
         foreach ($modalidadesData as $md) {
+            $ordenModalidad++;
             $m = Modalidad::firstOrCreate([
                 'product_id' => $product->id,
                 'modalidad' => $md['modalidad'],
@@ -60,6 +62,7 @@ class DactilografiaSeeder extends Seeder
                 'descripcion' => $md['descripcion'],
                 'inversion' => $md['inversion'],
                 'estado' => true,
+                'orden' => $ordenModalidad,
             ]);
             $modalidades[] = $m;
 
@@ -116,13 +119,14 @@ class DactilografiaSeeder extends Seeder
             ['subnivel' => 'Proyecto', 'titulo' => 'Evaluación y certificado', 'descripcion' => 'Prueba final con metas de WPM/precisión y entrega de reporte.', 'orden' => 6],
         ];
         foreach ($contenidos as $c) {
+            $maxOrden = Contenido::where('product_id', $product->id)->max('orden') ?? 0;
             Contenido::firstOrCreate([
                 'product_id' => $product->id,
                 'titulo' => $c['titulo'],
             ], [
                 'subnivel' => $c['subnivel'],
                 'descripcion' => $c['descripcion'],
-                'orden' => $c['orden'],
+                'orden' => $maxOrden + 1,
                 'estado' => true,
             ]);
         }

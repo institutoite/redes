@@ -10,6 +10,8 @@ class ProductController extends Controller
 {
 
     public function modalidades(Product $product){
+        // Incrementar el contador de clicks
+        $product->increment('clicks');
         // Cargar relaciones necesarias: modalidades y horarios a nivel de producto
         $product->load('modalidades.dias', 'modalidades.ventajas', 'horarios');
         $info = Info::first();

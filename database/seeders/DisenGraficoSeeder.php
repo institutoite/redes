@@ -51,7 +51,9 @@ class DisenGraficoSeeder extends Seeder
         ];
 
         $modalidades = [];
+        $ordenModalidad = Modalidad::where('product_id', $product->id)->max('orden') ?? 0;
         foreach ($modalidadesData as $md) {
+            $ordenModalidad++;
             $m = Modalidad::firstOrCreate([
                 'product_id' => $product->id,
                 'modalidad' => $md['modalidad'],
@@ -59,6 +61,7 @@ class DisenGraficoSeeder extends Seeder
                 'descripcion' => $md['descripcion'],
                 'inversion' => $md['inversion'],
                 'estado' => true,
+                'orden' => $ordenModalidad,
             ]);
             $modalidades[] = $m;
 
@@ -122,13 +125,14 @@ class DisenGraficoSeeder extends Seeder
             ['subnivel' => 'Proyecto', 'titulo' => 'Checklist de entrega', 'descripcion' => 'Criterios: tamaño/formatos, color, exportación y organización de archivos para portafolio.', 'orden' => 12],
         ];
         foreach ($contenidos as $c) {
+            $maxOrden = Contenido::where('product_id', $product->id)->max('orden') ?? 0;
             Contenido::firstOrCreate([
                 'product_id' => $product->id,
                 'titulo' => $c['titulo'],
             ], [
                 'subnivel' => $c['subnivel'],
                 'descripcion' => $c['descripcion'],
-                'orden' => $c['orden'],
+                'orden' => $maxOrden + 1,
                 'estado' => true,
             ]);
         }

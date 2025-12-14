@@ -93,7 +93,8 @@ class ProductSeeder extends Seeder
     ],
         ];
 
-        // Crear los productos en la base de datos
+        // Crear los productos en la base de datos con 'orden' secuencial único
+        $orden = 1;
         foreach ($products as $product) {
             Product::create([
                 'nombre' => $product['nombre'],
@@ -102,7 +103,9 @@ class ProductSeeder extends Seeder
                 'descripcion' => $product['descripcion'],
                 'clicks' => 0, // Inicializamos clicks en 0
                 'categories_id' => 1, // Relación con la categoría
+                'orden' => $orden,
             ]);
+            $orden++;
         }
     }
 }

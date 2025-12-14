@@ -136,13 +136,14 @@ class InstitutosSeeder extends Seeder
             ['subnivel' => 'General', 'titulo' => 'Química general', 'descripcion' => 'Estructura de la materia y reacciones químicas.', 'orden' => 3],
         ];
         foreach ($contenidos as $c) {
+            $maxOrden = Contenido::where('product_id', $product->id)->max('orden') ?? 0;
             Contenido::firstOrCreate([
                 'product_id' => $product->id,
                 'titulo' => $c['titulo'],
             ], [
                 'subnivel' => $c['subnivel'],
                 'descripcion' => $c['descripcion'],
-                'orden' => $c['orden'],
+                'orden' => $maxOrden + 1,
                 'estado' => true,
             ]);
         }

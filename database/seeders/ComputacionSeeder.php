@@ -52,7 +52,9 @@ class ComputacionSeeder extends Seeder
         ];
 
         $modalidades = [];
+        $ordenModalidad = Modalidad::where('product_id', $product->id)->max('orden') ?? 0;
         foreach ($modalidadesData as $md) {
+            $ordenModalidad++;
             $m = Modalidad::firstOrCreate([
                 'product_id' => $product->id,
                 'modalidad' => $md['modalidad'],
@@ -60,6 +62,7 @@ class ComputacionSeeder extends Seeder
                 'descripcion' => $md['descripcion'],
                 'inversion' => $md['inversion'],
                 'estado' => true,
+                'orden' => $ordenModalidad,
             ]);
             $modalidades[] = $m;
 
@@ -122,13 +125,14 @@ class ComputacionSeeder extends Seeder
             ['subnivel' => 'Materias', 'titulo' => 'Seguridad Informatica Basica', 'descripcion' => 'Buenas prácticas: contraseñas seguras, antivirus y actualizaciones, copias de seguridad, phishing y privacidad en línea.', 'orden' => 10],
         ];
         foreach ($contenidos as $c) {
+            $maxOrden = Contenido::where('product_id', $product->id)->max('orden') ?? 0;
             Contenido::firstOrCreate([
                 'product_id' => $product->id,
                 'titulo' => $c['titulo'],
             ], [
                 'subnivel' => $c['subnivel'],
                 'descripcion' => $c['descripcion'],
-                'orden' => $c['orden'],
+                'orden' => $maxOrden + 1,
                 'estado' => true,
             ]);
         }

@@ -237,16 +237,17 @@ class PrimarySeeder extends Seeder
             ['subnivel' => '6º Primaria', 'titulo' => 'Porcentajes y proporcionalidad', 'descripcion' => 'Cálculo de porcentajes y razones/proporciones.', 'orden' => 3],
             ['subnivel' => '6º Primaria', 'titulo' => 'Geometría y área', 'descripcion' => 'Perímetro y área de figuras compuestas.', 'orden' => 4],
         ];
-        foreach ($contenidos as $c) {
-            Contenido::firstOrCreate([
-                'product_id' => $product->id,
-                'titulo' => $c['titulo'],
-            ], [
-                'subnivel' => $c['subnivel'],
-                'descripcion' => $c['descripcion'],
-                'orden' => $c['orden'],
-                'estado' => true,
-            ]);
-        }
+            foreach ($contenidos as $c) {
+                $maxOrden = Contenido::where('product_id', $product->id)->max('orden') ?? 0;
+                Contenido::firstOrCreate([
+                    'product_id' => $product->id,
+                    'titulo' => $c['titulo'],
+                ], [
+                    'subnivel' => $c['subnivel'],
+                    'descripcion' => $c['descripcion'],
+                    'orden' => $maxOrden + 1,
+                    'estado' => true,
+                ]);
+            }
     }
 }

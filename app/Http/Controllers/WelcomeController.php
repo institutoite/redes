@@ -21,7 +21,7 @@ class WelcomeController extends Controller
             'modalidades.horarios',
             'modalidades.ventajas',
             'modalidades.dias'
-        ])->get();
+        ])->orderBy('clicks', 'desc')->get();
         $locations = Location::all();
         $info = Info::all()->first();
 

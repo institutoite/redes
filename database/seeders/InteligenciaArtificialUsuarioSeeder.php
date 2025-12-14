@@ -39,7 +39,9 @@ class InteligenciaArtificialUsuarioSeeder extends Seeder
         ];
 
         $modalidades = [];
+        $ordenModalidad = Modalidad::where('product_id', $product->id)->max('orden') ?? 0;
         foreach ($modalidadesData as $md) {
+            $ordenModalidad++;
             $m = Modalidad::firstOrCreate([
                 'product_id' => $product->id,
                 'modalidad' => $md['modalidad'],
@@ -47,6 +49,7 @@ class InteligenciaArtificialUsuarioSeeder extends Seeder
                 'descripcion' => $md['descripcion'],
                 'inversion' => $md['inversion'],
                 'estado' => true,
+                'orden' => $ordenModalidad,
             ]);
             $modalidades[] = $m;
             $diaIds = [];
@@ -190,13 +193,14 @@ class InteligenciaArtificialUsuarioSeeder extends Seeder
         $c[] = ['subnivel' => '13. Proyecto', 'titulo' => '13.5 Presentación', 'descripcion' => 'Demostración breve y feedback.', 'orden' => $o++];
 
         foreach ($c as $row) {
+            $maxOrden = Contenido::where('product_id', $product->id)->max('orden') ?? 0;
             Contenido::firstOrCreate([
                 'product_id' => $product->id,
                 'titulo' => $row['titulo'],
             ], [
                 'subnivel' => $row['subnivel'],
                 'descripcion' => $row['descripcion'],
-                'orden' => $row['orden'],
+                'orden' => $maxOrden + 1,
                 'estado' => true,
             ]);
         }

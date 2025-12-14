@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\Contenido;
 
 class SocialSeeder extends Seeder
 {
@@ -45,5 +46,6 @@ class SocialSeeder extends Seeder
                 'updated_at' => now(),
             ],
         ]);
+        // Eliminar bloque de contenidos, no corresponde a este seeder
     }
 }

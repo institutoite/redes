@@ -36,7 +36,9 @@ class SuperMemoriaSeeder extends Seeder
         ];
 
         $modalidades = [];
+        $ordenModalidad = Modalidad::where('product_id', $product->id)->max('orden') ?? 0;
         foreach ($modalidadesData as $md) {
+            $ordenModalidad++;
             $m = Modalidad::firstOrCreate([
                 'product_id' => $product->id,
                 'modalidad' => $md['modalidad'],
@@ -44,6 +46,7 @@ class SuperMemoriaSeeder extends Seeder
                 'descripcion' => $md['descripcion'],
                 'inversion' => $md['inversion'],
                 'estado' => true,
+                'orden' => $ordenModalidad,
             ]);
             $modalidades[] = $m;
 
@@ -123,7 +126,16 @@ class SuperMemoriaSeeder extends Seeder
             ['subnivel' => 'Aplicación', 'titulo' => 'Memorizar y retener más', 'descripcion' => 'Protocolos para memorizar información importante y mantenerla.', 'orden' => 28],
         ];
         foreach ($contenidos as $c) {
-            Contenido::firstOrCreate(['product_id' => $product->id, 'titulo' => $c['titulo']], ['subnivel' => $c['subnivel'], 'descripcion' => $c['descripcion'], 'orden' => $c['orden'], 'estado' => true]);
+            $maxOrden = Contenido::where('product_id', $product->id)->max('orden') ?? 0;
+            Contenido::firstOrCreate([
+                'product_id' => $product->id,
+                'titulo' => $c['titulo'],
+            ], [
+                'subnivel' => $c['subnivel'],
+                'descripcion' => $c['descripcion'],
+                'orden' => $maxOrden + 1,
+                'estado' => true,
+            ]);
         }
     }
 }

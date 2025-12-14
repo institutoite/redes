@@ -9,6 +9,9 @@ class Modalidad extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    protected $casts = [
+        'estado' => 'boolean',
+    ];
     // Relación con Product (Pertenencia)
     public function product()
     {

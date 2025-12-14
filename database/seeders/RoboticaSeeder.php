@@ -32,7 +32,9 @@ class RoboticaSeeder extends Seeder
         ];
 
         $modalidades = [];
+        $ordenModalidad = Modalidad::where('product_id', $product->id)->max('orden') ?? 0;
         foreach ($modalidadesData as $md) {
+            $ordenModalidad++;
             $m = Modalidad::firstOrCreate([
                 'product_id' => $product->id,
                 'modalidad' => $md['modalidad'],
@@ -40,6 +42,7 @@ class RoboticaSeeder extends Seeder
                 'descripcion' => $md['descripcion'],
                 'inversion' => $md['inversion'],
                 'estado' => true,
+                'orden' => $ordenModalidad,
             ]);
             $modalidades[] = $m;
             $diaIds = [];
@@ -89,7 +92,16 @@ class RoboticaSeeder extends Seeder
             ['subnivel' => 'Proyecto', 'titulo' => 'Auto básico funcional', 'descripcion' => 'Entrega del auto con chasis, ejes, ruedas, motoreductor, interruptor y LEDs funcionando.', 'orden' => 10],
         ];
         foreach ($contenidos as $c) {
-            Contenido::firstOrCreate(['product_id' => $product->id, 'titulo' => $c['titulo']], ['subnivel' => $c['subnivel'], 'descripcion' => $c['descripcion'], 'orden' => $c['orden'], 'estado' => true]);
+            $maxOrden = Contenido::where('product_id', $product->id)->max('orden') ?? 0;
+            Contenido::firstOrCreate([
+                'product_id' => $product->id,
+                'titulo' => $c['titulo'],
+            ], [
+                'subnivel' => $c['subnivel'],
+                'descripcion' => $c['descripcion'],
+                'orden' => $maxOrden + 1,
+                'estado' => true,
+            ]);
         }
     }
 }

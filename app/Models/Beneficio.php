@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Material extends Model
+class Beneficio extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $table = 'materiales';
+
     protected $casts = [
         'estado' => 'boolean',
-        'orden' => 'integer',
     ];
 
     public function product()
