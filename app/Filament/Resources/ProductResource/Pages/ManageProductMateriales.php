@@ -135,7 +135,7 @@ class ManageProductMateriales extends Page implements HasTable, HasForms
                                 $currentOrder = $record->orden ?? 0;
                                 $next = Material::where('product_id', $record->product_id)
                                     ->where('orden', '>', $currentOrder)
-                                    ->orderBy('orden')
+                                    ->orderBy('clicks')
                                     ->lockForUpdate()
                                     ->first();
                                 if (!$next) return;

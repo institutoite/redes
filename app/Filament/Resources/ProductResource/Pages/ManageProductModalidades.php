@@ -139,7 +139,7 @@ class ManageProductModalidades extends Page implements HasTable, HasForms
                         DB::transaction(function () use ($record) {
                             $next = Modalidad::where('product_id', $record->product_id)
                                 ->where('orden', '>', $record->orden)
-                                ->orderBy('orden')
+                                ->orderBy('clicks')
                                 ->lockForUpdate()
                                 ->first();
                             if (!$next) return;

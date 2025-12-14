@@ -57,12 +57,10 @@ class ProductResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->reorderable('orden')
-            ->defaultSort('orden')
+            //->reorderable('orden')
+            ->defaultSort('clicks')
             ->columns([
-                Tables\Columns\TextColumn::make('orden')
-                    ->label('Orden')
-                    ->sortable(),
+                // Eliminar columna 'orden' completamente
                 Tables\Columns\TextColumn::make('nombre')
                     ->searchable(),
                 // Ocultamos imagen y categoría en la tabla
@@ -96,45 +94,7 @@ class ProductResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 // Acción para subir
-                Tables\Actions\Action::make('move_up')
-                    ->label('Subir')
-                    ->icon('heroicon-o-arrow-up')
-                    ->action(function ($record) {
-                        $prev = \App\Models\Product::where('orden', '<', $record->orden)->orderBy('orden', 'desc')->first();
-                        if ($prev) {
-                            // Valor temporal dinámico seguro
-                            $maxOrden = \App\Models\Product::max('orden');
-                            $temp = $maxOrden + 1;
-                            $record->orden = $temp;
-                            $record->save();
-                            $prevOrden = $prev->orden;
-                            $prev->orden = $record->getOriginal('orden');
-                            $prev->save();
-                            $record->orden = $prevOrden;
-                            $record->save();
-                        }
-                    })
-                    ->visible(fn ($record) => \App\Models\Product::where('orden', '<', $record->orden)->exists()),
-                // Acción para bajar
-                Tables\Actions\Action::make('move_down')
-                    ->label('Bajar')
-                    ->icon('heroicon-o-arrow-down')
-                    ->action(function ($record) {
-                        $next = \App\Models\Product::where('orden', '>', $record->orden)->orderBy('orden')->first();
-                        if ($next) {
-                            // Valor temporal dinámico seguro
-                            $maxOrden = \App\Models\Product::max('orden');
-                            $temp = $maxOrden + 1;
-                            $record->orden = $temp;
-                            $record->save();
-                            $nextOrden = $next->orden;
-                            $next->orden = $record->getOriginal('orden');
-                            $next->save();
-                            $record->orden = $nextOrden;
-                            $record->save();
-                        }
-                    })
-                    ->visible(fn ($record) => \App\Models\Product::where('orden', '>', $record->orden)->exists()),
+                // Acciones de mover arriba/abajo eliminadas porque requieren la columna 'orden'.
                 Tables\Actions\Action::make('modalidades_view')
                     ->label('Modalidades')
                     ->icon('heroicon-o-list-bullet')

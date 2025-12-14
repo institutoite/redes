@@ -134,7 +134,7 @@ class ManageProductContenidos extends Page implements HasTable, HasForms
                         DB::transaction(function () use ($record) {
                             $next = Contenido::where('product_id', $this->record->id)
                                 ->where('orden', '>', $record->orden)
-                                ->orderBy('orden')
+                                ->orderBy('clicks')
                                 ->lockForUpdate()
                                 ->first();
                             if (!$next) return;

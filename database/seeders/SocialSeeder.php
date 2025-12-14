@@ -45,6 +45,36 @@ class SocialSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'social' => 'TikTok',
+                'color' => '#010101',
+                'icon' => 'fab fa-tiktok',
+                'link' => 'https://www.tiktok.com/@ite_educabol',
+                'priority' => '7',
+                'state' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'social' => 'WhatsApp',
+                'color' => '#25d366',
+                'icon' => 'fab fa-whatsapp',
+                'link' => 'https://wa.me/59171324941',
+                'priority' => '9',
+                'state' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'social' => 'WhatsApp',
+                'color' => '#25d366',
+                'icon' => 'fab fa-whatsapp',
+                'link' => 'https://wa.me/59175553338',
+                'priority' => '11',
+                'state' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
         // Eliminar bloque de contenidos, no corresponde a este seeder
     }

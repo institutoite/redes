@@ -102,7 +102,7 @@
         }
         .ventaja-pill { display:inline-block; margin:.15rem .2rem; padding:.2rem .45rem; border-radius:999px; background: rgba(38,186,165,.12); color: var(--brand-blue); border:1px solid rgba(38,186,165,.35); font-size:.85rem; }
         .badge.text-bg-success { background-color: var(--brand-teal) !important; }
-        .table thead th { color: #fff; background-color: var(--brand-blue); border-color: var(--brand-blue); }
+        .table thead th { color: #fff; background-color: var(--brand-teal); border-color: var(--brand-blue); }
         .table-striped tbody tr:nth-of-type(odd) { background-color: rgba(55,95,122,.03); }
         .table-hover tbody tr:hover { background-color: rgba(38,186,165,.08); }
 
@@ -170,8 +170,9 @@
             </div>
         </div>
 
+        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%% T A B L A   M O D A L I D A D E S %%%%%%%%%%%%%%%%%%%%%%%%% -- -->
         <div class="card mb-4 shadow-sm rounded-4 overflow-hidden" style="border: 1px solid rgba(55,95,122,.15);">
-            <div class="card-header bg-primary text-white d-flex align-items-center" style="border-bottom: none;">
+            <div class="card-header bg-secondary text-white d-flex align-items-center" style="border-bottom: none;">
                 <i class="fa-solid fa-layer-group me-2"></i>
                 <h4 class="mb-0">Modalidades</h4>
             </div>
@@ -287,7 +288,7 @@
             </div>
         </div>
 
-        <!-- Modal: Ventajas por Modalidad -->
+        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  M o d a l:  V e n t a j a s   p o r  M o d a l i d a d %%%%%%%%%%% -->
         <div class="modal fade" id="ventajasModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -306,9 +307,9 @@
                 </div>
             </div>
         </div>
-
+        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%% T A B L A   B E N E F I C I O S %%%%%%%%%%%%%%%%%%%%%%%%% -- -->
         <div class="card mb-4">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header bg-secondary text-white">
                     <h4 class="mb-0">Ventajas ({{ $product->nombre }})</h4>
                 </div>
             <div class="card-body">
@@ -339,7 +340,7 @@
         </div>
 
         <div class="card mb-4 shadow-sm rounded-4 overflow-hidden" style="border: 1px solid rgba(55,95,122,.15);">
-            <div class="card-header bg-primary text-white d-flex align-items-center" style="border-bottom: none;">
+            <div class="card-header bg-secondary text-white d-flex align-items-center" style="border-bottom: none;">
                 <i class="fa-solid fa-book-open me-2"></i>
                 <h4 class="mb-0">Contenidos {{ $product->nombre }}</h4>
             </div>
@@ -398,7 +399,7 @@
         </div>
 
         <div class="card mb-4 shadow-sm rounded-4 overflow-hidden" style="border: 1px solid rgba(55,95,122,.15);">
-            <div class="card-header bg-primary text-white d-flex align-items-center" style="border-bottom: none;">
+            <div class="card-header bg-secondary text-white d-flex align-items-center" style="border-bottom: none;">
                 <i class="fa-solid fa-toolbox me-2"></i>
                 <h4 class="mb-0">Materiales {{ $product->nombre }} </h4>
             </div>

@@ -39,10 +39,10 @@ class Product extends Model
      /**
          * Relación uno a muchos: Product tiene muchos Contenidos
          */
-        public function contenidos()
-        {
-            return $this->hasMany(Contenido::class)->orderBy('orden');
-        }
+    public function contenidos()
+    {
+        return $this->hasMany(Contenido::class)->orderBy('orden');
+    }
 
     public function category(){
         return $this->belongsTo(Category::class,'categories_id');
