@@ -16,9 +16,8 @@ class Product extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    // Para asignación masiva de 'orden' si se requiere
     protected $fillable = [
-        'nombre', 'imagen', 'descripcion', 'price', 'clicks', 'categories_id', 'orden',
+        'nombre', 'imagen', 'descripcion', 'price', 'clicks', 'categories_id',
     ];
 
       /**
@@ -54,25 +53,7 @@ class Product extends Model
         return $this->hasMany(Modalidad::class);
     }
     
-    // Scope para ordenar productos por 'orden'
-    public function scopeOrdered($query)
-    {
-        return $query->orderBy('orden');
-    }
 
-    /**
-     * Normaliza los valores de orden para que sean secuenciales únicos.
-     */
-    public static function normalizarOrden()
-    {
-        $productos = self::orderBy('orden')->get();
-        $orden = 1;
-        foreach ($productos as $producto) {
-            if ($producto->orden !== $orden) {
-                $producto->orden = $orden;
-                $producto->save();
-            }
-            $orden++;
-        }
-    }
+
+
 }

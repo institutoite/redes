@@ -103,7 +103,6 @@ class ProductSeeder extends Seeder
                 'descripcion' => $product['descripcion'],
                 'clicks' => 0, // Inicializamos clicks en 0
                 'categories_id' => 1, // Relación con la categoría
-                'orden' => $orden,
             ]);
             $orden++;
         }
