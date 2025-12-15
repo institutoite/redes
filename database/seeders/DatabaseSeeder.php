@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             ModalidadSeeder::class,
             ContenidoSeeder::class,
+            ContenidoInicialSeeder::class,
             MaterialSeeder::class,
             HorarioSeeder::class,
             VentajaSeeder::class,
