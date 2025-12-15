@@ -58,6 +58,7 @@ class ModalidadResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(fn (Builder $query) => $query->where('estado', true))
             ->columns([
                 Tables\Columns\TextColumn::make('modalidad')
                     ->searchable(),

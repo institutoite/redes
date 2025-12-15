@@ -41,19 +41,29 @@ class SecondarySeeder extends Seeder
 
         $modalidades = [];
         foreach ($modalidadesData as $md) {
+            $nombre = $md['modalidad'];
+            $esMenorQueUnMes = (
+                (
+                    stripos($nombre, 'Hora Libre') !== false ||
+                    stripos($nombre, 'Semana') !== false ||
+                    stripos($nombre, 'Quincena') !== false
+                )
+                && stripos($nombre, 'Mes') === false
+            );
             $m = Modalidad::firstOrCreate([
                 'product_id' => $product->id,
                 'modalidad' => $md['modalidad'],
             ], [
                 'descripcion' => $md['descripcion'],
                 'inversion' => $md['inversion'],
-                'estado' => true,
+                'estado' => !$esMenorQueUnMes,
             ]);
+            $m->update(['estado' => !$esMenorQueUnMes]);
             $modalidades[] = $m;
             if (!empty($md['dias'])) {
                 $diaIds = [];
                 foreach ($md['dias'] as $diaNombre) {
-                    $dia = Dias::firstOrCreate(['dia' => $diaNombre]);
+                    $dia = Dias::firstOrCreate(['dias' => $diaNombre]);
                     $diaIds[] = $dia->id;
                 }
                 $m->dias()->syncWithoutDetaching($diaIds);

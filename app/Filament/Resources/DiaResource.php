@@ -23,7 +23,8 @@ class DiaResource extends Resource
     {
         return $form
             ->schema([
-                //
+                \Filament\Forms\Components\TextInput::make('dias')->required()->maxLength(50),
+                \Filament\Forms\Components\TextInput::make('abreviatura')->required()->maxLength(20),
             ]);
     }
 
@@ -31,18 +32,17 @@ class DiaResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('dias')->searchable(),
+                Tables\Columns\TextColumn::make('abreviatura')->searchable(),
+                Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable(),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 

@@ -8,7 +8,7 @@ use App\Models\Modalidad;
 use App\Models\Ventaja;
 use App\Models\Material;
 use App\Models\Contenido;
-use App\Models\Dias;
+use App\Models\Dia;
 
 class SuperMemoriaSeeder extends Seeder
 {
@@ -52,7 +52,7 @@ class SuperMemoriaSeeder extends Seeder
 
             $diaIds = [];
             foreach ($md['dias'] as $diaNombre) {
-                $dia = Dias::firstOrCreate(['dia' => $diaNombre]);
+                $dia = Dia::firstOrCreate(['dias' => $diaNombre]);
                 $diaIds[] = $dia->id;
             }
             $m->dias()->syncWithoutDetaching($diaIds);

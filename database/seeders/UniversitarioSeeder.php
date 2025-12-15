@@ -8,7 +8,7 @@ use App\Models\Modalidad;
 use App\Models\Ventaja;
 use App\Models\Material;
 use App\Models\Contenido;
-use App\Models\Dias;
+use App\Models\Dia;
 
 class UniversitarioSeeder extends Seeder
 {
@@ -46,6 +46,7 @@ class UniversitarioSeeder extends Seeder
 
         $modalidades = [];
         foreach ($modalidadesData as $md) {
+                        // Lógica ya aplicada previamente
             $descripcion = sprintf(
                 '%s. Carga horaria: %s h (Bs %.2f/hora).',
                 (stripos($md['modalidad'], 'Hora Libre') !== false) ? 'Flexibilidad total por hora' : 'Plan académico universitario',
@@ -53,20 +54,30 @@ class UniversitarioSeeder extends Seeder
                 $md['por_hora']
             );
 
+            $nombre = $md['modalidad'];
+            $esMenorQueUnMes = (
+                (
+                    stripos($nombre, 'Hora Libre') !== false ||
+                    stripos($nombre, 'Semana') !== false ||
+                    stripos($nombre, 'Quincena') !== false
+                )
+                && stripos($nombre, 'Mes') === false
+            );
             $m = Modalidad::firstOrCreate([
                 'product_id' => $product->id,
                 'modalidad' => $md['modalidad'],
             ], [
                 'descripcion' => $descripcion,
                 'inversion' => $md['inversion'],
-                'estado' => true,
+                'estado' => !$esMenorQueUnMes,
             ]);
+            $m->update(['estado' => !$esMenorQueUnMes]);
             $modalidades[] = $m;
 
             if (!empty($md['dias'])) {
                 $diaIds = [];
                 foreach ($md['dias'] as $diaNombre) {
-                    $dia = Dias::firstOrCreate(['dia' => $diaNombre]);
+                    $dia = Dia::firstOrCreate(['dias' => $diaNombre]);
                     $diaIds[] = $dia->id;
                 }
                 $m->dias()->syncWithoutDetaching($diaIds);

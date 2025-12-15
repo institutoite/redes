@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('dias', function (Blueprint $table) {
             $table->id();
-            $table->string("dia",15);
-
+            $table->string("dias",50);
+            $table->string("abreviatura",20)->default("");
             $table->timestamps();
         });
     }

@@ -100,20 +100,32 @@ class PrimarySeeder extends Seeder
 
         $modalidades = [];
         foreach ($modalidadesData as $md) {
+            // Deshabilitar modalidades menores a 1 Mes (solo si NO contiene 'Mes')
+            $nombre = $md['modalidad'];
+            $esMenorQueUnMes = (
+                (
+                    stripos($nombre, 'Hora Libre') !== false ||
+                    stripos($nombre, 'Semana') !== false ||
+                    stripos($nombre, 'Quincena') !== false
+                )
+                && stripos($nombre, 'Mes') === false // Si contiene 'Mes', es 1 Mes o más
+            );
             $m = Modalidad::firstOrCreate([
                 'product_id' => $product->id,
                 'modalidad' => $md['modalidad'],
             ], [
                 'descripcion' => $md['descripcion'],
                 'inversion' => $md['inversion'],
-                'estado' => true,
+                'estado' => !$esMenorQueUnMes,
             ]);
+            // Forzar actualización de estado por si ya existía
+            $m->update(['estado' => !$esMenorQueUnMes]);
             $modalidades[] = $m;
             // Asociar días
             if (!empty($md['dias'])) {
                 $diaIds = [];
                 foreach ($md['dias'] as $diaNombre) {
-                    $dia = Dias::firstOrCreate(['dia' => $diaNombre]);
+                    $dia = Dias::firstOrCreate(['dias' => $diaNombre]);
                     $diaIds[] = $dia->id;
                 }
                 $m->dias()->syncWithoutDetaching($diaIds);
