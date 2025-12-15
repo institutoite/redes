@@ -95,6 +95,13 @@ class ProductResource extends Resource
                 Tables\Actions\EditAction::make(),
                 // Acción para subir
                 // Acciones de mover arriba/abajo eliminadas porque requieren la columna 'orden'.
+                Tables\Actions\Action::make('horarios_rapidos')
+                    ->label('Horarios')
+                    ->icon('heroicon-o-clock')
+                    ->modalHeading('Gestión rápida de horarios')
+                    ->modalSubmitAction(false)
+                    ->modalCancelAction(false)
+                    ->modalContent(fn ($record) => view('filament.partials.horarios-quick-modal-wrapper', ['productId' => $record->id])),
                 Tables\Actions\Action::make('modalidades_view')
                     ->label('Modalidades')
                     ->icon('heroicon-o-list-bullet')
