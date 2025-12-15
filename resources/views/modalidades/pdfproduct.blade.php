@@ -151,27 +151,41 @@
     <div class="container">
         <h1 style="color: rgb(55,95,122); margin-top: 0;">{{ $product->nombre }}</h1>
 
-        <div class="card" style="background: rgba(38,186,165,0.08); border-left: 4px solid rgb(55,95,122)">
-            <h5 style="color: rgb(55,95,122)">Beneficios (generales)</h5>
-            <ul style="list-style: none; padding-left: 0;">
-                @php $ventajas = collect($product->modalidades)->flatMap(fn($m)=>$m->ventajas)->unique('ventaja'); @endphp
-                @foreach ($ventajas as $v)
-                    <li>{{ $v->ventaja }}: {{ $v->detalle }}</li>
-                @endforeach
-            </ul>
-            <h5 style="color: rgb(55,95,122)">Materiales (Nivel Inicial)</h5>
-            <ul style="list-style: none; padding-left: 0;">
-                @foreach ($product->materiales as $mat)
-                    <li>{{ $mat->nombre }}@if($mat->descripcion): {{ $mat->descripcion }}@endif</li>
-                @endforeach
-            </ul>
-            <h5 style="color: rgb(55,95,122)">Contenidos (Nivel Inicial)</h5>
-            <ul style="list-style: none; padding-left: 0;">
-                @foreach ($product->contenidos as $c)
-                    <li>{{ $c->subnivel ?? 'General' }} — {{ $c->titulo }}: {{ $c->descripcion }}</li>
-                @endforeach
-            </ul>
-        </div>
+        <table width="100%" border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse; margin-bottom:20px;">
+            <tr style="background:rgba(38,186,165,0.08); color:rgb(55,95,122); font-weight:bold;">
+                <td colspan="2">Beneficios generales</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul style="list-style: none; padding-left: 0; margin:0;">
+                        @php $ventajas = collect($product->modalidades)->flatMap(fn($m)=>$m->ventajas)->unique('ventaja'); @endphp
+                        @foreach ($ventajas as $v)
+                            <li>{{ $v->ventaja }}: {{ $v->detalle }}</li>
+                        @endforeach
+                    </ul>
+                </td>
+            </tr>
+            <tr style="background:rgba(38,186,165,0.08); color:rgb(55,95,122); font-weight:bold;">
+                <td>Materiales (Nivel Inicial)</td>
+                <td>Contenidos (Nivel Inicial)</td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    <ul style="list-style: none; padding-left: 0; margin:0;">
+                        @foreach ($product->materiales as $mat)
+                            <li>{{ $mat->nombre }}@if($mat->descripcion): {{ $mat->descripcion }}@endif</li>
+                        @endforeach
+                    </ul>
+                </td>
+                <td valign="top">
+                    <ul style="list-style: none; padding-left: 0; margin:0;">
+                        @foreach ($product->contenidos as $c)
+                            <li>{{ $c->subnivel ?? 'General' }} — {{ $c->titulo }}: {{ $c->descripcion }}</li>
+                        @endforeach
+                    </ul>
+                </td>
+            </tr>
+        </table>
 
         <div style="position: fixed; bottom: 10px; left: 20px; right: 20px; font-size: 11px; color: rgb(55,95,122); border-top: 1px solid rgba(55,95,122,0.4); padding-top: 6px;">
             @if(isset($info))
@@ -196,38 +210,54 @@
         @foreach ($product->modalidades as $modalidad)
         <div class="modalidad" style="@if (!$loop->last) page-break-after: always; @endif">
             <h2>{{ $modalidad->modalidad }}</h2>
-            <div class="card">
-                <h5>Inversión:</h5>
-                <p>Bs {{ number_format($modalidad->inversion, 2) }}</p>
-                <h5>Descripción:</h5>
-                <p>{{ $modalidad->descripcion }}</p>
-                <h5>Horarios disponibles:</h5>
-                <ul>
-                    @foreach ($modalidad->horarios as $horario)
-                        <li>
-                            @if ($horario->estado == 0)
-                                <span style="text-decoration: line-through; color: rgb(67, 67, 67);">
-                                    {{ $horario->horario }} - <span class="text-danger">(SIN CUPO)</span>
-                                </span>
-                            @else
-                                {{ $horario->horario }}
-                            @endif
-                        </li>
-                    @endforeach
-                </ul>
-                <h5>Días de asistencia:</h5>
-                <ul>
-                    @foreach ($modalidad->dias as $dia)
-                        <li>{{ $dia->dia }}</li>
-                    @endforeach
-                </ul>
-                <h5>Caracteristicas:</h5>
-                <ul>
-                    @foreach ($modalidad->ventajas as $ventaja)
-                        <li>{{ $ventaja->ventaja }}: {{ $ventaja->detalle }}</li>
-                    @endforeach
-                </ul>
-            </div>
+            <table width="100%" border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse; margin-bottom:10px;">
+                <tr style="background:rgba(38,186,165,0.08); color:rgb(55,95,122); font-weight:bold;">
+                    <td>Inversión</td>
+                    <td>Descripción</td>
+                </tr>
+                <tr>
+                    <td>Bs {{ number_format($modalidad->inversion, 2) }}</td>
+                    <td>{{ $modalidad->descripcion }}</td>
+                </tr>
+            </table>
+            <table width="100%" border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse; margin-bottom:10px;">
+                <tr style="background:rgba(38,186,165,0.08); color:rgb(55,95,122); font-weight:bold;">
+                    <td>Horarios disponibles</td>
+                </tr>
+                @foreach ($modalidad->horarios as $horario)
+                <tr>
+                    <td>
+                        @if ($horario->estado == 0)
+                            <span style="text-decoration: line-through; color: rgb(67, 67, 67);">
+                                {{ $horario->horario }} - <span style="color:#c00;">(SIN CUPO)</span>
+                            </span>
+                        @else
+                            {{ $horario->horario }}
+                        @endif
+                    </td>
+                </tr>
+                @endforeach
+            </table>
+            <table width="100%" border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse; margin-bottom:10px;">
+                <tr style="background:rgba(38,186,165,0.08); color:rgb(55,95,122); font-weight:bold;">
+                    <td>Días de asistencia</td>
+                </tr>
+                @foreach ($modalidad->dias as $dia)
+                <tr>
+                    <td>{{ $dia->dia }}</td>
+                </tr>
+                @endforeach
+            </table>
+            <table width="100%" border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse; margin-bottom:10px;">
+                <tr style="background:rgba(38,186,165,0.08); color:rgb(55,95,122); font-weight:bold;">
+                    <td>Características</td>
+                </tr>
+                @foreach ($modalidad->ventajas as $ventaja)
+                <tr>
+                    <td>{{ $ventaja->ventaja }}: {{ $ventaja->detalle }}</td>
+                </tr>
+                @endforeach
+            </table>
         </div>
         @endforeach
     </div>

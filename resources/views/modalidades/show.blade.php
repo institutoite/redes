@@ -109,6 +109,7 @@
     </style>
 </head>
 <body>
+        
     <div class="container mt-4">
         <div class="rounded-4 p-4 mb-4" style="background: linear-gradient(135deg, rgba(38,186,165,.12), rgba(55,95,122,.12)); border: 1px solid rgba(55,95,122,.15);">
             <div class="d-flex align-items-center gap-3">
@@ -116,11 +117,6 @@
                 <div>
                     <h1 class="mb-1" style="color: var(--brand-blue);">{{ $product->nombre }}</h1>
                     <div class="text-muted">Explora horarios, modalidades, contenidos y materiales</div>
-                </div>
-                <div class="ms-auto">
-                    <a href="{{ route('generarpdf',$product) }}" class="btn btn-success">
-                        <i class="fa-solid fa-file-pdf me-1"></i> Exportar PDF
-                    </a>
                 </div>
             </div>
         </div>
@@ -188,7 +184,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($product->modalidades as $modalidad)
+                                @foreach ($modalidades as $modalidad)
                                 <tr>
                                     <td data-label="Modalidad">
                                         <div class="d-flex align-items-center gap-2">
@@ -293,7 +289,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header brand">
-                        <h5 class="modal-title" id="ventajasModalLabel">Ventajas</h5>
+                        <h5 class="modal-title" id="ventajasModalLabel">Beneficios</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -310,23 +306,19 @@
         <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%% T A B L A   B E N E F I C I O S %%%%%%%%%%%%%%%%%%%%%%%%% -- -->
         <div class="card mb-4">
                 <div class="card-header bg-secondary text-white">
-                    <h4 class="mb-0">Ventajas ({{ $product->nombre }})</h4>
+                    <h4 class="mb-0">Benficios ({{ $product->nombre }})</h4>
                 </div>
             <div class="card-body">
                 @php
-                    $ventajas = collect($product->modalidades)
-                        ->flatMap(fn($m) => $m->ventajas)
-                        ->unique('ventaja')
-                        ->values();
-                    $maxShow = 5; $total = $ventajas->count();
+                    $maxShow = 5; $total = $beneficios->count();
                 @endphp
                 @if($total)
                     <ul class="ventajas-list list-unstyled">
-                        @foreach ($ventajas as $index => $v)
+                        @foreach ($beneficios as $index => $b)
                             <li class="ventaja-item {{ $index >= $maxShow ? 'd-none extra-ventaja-general' : '' }}">
                                 <i class="fa-solid fa-circle-check text-success me-1"></i>
-                                <strong>{{ $v->ventaja }}:</strong>
-                                <span class="text-muted">{{ $v->detalle }}</span>
+                                <strong>{{ $b->titulo }}:</strong>
+                                <span class="text-muted">{{ $b->detalle }}</span>
                             </li>
                         @endforeach
                     </ul>
@@ -334,7 +326,7 @@
                         <button type="button" class="btn btn-link p-0 ver-mas-btn" data-target="general">Ver más</button>
                     @endif
                 @else
-                    <div class="text-muted">Sin ventajas registradas.</div>
+                    <div class="text-muted">Sin beneficios registrados.</div>
                 @endif
             </div>
         </div>
@@ -346,12 +338,7 @@
             </div>
             <div class="card-body">
                 @php
-                    $contenidos = $product->contenidos()
-                        ->where('estado', true)
-                        ->orderBy('subnivel')
-                        ->orderBy('orden')
-                        ->get()
-                        ->groupBy(fn($i) => $i->subnivel ?? 'General');
+                    $contenidos = $contenido->groupBy(fn($i) => $i->subnivel ?? 'General');
                 @endphp
                 @if($contenidos->count())
                     <div class="accordion" id="accordionContenidos">
@@ -404,7 +391,6 @@
                 <h4 class="mb-0">Materiales {{ $product->nombre }} </h4>
             </div>
             <div class="card-body">
-                @php $materiales = $product->materiales()->where('estado', true)->orderBy('orden')->get(); @endphp
                 @if($materiales->count())
                     <ul class="mb-0 list-unstyled d-flex flex-wrap gap-2">
                         @foreach($materiales as $mat)

@@ -13,8 +13,9 @@ class ContenidoSeeder extends Seeder
      */
     public function run(): void
     {
-        $productos = Product::all();
-        foreach ($productos as $producto) {
+        // Solo asignar estos contenidos al producto "Preescolar" (ajusta el nombre según corresponda)
+        $producto = Product::where('nombre', 'Preescolar')->first();
+        if ($producto) {
             $items = [
                 // Prekínder
                 ['subnivel' => 'Prekínder', 'titulo' => 'Motricidad fina', 'descripcion' => 'Trazos, ensartar, plastilina y pinzas para fortalecer dedos.'],
@@ -31,9 +32,8 @@ class ContenidoSeeder extends Seeder
                 ['subnivel' => 'Kinder', 'titulo' => 'Socioemocional', 'descripcion' => 'Manejo de emociones, juego cooperativo y empatía.'],
             ];
 
-            // Buscar el último orden existente para este producto
-                $maxOrden = Contenido::where('product_id', $producto->id)->max('orden') ?? 0;
-                $orden = $maxOrden + 1;
+            $maxOrden = Contenido::where('product_id', $producto->id)->max('orden') ?? 0;
+            $orden = $maxOrden + 1;
             foreach ($items as $i) {
                 Contenido::updateOrCreate([
                     'product_id' => $producto->id,

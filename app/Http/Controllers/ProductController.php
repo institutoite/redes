@@ -12,15 +12,14 @@ class ProductController extends Controller
     public function modalidades(Product $product){
         // Incrementar el contador de clicks
         $product->increment('clicks');
-        // Cargar solo modalidades habilitadas y sus relaciones, junto con los horarios
-        $product->load([
-            'modalidades' => function ($query) {
-                $query->where('estado', true)->with(['dias', 'ventajas']);
-            },
-            'horarios'
-        ]);
+        // Cargar solo relaciones necesarias
+        $modalidades = $product->modalidades()->where('estado', true)->with(['dias', 'ventajas'])->get();
+        $beneficios = $product->beneficios()->where('estado', true)->get();
+        $contenido = $product->contenidos()->where('estado', true)->orderBy('subnivel')->orderBy('orden')->get();
+        $materiales = $product->materiales()->where('estado', true)->orderBy('orden')->get();
+        $horarios = $product->horarios()->get();
         $info = Info::first();
-        return view('modalidades.show', compact('product','info'));
+        return view('modalidades.show', compact('product','info', 'modalidades','beneficios','contenido','materiales','horarios'));
     }
     /**
      * Display a listing of the resource.

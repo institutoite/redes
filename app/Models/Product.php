@@ -6,12 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
-      
-       
-      
-    /**
-     * Relación uno a muchos: Product tiene muchas Modalidades
-     */
+
    
 {
     use HasFactory;
@@ -28,6 +23,11 @@ class Product extends Model
         return $this->hasMany(Horario::class);
     }
 
+     public function beneficios()
+    {
+        return $this->hasMany(Beneficio::class);
+    }
+
     /**
      * Relación uno a muchos: Product tiene muchos Materiales
      */
@@ -36,9 +36,11 @@ class Product extends Model
         return $this->hasMany(Material::class)->orderBy('orden');
     }
 
-     /**
-         * Relación uno a muchos: Product tiene muchos Contenidos
-         */
+ 
+
+    /**
+     * Relación uno a muchos: Product tiene muchos Contenidos
+     */
     public function contenidos()
     {
         return $this->hasMany(Contenido::class)->orderBy('orden');
@@ -48,12 +50,12 @@ class Product extends Model
         return $this->belongsTo(Category::class,'categories_id');
     }
 
-     public function modalidades()
+    public function modalidades()
     {
         return $this->hasMany(Modalidad::class);
     }
+
+
     
-
-
 
 }
