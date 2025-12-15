@@ -303,7 +303,8 @@
                 </div>
             </div>
         </div>
-        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%% T A B L A   B E N E F I C I O S %%%%%%%%%%%%%%%%%%%%%%%%% -- -->
+        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%% T A B L E   B E N E F I C I O S %%%%%%%%%%%%%%%%%%%%%%%%% -- -->
+        {{--  
         <div class="card mb-4">
                 <div class="card-header bg-secondary text-white">
                     <h4 class="mb-0">Benficios ({{ $product->nombre }})</h4>
@@ -330,7 +331,7 @@
                 @endif
             </div>
         </div>
-
+--}}
         <div class="card mb-4 shadow-sm rounded-4 overflow-hidden" style="border: 1px solid rgba(55,95,122,.15);">
             <div class="card-header bg-secondary text-white d-flex align-items-center" style="border-bottom: none;">
                 <i class="fa-solid fa-book-open me-2"></i>
@@ -392,13 +393,15 @@
             </div>
             <div class="card-body">
                 @if($materiales->count())
-                    <ul class="mb-0 list-unstyled d-flex flex-wrap gap-2">
+                    <ul class="mb-0 list-unstyled">
                         @foreach($materiales as $mat)
-                            <li class="ventaja-pill" style="background: rgba(55,95,122,.06); border-color: rgba(55,95,122,.25); color: var(--brand-blue);">
-                                <i class="fa-solid fa-check me-1" style="color: var(--brand-teal);"></i>
-                                <strong>{{ $mat->nombre }}</strong>
+                            <li class="mb-3 p-3 rounded-3" style="background:rgba(55,95,122,.04); border:1px solid rgba(55,95,122,.10);">
+                                <div class="fw-bold" style="color:var(--brand-blue); font-size:1.1em;">
+                                    <i class="fa-solid fa-check me-1" style="color: var(--brand-teal);"></i>
+                                    {{ $mat->nombre }}
+                                </div>
                                 @if($mat->descripcion)
-                                    <span class="text-muted">— {{ $mat->descripcion }}</span>
+                                    <div class="text-muted mt-1" style="font-size:0.98em;">{{ $mat->descripcion }}</div>
                                 @endif
                             </li>
                         @endforeach

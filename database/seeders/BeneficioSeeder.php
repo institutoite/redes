@@ -10,27 +10,43 @@ class BeneficioSeeder extends Seeder
 {
     public function run(): void
     {
-        $product = Product::first();
-        if (!$product) {
+        $producto = Product::where('nombre', 'Nivel Inicial')->first();
+        if (!$producto) {
             return;
         }
 
-        Beneficio::updateOrCreate([
-            'product_id' => $product->id,
-            'titulo' => 'Soporte 24/7',
-        ], [
-            'detalle' => 'Atención permanente para estudiantes.',
-            'estado' => true,
-            'priority' => 1,
-        ]);
+        $beneficios = [
+            [
+                'titulo' => 'Atención personalizada',
+                'detalle' => 'Seguimiento individual para cada niño y familia.',
+                'priority' => 1,
+            ],
+            [
+                'titulo' => 'Material didáctico exclusivo',
+                'detalle' => 'Recursos adaptados a la etapa inicial para potenciar el aprendizaje.',
+                'priority' => 2,
+            ],
+            [
+                'titulo' => 'Comunicación constante',
+                'detalle' => 'Informes y contacto directo con los padres sobre avances y necesidades.',
+                'priority' => 3,
+            ],
+            [
+                'titulo' => 'Ambiente seguro y motivador',
+                'detalle' => 'Espacios y dinámicas pensadas para el desarrollo integral.',
+                'priority' => 4,
+            ],
+        ];
 
-        Beneficio::updateOrCreate([
-            'product_id' => $product->id,
-            'titulo' => 'Acceso de por vida',
-        ], [
-            'detalle' => 'Material disponible sin caducidad.',
-            'estado' => true,
-            'priority' => 2,
-        ]);
+        foreach ($beneficios as $b) {
+            Beneficio::updateOrCreate([
+                'product_id' => $producto->id,
+                'titulo' => $b['titulo'],
+            ], [
+                'detalle' => $b['detalle'],
+                'estado' => true,
+                'priority' => $b['priority'],
+            ]);
+        }
     }
 }
