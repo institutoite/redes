@@ -84,6 +84,26 @@ class ModalidadResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('toggle_estado')
+                    ->label('Habilitar/Deshabilitar')
+                    ->icon('heroicon-o-switch-horizontal')
+                    ->action(function ($record) {
+                        $record->estado = !$record->estado;
+                        $record->save();
+                    })
+                    ->color(fn ($record) => $record->estado ? 'success' : 'danger')
+                    ->form([
+                        Forms\Components\Radio::make('estado')
+                            ->label('Estado de la modalidad')
+                            ->options([
+                                1 => 'Habilitado',
+                                0 => 'Deshabilitado',
+                            ])
+                            ->default(fn ($record) => $record->estado ? 1 : 0)
+                            ->required(),
+                    ])
+                    ->modalHeading('Cambiar estado de la modalidad')
+                    ->modalButton('Guardar'),
                 // Botón "Horarios"
                 /* Action::make('horarios')
                     ->label('Horarios')

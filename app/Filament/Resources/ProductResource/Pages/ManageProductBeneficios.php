@@ -74,7 +74,10 @@ class ManageProductBeneficios extends Page implements HasTable, HasForms
                 Tables\Columns\TextColumn::make('titulo')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('priority')->label('Prioridad')->sortable(),
                 Tables\Columns\TextColumn::make('detalle')->limit(80)->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\IconColumn::make('estado')->boolean()->label('Estado'),
+                Tables\Columns\ToggleColumn::make('estado')
+                    ->label('Estado')
+                    ->onColor('success')
+                    ->offColor('danger'),
                 Tables\Columns\TextColumn::make('created_at')->dateTime()->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('priority', 'asc')
@@ -102,6 +105,24 @@ class ManageProductBeneficios extends Page implements HasTable, HasForms
                         return Beneficio::create($data);
                     })
                     ->form($this->getFormSchema()),
+                Tables\Actions\Action::make('toggle_all_estado')
+                    ->label('Habilitar/Deshabilitar todo')
+                    ->form([
+                        \Filament\Forms\Components\Radio::make('estado')
+                            ->label('Estado para todos los beneficios')
+                            ->options([
+                                1 => 'Habilitar todo',
+                                0 => 'Deshabilitar todo',
+                            ])
+                            ->default(1)
+                            ->inline()
+                            ->required(),
+                    ])
+                    ->action(function (array $data) {
+                        \App\Models\Beneficio::where('product_id', $this->record->id)->update(['estado' => $data['estado']]);
+                    })
+                    ->modalHeading('Cambiar estado de todos los beneficios')
+                    ->modalButton('Aplicar'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()

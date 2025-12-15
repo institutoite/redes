@@ -74,7 +74,10 @@ class ManageProductMateriales extends Page implements HasTable, HasForms
             ->columns([
                 Tables\Columns\TextColumn::make('nombre')->searchable()->sortable()->label('Nombre'),
                 Tables\Columns\TextColumn::make('descripcion')->limit(80)->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\IconColumn::make('estado')->boolean()->label('Estado'),
+                Tables\Columns\ToggleColumn::make('estado')
+                    ->label('Estado')
+                    ->onColor('success')
+                    ->offColor('danger'),
                 Tables\Columns\TextColumn::make('orden')->sortable()->label('Orden'),
                 Tables\Columns\TextColumn::make('created_at')->dateTime()->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -102,6 +105,24 @@ class ManageProductMateriales extends Page implements HasTable, HasForms
                         return Material::create($data);
                     })
                     ->form($this->getFormSchema()),
+                Tables\Actions\Action::make('toggle_all_estado')
+                    ->label('Habilitar/Deshabilitar todo')
+                    ->form([
+                        \Filament\Forms\Components\Radio::make('estado')
+                            ->label('Estado para todos los materiales')
+                            ->options([
+                                1 => 'Habilitar todo',
+                                0 => 'Deshabilitar todo',
+                            ])
+                            ->default(1)
+                            ->inline()
+                            ->required(),
+                    ])
+                    ->action(function (array $data) {
+                        \App\Models\Material::where('product_id', $this->record->id)->update(['estado' => $data['estado']]);
+                    })
+                    ->modalHeading('Cambiar estado de todos los materiales')
+                    ->modalButton('Aplicar'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
