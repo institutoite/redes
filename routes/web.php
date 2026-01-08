@@ -6,6 +6,14 @@ use Inertia\Inertia;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\RegistroController;
+
+Route::get('registro/{id}/pdf', [RegistroController::class, 'pdf'])->name('registro.pdf');
+Route::post('registro/{id}/comprobante', [RegistroController::class, 'subirComprobante'])->name('registro.subir_comprobante');
+// Registro de estudiantes
+Route::get('registro', [RegistroController::class, 'create'])->name('registro.create');
+Route::post('registro', [RegistroController::class, 'store'])->name('registro.store');
+Route::get('registro/{id}', [RegistroController::class, 'show'])->name('registro.show');
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [

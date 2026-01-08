@@ -29,23 +29,46 @@
         }
 
         /* Chips pequeños seleccionables */
-        .chip-group { display: flex; gap: .25rem; flex-wrap: wrap; }
-        .chip label { margin: 0; cursor: pointer; }
-        .chip input { display: none; }
-        .chip span {
-            display: inline-block;
-            padding: .15rem .45rem;
-            font-size: .75rem;
-            line-height: 1rem;
-            border-radius: 999px;
-            border: 1px solid #ced4da;
-            background-color: #f8f9fa;
-            color: #495057;
-        }
-        .chip input:checked + span {
-            background-color: #18AD0AFF;
-            color: #fff;
-            border-color: #08910FFF;
+        .chip-group { display: flex; gap: .4rem; flex-wrap: wrap; }
+
+        <!-- Script de reservar SIEMPRE cargado -->
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var reservarBtns = document.querySelectorAll('.btn-reservar');
+            reservarBtns.forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Modalidad
+                    var modalidad = btn.getAttribute('data-modalidad');
+                    // Días seleccionados (chips) SOLO de la modalidad actual
+                    var dias = [];
+                    var tr = btn.closest('tr');
+                    if (tr) {
+                        var chipGroup = tr.querySelectorAll('.chip-dia-group.chip-selected span');
+                        chipGroup.forEach(function(chip) {
+                            dias.push(chip.textContent.trim());
+                        });
+                    }
+                    // Horario seleccionado (global)
+                    var horario = null;
+                    var horarioRadio = document.querySelector('input[name^="horario_"]:checked');
+                    if (horarioRadio) {
+                        horario = horarioRadio.value;
+                    }
+                    // Construir requerimiento
+                    var requerimiento = '';
+                    if (modalidad) requerimiento += 'Modalidad: ' + modalidad + '\n';
+                    if (dias.length) requerimiento += 'Días: ' + dias.join(', ') + '\n';
+                    if (horario) requerimiento += 'Horario: ' + horario + '\n';
+                    // Redirigir con parámetros GET (siempre con modalidad)
+                    var url = new URL("{{ route('registro.create') }}", window.location.origin);
+                    url.searchParams.set('requerimiento', requerimiento);
+                    console.log('Redirigiendo a:', url.toString());
+                    window.location.href = url.toString();
+                });
+            });
+        });
+        </script>
         }
         .desc-cell { display: flex; flex-direction: column; min-width: 220px; }
         .desc-text { font-size: .9rem; }
@@ -194,7 +217,6 @@
                                     </td>
                                     <td data-label="Descripción">
                                         <div class="desc-cell">
-                                            <!-- Encabezados como chips + valores compactos (solo móvil) -->
                                             <div class="mobile-meta">
                                                 <span class="meta-chip">Modalidad</span>
                                                 <span class="meta-chip">Inversión</span>
@@ -204,56 +226,28 @@
                                                 <span><strong>Bs {{ number_format($modalidad->inversion, 2) }}</strong> </span>
                                             </div>
                                             <div class="desc-text">{{ $modalidad->descripcion }}</div>
-
-                                            @php
-                                                // Reglas de opciones por tipo de modalidad
-                                                $nombre = mb_strtolower($modalidad->modalidad);
-                                                $isTresVeces = str_contains($nombre, 'tres') || str_contains($nombre, '3');
-                                                $isLunesAViernes = str_contains($nombre, 'lunes a viernes') || str_contains($nombre, 'lav');
-                                                $options = [];
-                                                if ($isTresVeces) {
-                                                    $options = ['LMV','MJS','SABADOS'];
-                                                } elseif ($isLunesAViernes) {
-                                                    $options = ['Lunes a Viernes'];
-                                                } else {
-                                                    // Fallback: construir desde días relacionados
-                                                    $diasKeys = $modalidad->dias->pluck('dia')->map(function($d){
-                                                        $d = mb_strtolower($d);
-                                                        $d = str_replace(['á','é','í','ó','ú'], ['a','e','i','o','u'], $d);
-                                                        return $d;
-                                                    })->toArray();
-                                                    $setLMV = ['lunes','miercoles','viernes'];
-                                                    $setMJS = ['martes','jueves','sabado'];
-                                                    $setLAV = ['lunes','martes','miercoles','jueves','viernes'];
-                                                    if (count(array_intersect($setLMV, $diasKeys)) === count($setLMV)) $options[] = 'LMV';
-                                                    if (count(array_intersect($setMJS, $diasKeys)) === count($setMJS)) $options[] = 'MJS';
-                                                    if (count(array_intersect($setLAV, $diasKeys)) === count($setLAV)) $options[] = 'Lunes a Viernes';
-                                                }
-                                            @endphp
-
-                                            <div class="desc-actions chip-group">
-                                                @if (count($options))
-                                                    @foreach ($options as $opt)
-                                                        <div class="chip">
-                                                            <label>
-                                                                <input type="radio" name="opcion_{{ $modalidad->id }}" value="{{ $opt }}">
-                                                                <span>{{ $opt }}</span>
-                                                            </label>
-                                                        </div>
+                                            @if($modalidad->dias && $modalidad->dias->count())
+                                                <div class="desc-actions chip-group mt-1" data-modalidad-id="{{ $modalidad->id }}">
+                                                    @foreach ($modalidad->dias as $idx => $dia)
+                                                        <button type="button" class="chip chip-dia-group" tabindex="0" data-modalidad="{{ $modalidad->id }}" data-grupo="{{ $idx }}">
+                                                            <span>{{ $dia->dias }}</span>
+                                                        </button>
                                                     @endforeach
-                                                @else
-                                                    @foreach ($modalidad->dias as $dia)
-                                                        <div class="chip">
-                                                            <label>
-                                                                <input type="radio" name="opcion_{{ $modalidad->id }}" value="{{ $dia->dia }}">
-                                                                <span>{{ $dia->dia }}</span>
-                                                            </label>
-                                                        </div>
-                                                    @endforeach
-                                                @endif
-                                            </div>
-
-                                            
+                                                </div>
+                                                <script>
+                                                    document.addEventListener('DOMContentLoaded', function() {
+                                                        const chips = document.querySelectorAll('.chip-dia-group[data-modalidad="{{ $modalidad->id }}"]');
+                                                        chips.forEach(function(chip) {
+                                                            chip.addEventListener('mouseup', function() {
+                                                                chips.forEach(function(c) {
+                                                                    c.classList.remove('chip-selected');
+                                                                });
+                                                                this.classList.add('chip-selected');
+                                                            });
+                                                        });
+                                                    });
+                                                </script>
+                                            @endif
                                         </div>
                                     </td>
                                     <td data-label="Inversión">{{ number_format($modalidad->inversion, 2) }}</td>
@@ -275,6 +269,49 @@
                                                 data-ventajas='@json($modalidad->ventajas->map(fn($v)=>["ventaja"=>$v->ventaja,"detalle"=>$v->detalle]))'>
                                             <i class="fa-solid fa-list-check"></i>
                                         </button>
+                                        <a href="#" class="btn btn-primary btn-sm btn-reservar" title="Reservar modalidad"
+                                           data-modalidad="{{ $modalidad->modalidad }}"
+                                           data-modalidadid="{{ $modalidad->id }}">
+                                            <i class="fa-solid fa-calendar-check"></i> Reservar
+                                        </a>
+                                    @push('scripts')
+                                    <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        var reservarBtns = document.querySelectorAll('.btn-reservar');
+                                        reservarBtns.forEach(function(btn) {
+                                            btn.addEventListener('click', function(e) {
+                                                e.preventDefault();
+                                                // Modalidad
+                                                var modalidad = btn.getAttribute('data-modalidad');
+                                                // Días seleccionados (chips) SOLO de la modalidad actual
+                                                var dias = [];
+                                                var tr = btn.closest('tr');
+                                                if (tr) {
+                                                    var chipGroup = tr.querySelectorAll('.chip-dia-group.chip-selected span');
+                                                    chipGroup.forEach(function(chip) {
+                                                        dias.push(chip.textContent.trim());
+                                                    });
+                                                }
+                                                // Horario seleccionado (global)
+                                                var horario = null;
+                                                var horarioRadio = document.querySelector('input[name^="horario_"]:checked');
+                                                if (horarioRadio) {
+                                                    horario = horarioRadio.value;
+                                                }
+                                                // Construir requerimiento
+                                                var requerimiento = '';
+                                                if (modalidad) requerimiento += 'Modalidad: ' + modalidad + '\n';
+                                                if (dias.length) requerimiento += 'Días: ' + dias.join(', ') + '\n';
+                                                if (horario) requerimiento += 'Horario: ' + horario + '\n';
+                                                // Redirigir con parámetros GET (siempre con modalidad)
+                                                var url = new URL("{{ route('registro.create') }}", window.location.origin);
+                                                url.searchParams.set('requerimiento', requerimiento);
+                                                window.location.href = url.toString();
+                                            });
+                                        });
+                                    });
+                                    </script>
+                                    @endpush
                                     </td>
                                 </tr>
                             @endforeach
@@ -304,7 +341,7 @@
             </div>
         </div>
         <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%% T A B L E   B E N E F I C I O S %%%%%%%%%%%%%%%%%%%%%%%%% -- -->
-        {{--  
+        
         <div class="card mb-4">
                 <div class="card-header bg-secondary text-white">
                     <h4 class="mb-0">Benficios ({{ $product->nombre }})</h4>
@@ -331,7 +368,7 @@
                 @endif
             </div>
         </div>
---}}
+        
         <div class="card mb-4 shadow-sm rounded-4 overflow-hidden" style="border: 1px solid rgba(55,95,122,.15);">
             <div class="card-header bg-secondary text-white d-flex align-items-center" style="border-bottom: none;">
                 <i class="fa-solid fa-book-open me-2"></i>
@@ -504,6 +541,39 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Script de reservar SIEMPRE cargado al final del body
+document.addEventListener('DOMContentLoaded', function() {
+    var reservarBtns = document.querySelectorAll('.btn-reservar');
+    reservarBtns.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            var modalidad = btn.getAttribute('data-modalidad');
+            var dias = [];
+            var tr = btn.closest('tr');
+            if (tr) {
+                var chipGroup = tr.querySelectorAll('.chip-dia-group.chip-selected span');
+                chipGroup.forEach(function(chip) {
+                    dias.push(chip.textContent.trim());
+                });
+            }
+            var horario = null;
+            var horarioRadio = document.querySelector('input[name^="horario_"]:checked');
+            if (horarioRadio) {
+                horario = horarioRadio.value;
+            }
+            var requerimiento = '';
+            if (modalidad) requerimiento += 'Modalidad: ' + modalidad + '\n';
+            if (dias.length) requerimiento += 'Días: ' + dias.join(', ') + '\n';
+            if (horario) requerimiento += 'Horario: ' + horario + '\n';
+            var url = new URL("{{ route('registro.create') }}", window.location.origin);
+            url.searchParams.set('requerimiento', requerimiento);
+            alert('Redirigiendo a: ' + url.toString());
+            window.location.href = url.toString();
+        });
+    });
+});
+</script>
 </body>
 </html>
 

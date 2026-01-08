@@ -1,6 +1,757 @@
 use App\Models\Product;
 
-$p=Product::findOrFail(1);
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dia()
 use App\Models\Product;
 
-$p=Product::findOrFail(1)->horarios;
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias()
+use App\Models\Product;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dia
+use App\Models\Product;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dia()
+use App\Models\Product;
+
+$modalidad = App\Models\Modalidad::find(1);
+$modalidad->dia()
+use App\Models\Product;
+
+$modalidad = App\Models\Modalidad::find(1);
+$modalidad->dia();
+$modalidad->gruposDias;
+use App\Models\Product;
+
+<?php
+
+$modalidad = App\\Models\\Modalidad::find(1);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\\Models\\Modalidad::find(1);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(1);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+$modalidad->gruposDias;
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+
+
+$modalidad->dias;
+
+
+
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias;
+
+
+
+App\\Models\\Modalidad::find(2)->dias->pluck('dias');
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias;
+
+
+
+App\Models\Modalidad::find(2)->dias->pluck('dias');
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias;
+
+
+
+App\Models\Modalidad::find(2)->dias->pluck('dias');
+<?php
+DB::table('product_modalidad_dia')->where('modalidad_id', 2)->get();
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias;
+
+
+
+App\Models\Modalidad::find(2)->dias->pluck('dias');
+
+DB::table('product_modalidad_dia')->where('modalidad_id', 2)->get();
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias;
+
+
+
+App\Models\Modalidad::find(2)->dias->pluck('dias');
+
+DB::table('product_modalidad_dia')->where('modalidad_id', 2)->get();
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias()->attach([1,2]);
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias;
+
+
+
+App\Models\Modalidad::find(2)->dias->pluck('dias');
+
+DB::table('product_modalidad_dia')->where('modalidad_id', 2)->get();
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias()->attach([1,2]);
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias;
+
+
+
+App\Models\Modalidad::find(2)->dias->pluck('dias');
+
+DB::table('product_modalidad_dia')->where('modalidad_id', 2)->get();
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias()->attach([1,2]);
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias;
+
+
+
+App\Models\Modalidad::find(2)->dias->pluck('dias');
+
+DB::table('product_modalidad_dia')->where('modalidad_id', 2)->get();
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias()->attach([1,2]);
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias;
+
+$modalidad = App\Models\Modalidad::first();
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias;
+
+$modalidad = App\Models\Modalidad::find(2);
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias;
+
+$modalidad = App\Models\Modalidad::find(5);
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias;
+
+$modalidad = App\Models\Modalidad::find(7);
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(2);
+$modalidad->dias;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+use App\Models\Product;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+use App\Models\Product;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+use App\Models\Product;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+use App\Models\Product;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+use App\Models\Product;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+$modalidad->dias()->get()
+use App\Models\Product;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+$modalidad->dias()->get()
+use App\Models\Product;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+$modalidad->dias()->get()
+use App\Models\Product;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+$modalidad->dias()->get()
+use App\Models\Product;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+$modalidad->dias()->get()
+use App\Models\Product;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+$modalidad->dias()->get()
+use App\Models\Product;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+$modalidad->dias()->get()
+  App\Models\Dia::find(1);
+use App\Models\Product;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+$modalidad->dias()->get();
+  App\Models\Dia::find(1);
+use App\Models\Product;
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias->pluck('dias');
+$modalidad->dias()->get();
+  App\Models\Dia::find(1);
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias()->get();
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(7);
+$modalidad->dias()->get();
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(6);
+$modalidad->dias()->get();
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(6);
+
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(6);
+$modalidad->dias()->get();
+use App\Models\Product;
+
+
+$modalidad = App\Models\Modalidad::find(6);
+$modalidad->dias()->get();

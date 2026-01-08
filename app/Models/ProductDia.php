@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProductDia extends Model
 {
     use HasFactory;
-    protected $table = 'product_dia';
+    protected $table = 'product_modalidad_dia';
     protected $fillable = ['product_id', 'modalidad_id', 'dia_id'];
 
     public function product()
@@ -17,7 +17,7 @@ class ProductDia extends Model
     }
     public function modalidad()
     {
-        return $this->belongsTo(\App\Models\Modalidad::class);
+        return $this->belongsTo(Modalidad::class);
     }
     public function dia()
     {

@@ -26,11 +26,14 @@ class Modalidad extends Model
     }
 
     // Relación con Día (Uno a Muchos)
+
+
     public function dias()
     {
-        // Relación muchos-a-muchos entre Modalidad y Dias
-        return $this->belongsToMany(Dias::class, 'dia_modalidad', 'modalidad_id', 'dias_id');
+        // Relación muchos-a-muchos entre Modalidad y Dia usando la nueva tabla pivote
+        return $this->belongsToMany(Dia::class, 'product_modalidad_dia', 'modalidad_id', 'dia_id');
     }
+
 
     // Relación con Ventaja (Uno a Muchos)
     public function ventajas()

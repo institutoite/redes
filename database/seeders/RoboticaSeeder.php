@@ -45,12 +45,13 @@ class RoboticaSeeder extends Seeder
                 'orden' => $ordenModalidad,
             ]);
             $modalidades[] = $m;
-            $diaIds = [];
-            foreach ($md['dias'] as $diaNombre) {
-                $dia = Dia::firstOrCreate(['dias' => $diaNombre]);
-                $diaIds[] = $dia->id;
-            }
-            $m->dias()->syncWithoutDetaching($diaIds);
+            // Inserción en la tabla pivote product_modalidad_dia deshabilitada temporalmente
+            // $diaIds = [];
+            // foreach ($md['dias'] as $diaNombre) {
+            //     $dia = Dia::firstOrCreate(['dias' => $diaNombre]);
+            //     $diaIds[] = $dia->id;
+            // }
+            // $m->dias()->syncWithoutDetaching($diaIds);
         }
 
         foreach ($modalidades as $m) {

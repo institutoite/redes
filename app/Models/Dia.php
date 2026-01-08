@@ -13,6 +13,6 @@ class Dia extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'product_dia', 'dia_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'product_modalidad_dia', 'dia_id', 'product_id');
     }
 }

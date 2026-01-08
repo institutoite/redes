@@ -60,14 +60,15 @@ class SecondarySeeder extends Seeder
             ]);
             $m->update(['estado' => !$esMenorQueUnMes]);
             $modalidades[] = $m;
-            if (!empty($md['dias'])) {
-                $diaIds = [];
-                foreach ($md['dias'] as $diaNombre) {
-                    $dia = Dias::firstOrCreate(['dias' => $diaNombre]);
-                    $diaIds[] = $dia->id;
-                }
-                $m->dias()->syncWithoutDetaching($diaIds);
-            }
+            // Inserción en la tabla pivote product_modalidad_dia deshabilitada temporalmente
+            // if (!empty($md['dias'])) {
+            //     $diaIds = [];
+            //     foreach ($md['dias'] as $diaNombre) {
+            //         $dia = Dias::firstOrCreate(['dias' => $diaNombre]);
+            //         $diaIds[] = $dia->id;
+            //     }
+            //     $m->dias()->syncWithoutDetaching($diaIds);
+            // }
         }
 
         // Ventajas por modalidad (descripciones específicas)

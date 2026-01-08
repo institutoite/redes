@@ -66,14 +66,15 @@ class AjedrezSeeder extends Seeder
             ]);
             $modalidades[] = $m;
 
-            if (!empty($md['dias'])) {
-                $diaIds = [];
-                foreach ($md['dias'] as $diaNombre) {
-                    $dia = Dia::firstOrCreate(['dias' => $diaNombre]);
-                    $diaIds[] = $dia->id;
-                }
-                $m->dias()->syncWithoutDetaching($diaIds);
-            }
+            // Inserción en la tabla pivote product_modalidad_dia deshabilitada temporalmente
+            // if (!empty($md['dias'])) {
+            //     $diaIds = [];
+            //     foreach ($md['dias'] as $diaNombre) {
+            //         $dia = Dia::firstOrCreate(['dias' => $diaNombre]);
+            //         $diaIds[] = $dia->id;
+            //     }
+            //     $m->dias()->syncWithoutDetaching($diaIds);
+            // }
         }
 
         // Ventajas del curso de Ajedrez
