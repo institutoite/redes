@@ -16,7 +16,18 @@ return new class extends Migration
             $table->string('nombre_estudiante');
             $table->date('fecha_nacimiento');
             $table->text('requerimiento');
-            $table->enum('como_nos_conocio', ['facebook', 'instagram', 'web', 'recomendacion', 'otro']);
+            $table->enum('como_nos_conocio', [
+                'facebook',
+                'instagram',
+                'tiktok',
+                'web',
+                'google',
+                'youtube',
+                'letreros',
+                'pasando',
+                'recomendacion',
+                'otro',
+            ]);
             $table->string('nombre_apoderado');
             $table->string('telefono_apoderado');
             $table->string('comprobante')->nullable();

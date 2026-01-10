@@ -64,6 +64,9 @@
                 <option value="instagram" @if(old('como_nos_conocio')=='instagram') selected @endif>Instagram</option>
                 <option value="tiktok" @if(old('como_nos_conocio')=='tiktok') selected @endif>TikTok</option>
                 <option value="web" @if(old('como_nos_conocio')=='web') selected @endif>Web</option>
+                <option value="google" @if(old('como_nos_conocio')=='google') selected @endif>Google</option>
+                <option value="youtube" @if(old('como_nos_conocio')=='youtube') selected @endif>YouTube</option>
+                <option value="letreros" @if(old('como_nos_conocio')=='letreros') selected @endif>Letreros</option>
                 <option value="pasando" @if(old('como_nos_conocio')=='pasando') selected @endif>Pasando por el lugar</option>
                 <option value="recomendacion" @if(old('como_nos_conocio')=='recomendacion') selected @endif>Recomendación</option>
                 <option value="otro" @if(old('como_nos_conocio')=='otro') selected @endif>Otro</option>
