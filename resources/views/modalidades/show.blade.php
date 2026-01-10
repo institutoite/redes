@@ -19,6 +19,18 @@
         .btn-reservar {
             width: 100%;
             margin: 10px 0;
+            background: var(--brand-teal);
+            color: #fff;
+            border: none;
+            font-weight: 700;
+            border-radius: 12px;
+            transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+            box-shadow: 0 2px 8px rgba(38,186,165,0.08);
+        }
+        .btn-reservar:hover, .btn-reservar:focus {
+            background: var(--brand-blue);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(55,95,122,0.13);
         }
 
         .text-right {
