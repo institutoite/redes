@@ -615,7 +615,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var url = new URL("{{ route('registro.create') }}", window.location.origin);
             url.searchParams.set('requerimiento', requerimiento);
             if (modalidadId) url.searchParams.set('modalidad_id', modalidadId);
-            alert('Redirigiendo a: ' + url.toString());
+            // alert eliminado
             window.location.href = url.toString();
         });
     });
