@@ -15,7 +15,12 @@ class Registro extends Model
         'telefono_apoderado',
         'comprobante',
         'reservado',
+        'modalidad_id',
     ];
+    public function modalidad()
+    {
+        return $this->belongsTo(\App\Models\Modalidad::class);
+    }
 
     protected $casts = [
         'fecha_nacimiento' => 'date',

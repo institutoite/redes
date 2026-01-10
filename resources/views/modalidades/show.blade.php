@@ -28,8 +28,35 @@
             display: inline-block; /* Asegura que el enlace se respete como un elemento alineado */
         }
 
-        /* Chips pequeños seleccionables */
+
+        /* Chips pequeños seleccionables y bonitos */
         .chip-group { display: flex; gap: .4rem; flex-wrap: wrap; }
+        .chip-dia-group {
+            background: #fff;
+            color: var(--brand-blue);
+            border: 1.5px solid var(--brand-teal);
+            border-radius: 999px;
+            padding: 0.35em 1.1em;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.18s, color 0.18s, box-shadow 0.18s, border-color 0.18s;
+            outline: none;
+            box-shadow: 0 1px 6px rgba(38,186,165,0.07);
+            margin-bottom: 2px;
+        }
+        .chip-dia-group:hover,
+        .chip-dia-group:focus {
+            background: var(--brand-teal);
+            color: #fff;
+            border-color: var(--brand-blue);
+        }
+        .chip-dia-group.chip-selected {
+            background: var(--brand-blue);
+            color: #fff;
+            border-color: var(--brand-teal);
+            box-shadow: 0 2px 10px rgba(55,95,122,0.13);
+        }
 
         <!-- Script de reservar SIEMPRE cargado -->
         <script>
@@ -208,7 +235,7 @@
                         </thead>
                         <tbody>
                                 @foreach ($modalidades as $modalidad)
-                                <tr>
+                                <tr id="modalidad-row-{{ $modalidad->id }}">
                                     <td data-label="Modalidad">
                                         <div class="d-flex align-items-center gap-2">
                                             <span>{{ $modalidad->modalidad }}</span>
@@ -304,8 +331,10 @@
                                                 if (dias.length) requerimiento += 'Días: ' + dias.join(', ') + '\n';
                                                 if (horario) requerimiento += 'Horario: ' + horario + '\n';
                                                 // Redirigir con parámetros GET (siempre con modalidad)
+                                                var modalidadId = btn.getAttribute('data-modalidadid');
                                                 var url = new URL("{{ route('registro.create') }}", window.location.origin);
                                                 url.searchParams.set('requerimiento', requerimiento);
+                                                if (modalidadId) url.searchParams.set('modalidad_id', modalidadId);
                                                 window.location.href = url.toString();
                                             });
                                         });
@@ -566,8 +595,14 @@ document.addEventListener('DOMContentLoaded', function() {
             if (modalidad) requerimiento += 'Modalidad: ' + modalidad + '\n';
             if (dias.length) requerimiento += 'Días: ' + dias.join(', ') + '\n';
             if (horario) requerimiento += 'Horario: ' + horario + '\n';
+            // Extraer modalidadId del atributo o del id del tr
+            var modalidadId = btn.getAttribute('data-modalidadid');
+            if (!modalidadId && tr && tr.id && tr.id.startsWith('modalidad-row-')) {
+                modalidadId = tr.id.replace('modalidad-row-', '');
+            }
             var url = new URL("{{ route('registro.create') }}", window.location.origin);
             url.searchParams.set('requerimiento', requerimiento);
+            if (modalidadId) url.searchParams.set('modalidad_id', modalidadId);
             alert('Redirigiendo a: ' + url.toString());
             window.location.href = url.toString();
         });

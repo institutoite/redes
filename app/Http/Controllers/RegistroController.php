@@ -29,8 +29,10 @@ class RegistroController extends Controller
     public function create(Request $request)
     {
         $requerimiento = $request->query('requerimiento', '');
-        return view('registro.create', compact('requerimiento'));
+        $modalidad_id = $request->query('modalidad_id', '');
+        return view('registro.create', compact('requerimiento', 'modalidad_id'));
     }
+
 
     public function store(Request $request)
     {
@@ -41,6 +43,7 @@ class RegistroController extends Controller
             'como_nos_conocio' => 'required|in:facebook,instagram,web,recomendacion,otro',
             'nombre_apoderado' => 'required|string|max:255',
             'telefono_apoderado' => 'required|numeric|digits_between:7,20',
+            'modalidad_id' => 'required|exists:modalidads,id',
         ]);
 
         $registro = Registro::create($validated);
@@ -50,9 +53,9 @@ class RegistroController extends Controller
 
     public function show($id)
     {
-        $registro = Registro::findOrFail($id);
-        // El QR es una imagen estática (por ejemplo, public/images/qr.jpg)
+        $registro = Registro::with('modalidad')->findOrFail($id);
         $qrImage = asset('images/qr.jpg');
-        return view('registro.show', compact('registro', 'qrImage'));
+        $inversion = $registro->modalidad ? $registro->modalidad->inversion : null;
+        return view('registro.show', compact('registro', 'qrImage', 'inversion'));
     }
 }

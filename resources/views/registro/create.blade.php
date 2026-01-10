@@ -26,6 +26,10 @@
 <div class="container mx-auto max-w-lg p-6 brand-card">
     <h2 class="text-2xl font-bold mb-4 brand-title">Registro de Estudiante</h2>
     <form action="{{ route('registro.store') }}" method="POST" enctype="multipart/form-data">
+        <div class="mb-4">
+              <input type="hidden" name="modalidad_id" id="modalidad_id" value="{{ old('modalidad_id', isset($modalidad_id) ? $modalidad_id : request('modalidad_id')) }}">
+        </div>
+        @error('modalidad_id') <span class="text-red-500 text-xs block mb-2">{{ $message }}</span> @enderror
         @csrf
         <div class="mb-4">
             <label class="block mb-1 font-semibold">Nombre completo del estudiante</label>
@@ -39,7 +43,7 @@
         </div>
         <div class="mb-4">
             <label class="block mb-1 font-semibold">Requerimiento del estudiante</label>
-            <textarea id="requerimiento" name="requerimiento" class="w-full rounded p-2 brand-input">{{ old('requerimiento', isset($requerimiento) ? $requerimiento : '') }}</textarea>
+            <textarea id="requerimiento" name="requerimiento" class="w-full rounded p-2 brand-input">{{ old('requerimiento', $requerimiento ?? '') }}</textarea>
             @error('requerimiento') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
             <script>
             document.addEventListener('DOMContentLoaded', function() {
