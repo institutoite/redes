@@ -40,7 +40,7 @@ class RegistroController extends Controller
             'nombre_estudiante' => 'required|string|max:255',
             'fecha_nacimiento' => 'required|date',
             'requerimiento' => 'required|string',
-            'como_nos_conocio' => 'required|in:facebook,instagram,web,recomendacion,otro',
+            'como_nos_conocio' => 'required|in:facebook,instagram,tiktok,web,pasando,recomendacion,otro',
             'nombre_apoderado' => 'required|string|max:255',
             'telefono_apoderado' => 'required|numeric|digits_between:7,20',
             'modalidad_id' => 'required|exists:modalidads,id',
