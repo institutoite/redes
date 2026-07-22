@@ -3,7 +3,7 @@
 @section('content')
 <style>
  /* =========================
-   REGISTRO EXITOSO (ITE)
+   REGISTRO EXITOSO (IFE EDUCABOL)
    Primario:   rgb(38,186,165)
    Secundario: rgb(55,95,122)
    ========================= */

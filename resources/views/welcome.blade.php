@@ -3,544 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $info->company_name }} — Educación y Apoyo</title>
-    <meta name="description" content="{{ $info->company_name }}: Apoyo escolar profesional con modalidades flexibles, materiales y contenidos por niveles.">
-    <meta name="author" content="{{ $info->company_name }}">
-    <meta name="keywords" content="apoyo escolar, primaria, secundaria, inicial, educación, clases, evaluaciones, contenidos, materiales">
+    <title>IFE Educabol | Formación y apoyo educativo</title>
+    <meta name="description" content="IFE Educabol ofrece apoyo escolar, ciencias, idiomas, computación, programación, robótica y preparación para exámenes en Bolivia.">
+    <meta name="author" content="IFE Educabol">
+    <meta name="keywords" content="IFE Educabol, apoyo escolar, matemática, física, química, lenguaje, inglés, computación, programación, robótica, Bolivia">
+    <meta name="theme-color" content="#26BAA5">
+    <link rel="canonical" href="https://ife.bo/">
 
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="{{ $info->company_name }} — Educación y Apoyo">
-    <meta property="og:description" content="Modalidades flexibles, plan de estudio y preparación de evaluaciones.">
+    <meta property="og:title" content="IFE Educabol | Aprende, crea y avanza">
+    <meta property="og:description" content="Formación cercana y práctica para fortalecer habilidades, preparar evaluaciones y abrir nuevas oportunidades.">
     <meta property="og:type" content="website">
-    
-    <!-- Favicons -->
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
-    <meta name="theme-color" content="#1e3a8a">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome para iconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Nuevo CSS específico del header -->
-    <link rel="stylesheet" href="{{ asset('welcome/css/header.css') }}?v=2">
-    <link rel="stylesheet" href="{{ asset('welcome/css/welcome.css') }}?v=2">
-    <link rel="stylesheet" href="{{ asset('welcome/css/redes.css') }}?v=2">
-    <link rel="stylesheet" href="{{ asset('welcome/css/footer.css') }}?v=2">
+    <meta property="og:url" content="https://ife.bo/">
+    <meta property="og:image" content="{{ asset('images/logo-ife-educabol-ofical-instituto-de-formacion-educabol.png') }}">
+    <meta property="og:image:alt" content="Logo de IFE Educabol">
+    <meta property="og:locale" content="es_BO">
+    <meta property="og:site_name" content="IFE Educabol">
 
-    <style>
-      :root { --brand-teal: rgb(38,186,165); --brand-blue: rgb(55,95,122); --text-dark:#0f172a; --text-muted:#64748b; }
-      body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color: var(--text-dark); }
-      .btn-primary { background: var(--brand-teal); color:#fff; border:none; padding:.6rem 1rem; border-radius:.5rem; transition:.2s; }
-      .btn-primary:hover { filter: brightness(0.95); }
-      .header { position: relative; overflow: hidden; }
-      .header-background { position:absolute; inset:0; background: linear-gradient(135deg, var(--brand-blue), var(--brand-teal)); opacity:.15; }
-      .hero { display:grid; grid-template-columns: 1.2fr .8fr; gap:2rem; align-items:center; padding: 3rem 0; }
-      .hero .cta { display:flex; gap:.75rem; flex-wrap:wrap; }
-      .stat { background:#fff; border:1px solid rgba(55,95,122,.15); border-radius:.75rem; padding:1rem; text-align:center; }
-      .section-title { font-weight:700; color: var(--brand-blue); margin-bottom:1rem; }
-      .features-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:1rem; }
-      .feature-card { border:1px solid rgba(55,95,122,.15); border-radius:.75rem; padding:1rem; background:#fff; }
-      .products-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:1.2rem; }
-      .product-card { border:1px solid rgba(55,95,122,.15); border-radius:.75rem; overflow:hidden; background:#fff; }
-      .product-image-container { position:relative; height:180px; overflow:hidden; }
-      .product-image { width:100%; height:100%; object-fit:cover; }
-      .product-content { padding:1rem; }
-      .testimonial-grid { display:grid; grid-template-columns: repeat(2,1fr); gap:1rem; }
-      .testimonial { background:#fff; border:1px solid rgba(55,95,122,.15); border-radius:.75rem; padding:1rem; }
-      .contact-strip { background: rgba(38,186,165,.08); border:1px solid rgba(38,186,165,.25); border-radius:.75rem; padding:1rem; display:flex; align-items:center; justify-content:space-between; }
-      @media (max-width: 992px) {
-        .hero { grid-template-columns: 1fr; }
-        .features-grid, .products-grid { grid-template-columns: repeat(2,1fr); }
-        .testimonial-grid { grid-template-columns: 1fr; }
-      }
-      @media (max-width: 576px) {
-        .features-grid, .products-grid { grid-template-columns: 1fr; }
-      }
-
-      /** Loading Screen Styles **/
-      /* Header general */
-      .site-header {
-        position: relative;
-        overflow: hidden;
-        color: white;
-      }
-
-      .header-bg {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, #1e3a5f, #2c7a7b);
-        z-index: -2;
-      }
-
-      .header-top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1.5rem 0;
-        position: relative;
-        z-index: 2;
-      }
-
-      .header-brand {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-      }
-
-      .brand-emblem img {
-        height: 60px;
-        width: auto;
-        object-fit: contain;
-      }
-
-      .brand-text {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .brand-text h1 {
-        margin: 0;
-        font-size: 1.8rem;
-        font-weight: 700;
-      }
-
-      .brand-slogan {
-        margin: 0.25rem 0 0;
-        font-size: 1rem;
-        opacity: 0.9;
-        font-style: italic;
-      }
-
-      /* Navegación */
-      .header-nav {
-        display: flex;
-        gap: 0.5rem;
-        flex-wrap: wrap;
-      }
-
-      .nav-pill {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.75rem 1.25rem;
-        background: rgba(255, 255, 255, 0.15);
-        border-radius: 50px;
-        color: white;
-        text-decoration: none;
-        font-weight: 500;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-      }
-
-      .nav-pill:hover {
-        background: rgba(255, 255, 255, 0.25);
-        transform: translateY(-2px);
-      }
-
-      .nav-pill i {
-        font-size: 1.1rem;
-      }
-
-      .nav-login {
-        background: rgba(255, 255, 255, 0.25);
-        font-weight: 600;
-      }
-
-      /* Sección hero con citas */
-      .quotes-hero {
-        position: relative;
-        min-height: 400px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        overflow: hidden;
-      }
-
-      .quotes-hero-bg {
-        position: absolute;
-        inset: 0;
-        background: url('/images/hero-education-bg.jpg') center/cover no-repeat; /* Cambia por tu imagen */
-        z-index: -2;
-      }
-
-      .quotes-hero-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(rgba(55,95,122,.4), rgba(38,186,165,.4));
-        z-index: -1;
-      }
-
-      .quotes-hero-content {
-        max-width: 900px;
-        padding: 2rem;
-        position: relative;
-      }
-
-      .quotes-hero-content i.fa-quote-left {
-        font-size: 3rem;
-        opacity: 0.4;
-        margin-bottom: 1rem;
-        display: block;
-      }
-
-      .quote-text {
-        font-size: 2.2rem;
-        line-height: 1.4;
-        font-weight: 600;
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 1.2s ease;
-      }
-
-      .quote-text.active {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      /* Divisor */
-      .header-divider {
-        height: 4px;
-        background: linear-gradient(90deg, transparent, #fff, transparent);
-        opacity: 0.5;
-        margin: 0 2rem;
-      }
-
-      /* Responsive */
-      @media (max-width: 992px) {
-        .quote-text {
-          font-size: 1.8rem;
-        }
-      }
-
-      @media (max-width: 768px) {
-        .header-top {
-          flex-direction: column;
-          text-align: center;
-          gap: 1.5rem;
-        }
-
-        .header-nav {
-          justify-content: center;
-        }
-
-        .quote-text {
-          font-size: 1.6rem;
-        }
-
-        .quotes-hero {
-          min-height: 350px;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .nav-pill {
-          padding: 0.6rem 1rem;
-          font-size: 0.9rem;
-        }
-
-        .nav-pill span {
-          display: none;
-        }
-
-        .nav-pill i {
-          font-size: 1.3rem;
-        }
-      }
-    </style>
+    <link rel="icon" type="image/png" href="{{ asset('images/icono-ife-educabol.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/icono-ife-educabol.png') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('welcome/css/welcome.css') }}?v=ife-1">
 </head>
-<body>
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="loading-screen">
-        <div class="loading-spinner"></div>
+<body data-page-name="Inicio de IFE Educabol">
+    <div class="site-loader" id="site-loader" aria-hidden="true">
+        <img src="{{ asset('images/icono-ife-educabol.png') }}" alt="">
+        <span>Cargando IFE Educabol</span>
     </div>
 
-    <!-- Header totalmente nuevo -->
-    <header class="site-header header-v2" data-header>
-      <div class="header-bg"></div>
-      <div class="container header-top">
-        <div class="header-brand">
-          <div class="brand-emblem">
-            @php
-              $logoUrl = null;
-              if (!empty($info?->logo)) {
-                $pStorage = public_path('storage/'.$info->logo);
-                $pPublic = public_path($info->logo);
-                if (file_exists($pStorage)) {
-                  $logoUrl = asset('storage/'.$info->logo);
-                } elseif (file_exists($pPublic)) {
-                  $logoUrl = asset($info->logo);
-                }
-              }
-              if (!$logoUrl) {
-                foreach (['images/logo.jpg','images/logo.png'] as $rel) {
-                  if (file_exists(public_path($rel))) { $logoUrl = asset($rel); break; }
-                }
-              }
-            @endphp
-            @if($logoUrl)
-              <img src="{{ $logoUrl }}" alt="Logo {{ $info->company_name }}">
-            @endif
-          </div>
-          <div class="brand-text">
-           
-            <p class="brand-slogan">{{ $info->slogan }}</p>
-          </div>
+    <header class="site-header" id="inicio">
+        <div class="container nav-wrap">
+            <a class="brand" href="#inicio" aria-label="IFE Educabol, ir al inicio">
+                <img src="{{ asset('images/logo-ife-educabol-ofical-instituto-de-formacion-educabol.png') }}" alt="IFE Educabol">
+            </a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú">
+                <i class="fa-solid fa-bars" aria-hidden="true"></i>
+            </button>
+            <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
+                <a href="#servicios">Servicios</a>
+                <a href="#programas">Programas</a>
+                <a href="#autor">Nosotros</a>
+                <a href="#redes">Redes</a>
+                <a href="{{ url('/admin') }}" class="nav-admin"><i class="fa-solid fa-user-lock" aria-hidden="true"></i> Acceso</a>
+            </nav>
         </div>
-        <nav class="header-nav" aria-label="Navegación principal">
-          <a href="#productos" class="nav-pill"><i class="fa-solid fa-list" aria-hidden="true"></i><span>Productos</span></a>
-          <a href="#redes" class="nav-pill"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i><span>Redes</span></a>
-          <a href="#opiniones" class="nav-pill"><i class="fa-solid fa-comments" aria-hidden="true"></i><span>Opiniones</span></a>
-          <a href="#contacto" class="nav-pill"><i class="fa-solid fa-envelope" aria-hidden="true"></i><span>Contacto</span></a>
-          <a href="{{ url('/admin') }}" class="nav-pill nav-login"><i class="fa-solid fa-right-to-bracket"></i><span>Login</span></a>
-        </nav>
-      </div>
-
-      <!-- Frases poderosas de educación con fondo -->
-      <section class="quotes-hero" aria-live="polite" data-quotes-hero
-        style="background-image: linear-gradient(rgba(55,95,122,.25), rgba(38,186,165,.25));">
-        <div class="quotes-hero-bg" data-quotes-bg></div>
-        <div class="quotes-hero-overlay"></div>
-        <div class="quotes-hero-content">
-          <i class="fa-solid fa-quote-left" aria-hidden="true"></i>
-          <h2 class="quote-text" data-quotes>
-            "La educación es el arma más poderosa para cambiar el mundo." — Nelson Mandela
-          </h2>
-        </div>
-      </section>
-
-    
-
- 
-
-      <div class="header-divider" role="presentation"></div>
     </header>
 
-    <!-- Redes Sociales -->
-    <section id="redes" class="redes-sociales-dinamicas">
-        <div class="container">
-            <h2 class="titulo-redes">Síguenos en Redes Sociales</h2>
-            <div class="redes-grid" id="redes-container">
-                @foreach ($socials as $social)
-                    <a href="{{ $social->link }}" 
-                        class="red-social-item" 
-                        target="_blank" 
-                        rel="noopener noreferrer">
-                        <div class="red-social-contenido">
-                            <div class="icono-red-social" style="background-color:{{ $social->color }};">
-                                <i class="{{ $social->icon }}"></i>
-                            </div>
-                            <div class="red-social-info">
-                                <h3 class="nombre-red-social">{{ $social->social }}</h3>
-                            </div>
-                        </div>
-                    </a>
-                @endforeach
-            </div>
-        </div>
-    </section>
-
-    <!-- Features -->
-    <section class="animate-fade-in-up" style="padding:2rem 0;">
-      <div class="container">
-        <h2 class="section-title">¿Por qué elegirnos?</h2>
-        <div class="features-grid">
-          <div class="feature-card">
-            <h3 style="color:var(--brand-blue);"><i class="fa-solid fa-user-check"></i> Clases personalizadas</h3>
-            <p style="color:var(--text-muted);">Adaptamos el ritmo y contenidos a cada estudiante.</p>
-          </div>
-          <div class="feature-card">
-            <h3 style="color:var(--brand-blue);"><i class="fa-solid fa-calendar-days"></i> Modalidades flexibles</h3>
-            <p style="color:var(--text-muted);">Desde hora libre hasta plan trimestral (L-V).</p>
-          </div>
-          <div class="feature-card">
-            <h3 style="color:var(--brand-blue);"><i class="fa-solid fa-chart-line"></i> Seguimiento y reporte</h3>
-            <p style="color:var(--text-muted);">Plan de estudio y comunicación con familias.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Products Catalog -->
-    <section id="productos" class="products-section animate-fade-in-up" style="padding:2rem 0;">
-        <div class="container">
-            <h2 class="section-title">Nuestros Productos & Servicios</h2>
-            <div class="products-grid" id="products-grid">
-                @foreach ($products as $product)
-                    <div class="product-card animate-fade-in-up">
-                        <div class="product-image-container">
-                            <img src="{{ asset('storage/'.$product->imagen) }}" alt="{{ $product->nombre }}" class="product-image">
-                        </div>
-                        <div class="product-content">
-                            <h3 class="product-title">{{ $product->nombre }}</h3>
-                            <p class="product-description" style="color:var(--text-muted);">{{ $product->descripcion }}</p>
-                            <div class="product-footer">
-                                
-                                <a href="{{ route('modalidades', $product->id) }}" class="btn-primary" title="Ver curso">Ver curso</a>
-                                <a href="https://wa.me/{{$info->code.$info->phone}}?text=¡Hola!%20Estoy%20interesado%20en%20el%20servicio%20{{ urlencode($product->nombre) }}.%20¿Me%20puedes%20dar%20más%20información?" target="_blank" title="Enviar por WhatsApp">
-                                    <i class="fa-brands fa-whatsapp fa-beat fa-2x" style="color: #0ec444;"></i>
-                                </a>
-                            </div>
-                        </div>
+    <main>
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-shape hero-shape-one"></div>
+            <div class="hero-shape hero-shape-two"></div>
+            <div class="container hero-grid">
+                <div class="hero-copy reveal">
+                    <p class="eyebrow"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Formación que transforma</p>
+                    <h1 id="hero-title">Aprende con confianza.<br><span>Avanza con propósito.</span></h1>
+                    <p class="hero-lead">En IFE Educabol convertimos las dudas en habilidades con acompañamiento cercano, metodología práctica y programas pensados para cada etapa.</p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#programas">Explorar programas <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        <a class="button button-light js-whatsapp" href="#" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Hablar con un asesor</a>
                     </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section id="opiniones" class="animate-fade-in-up" style="padding:2rem 0;">
-      <div class="container">
-        <h2 class="section-title">Opiniones</h2>
-        <div class="testimonial-grid">
-          @foreach(($testimonials ?? []) as $t)
-            <div class="testimonial">
-              <div style="font-weight:600; color:var(--brand-blue);">{{ $t->nombre ?? 'Estudiante' }}</div>
-              <div style="color:var(--text-muted);">{{ $t->mensaje ?? '' }}</div>
-            </div>
-          @endforeach
-          @if(empty($testimonials) || count($testimonials) === 0)
-            <div class="testimonial">
-              <div style="font-weight:600; color:var(--brand-blue);">Familias satisfechas</div>
-              <div style="color:var(--text-muted);">Seguimiento constante y mejoras visibles en evaluaciones.</div>
-            </div>
-          @endif
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact CTA -->
-    <section id="contacto" class="animate-fade-in-up" style="padding:2rem 0;">
-      <div class="container">
-        <div class="contact-strip">
-          <div>
-            <div style="font-weight:700; color:var(--brand-blue);">¿Listo para empezar?</div>
-            <div style="color:var(--text-muted);">Escríbenos y arma tu plan hoy.</div>
-          </div>
-          <div>
-            <a href="https://wa.me/{{$info->code.$info->phone}}?text=Hola%2C%20quisiera%20iniciar%20mi%20plan%20de%20estudio" target="_blank" class=""><i class="fa-brands fa-whatsapp fa-beat fa-2x" style="color: #0ec444;"></i></a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer-custom">
-    <div class="footer-custom-container">
-        <!-- Información de la empresa -->
-        <div class="footer-custom-section footer-custom-company-info">
-            <div class="logo-container animate-fade-in-up">
-                <div class="footer-custom-company-logo logo-circle-custom">
-                    <img src="{{ asset('storage/' . $info->logo) }}" alt="Logo de {{ $info->company_name }}" id="company-logo" class="logo-image">
+                    <div class="hero-points" aria-label="Ventajas de IFE Educabol">
+                        <span><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Atención personalizada</span>
+                        <span><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Horarios flexibles</span>
+                    </div>
+                </div>
+                <div class="hero-visual reveal">
+                    <div class="hero-image-frame">
+                        <img src="{{ asset('images/isologo-ife-educabol-ofical-instituto-de-formacion-educabol.png') }}" alt="Símbolo educativo de IFE Educabol">
+                    </div>
+                    <div class="floating-card floating-card-top"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i><span><strong>Aprendizaje práctico</strong>Para la vida real</span></div>
+                    <div class="floating-card floating-card-bottom"><i class="fa-solid fa-chart-line" aria-hidden="true"></i><span><strong>Progreso continuo</strong>A tu propio ritmo</span></div>
                 </div>
             </div>
-            <h3 id="company-name">{{ $info->company_name }}</h3>
-            @if($info->slogan)
-                <p id="company-slogan">{{ $info->slogan }}</p>
-            @endif
-            @if($info->description)
-                <p id="company-description">{{ $info->description }}</p>
-            @endif
-        </div>
+        </section>
 
-        <!-- Información de contacto -->
-        <div class="footer-custom-section footer-custom-contact-info">
-            <h4>Información de Contacto</h4>
-            @if($info->address)
-                <div class="footer-custom-contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span id="company-address">{{ $info->address }}</span>
-                </div>
-            @endif
-            @if($info->phone)
-                <div class="footer-custom-contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span id="company-phone">{{ $info->phone }}</span>
-                </div>
-            @endif
-            @if($info->mail)
-                <div class="footer-custom-contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span id="company-email">{{ $info->mail }}</span>
-                </div>
-            @endif
-        </div>
+        <section class="trust-strip" aria-label="Propuesta educativa">
+            <div class="container trust-grid">
+                <div><i class="fa-solid fa-user-graduate" aria-hidden="true"></i><span><strong>Acompañamiento</strong> cercano y humano</span></div>
+                <div><i class="fa-solid fa-book-open-reader" aria-hidden="true"></i><span><strong>Metodología</strong> clara y práctica</span></div>
+                <div><i class="fa-solid fa-puzzle-piece" aria-hidden="true"></i><span><strong>Formación</strong> para cada necesidad</span></div>
+            </div>
+        </section>
 
-        <!-- Redes sociales -->
-        <div class="footer-custom-section footer-custom-social-media">
-            <h4>Síguenos en Redes Sociales</h4>
-            <div class="footer-custom-social-icons" id="social-icons">
-                @foreach($socials as $social)
-                    @if($social->state)
-                        <a href="{{ $social->link }}" 
-                           class="footer-custom-social-icon {{ $social->social }}" 
-                           target="_blank" 
-                           rel="noopener noreferrer"
-                           title="Síguenos en {{ ucfirst($social->social) }}"
-                           style="background-color: {{ $social->color }};">
-                            <i class="{{ $social->icon }}"></i>
-                        </a>
-                    @endif
-                @endforeach
+        <section class="section services" id="servicios">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <p class="eyebrow">Todo lo que puedes aprender</p>
+                    <h2>Servicios para construir un mejor futuro</h2>
+                    <p>Refuerzo académico, habilidades digitales y herramientas para aprender de forma más efectiva.</p>
+                </div>
+                @php
+                    $services = [
+                        ['fa-people-roof', 'Apoyo escolar'], ['fa-square-root-variable', 'Matemática'],
+                        ['fa-atom', 'Física'], ['fa-flask-vial', 'Química'], ['fa-book', 'Lenguaje'],
+                        ['fa-language', 'Inglés'], ['fa-computer', 'Computación'], ['fa-code', 'Programación'],
+                        ['fa-robot', 'Robótica'], ['fa-file-pen', 'Preparación para exámenes'],
+                        ['fa-brain', 'Técnicas de estudio']
+                    ];
+                @endphp
+                <div class="services-grid">
+                    @foreach($services as [$icon, $name])
+                        <article class="service-card reveal">
+                            <span class="service-icon"><i class="fa-solid {{ $icon }}" aria-hidden="true"></i></span>
+                            <h3>{{ $name }}</h3>
+                        </article>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+
+        <section class="section programs" id="programas">
+            <div class="container">
+                <div class="section-heading heading-row reveal">
+                    <div>
+                        <p class="eyebrow">Elige cómo avanzar</p>
+                        <h2>Nuestros programas</h2>
+                    </div>
+                    <p>Conoce las opciones disponibles y encuentra la modalidad adecuada para tus objetivos.</p>
+                </div>
+                <div class="programs-grid">
+                    @forelse($products as $product)
+                        <article class="program-card reveal">
+                            <a class="program-image" href="{{ route('modalidades', $product->id) }}" aria-label="Ver {{ $product->nombre }}">
+                                <img src="{{ asset('storage/'.$product->imagen) }}" alt="{{ $product->nombre }}" loading="lazy">
+                                <span>Ver modalidades</span>
+                            </a>
+                            <div class="program-content">
+                                <p class="program-label">Programa IFE</p>
+                                <h3>{{ $product->nombre }}</h3>
+                                <p>{{ $product->descripcion }}</p>
+                                <div class="program-actions">
+                                    <a class="text-link" href="{{ route('modalidades', $product->id) }}">Conocer programa <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                                    <a class="wa-round js-whatsapp" href="#" data-context="Me interesa el programa {{ $product->nombre }}." target="_blank" rel="noopener noreferrer" aria-label="Consultar {{ $product->nombre }} por WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </article>
+                    @empty
+                        <div class="empty-state">
+                            <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+                            <h3>Estamos preparando nuestros programas</h3>
+                            <p>Escríbenos y te orientaremos personalmente.</p>
+                            <a class="button button-primary js-whatsapp" href="#" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
+                        </div>
+                    @endforelse
+                </div>
+            </div>
+        </section>
+
+        <section class="section author" id="autor">
+            <div class="container author-card reveal">
+                <div class="author-image">
+                    <div class="author-orbit"></div>
+                    <img src="{{ asset('images/david-flores-ife-educabol-instituto-formacion-educabol.png') }}" alt="David Flores, representante de IFE Educabol" loading="lazy">
+                </div>
+                <div class="author-copy">
+                    <p class="eyebrow">Acerca del creador</p>
+                    <h2>Educación y tecnología con sentido humano</h2>
+                    <p>David Flores es creador de herramientas educativas y representante de IFE Educabol. Su trabajo une enseñanza, creatividad y tecnología para hacer que aprender sea más claro, útil y accesible.</p>
+                    <p>Desde IFE Educabol impulsa soluciones cercanas que ayudan a estudiantes y familias a avanzar con seguridad.</p>
+                    <a class="button button-outline js-whatsapp" href="#" data-context="Quisiera conocer más sobre las herramientas educativas de David Flores." target="_blank" rel="noopener noreferrer">Conversemos <i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section social-section" id="redes">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <p class="eyebrow">Nuestra comunidad</p>
+                    <h2>Sigue aprendiendo con IFE Educabol</h2>
+                    <p>Consejos, recursos y novedades educativas en nuestras redes oficiales.</p>
+                </div>
+                <div class="social-grid">
+                    <a class="social-card reveal" href="https://www.tiktok.com/@ife_educabol" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok" aria-hidden="true"></i><span><strong>TikTok</strong>@ife_educabol</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                    <a class="social-card reveal" href="https://www.facebook.com/ife.educabol" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i><span><strong>Facebook</strong>ife.educabol</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                    <a class="social-card reveal" href="https://www.youtube.com/@ife_educabol" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube" aria-hidden="true"></i><span><strong>YouTube</strong>@ife_educabol</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                    <a class="social-card reveal" href="https://www.instagram.com/ife_educabol" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram" aria-hidden="true"></i><span><strong>Instagram</strong>@ife_educabol</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section contact" id="contacto">
+            <div class="container contact-card reveal">
+                <div>
+                    <p class="eyebrow">Estamos para orientarte</p>
+                    <h2>¿Listo para dar el siguiente paso?</h2>
+                    <p>Cuéntanos qué necesitas y te ayudaremos a elegir el programa ideal.</p>
+                </div>
+                <a class="button button-white js-whatsapp" href="#" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Escribir al +591 75553338</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <img src="{{ asset('images/logo-ife-educabol-ofical-instituto-de-formacion-educabol.png') }}" alt="IFE Educabol">
+                <p>Formación cercana para aprender, crear y avanzar.</p>
+            </div>
+            <div>
+                <h2>Explora</h2>
+                <a href="#servicios">Servicios</a>
+                <a href="#programas">Programas</a>
+                <a href="#autor">Acerca de David</a>
+            </div>
+            <div>
+                <h2>Contacto</h2>
+                <a href="tel:+59175553338">+591 75553338</a>
+                <a href="https://ife.bo/">ife.bo</a>
+                @if(!empty($locations) && $locations->count())
+                    <span>{{ $locations->first()->direccion }}</span>
+                @endif
+            </div>
+            <div>
+                <h2>Redes oficiales</h2>
+                <div class="footer-socials">
+                    <a href="https://www.tiktok.com/@ife_educabol" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/ife.educabol" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/@ife_educabol" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/ife_educabol" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- Línea divisoria -->
-    <div class="footer-custom-divider"></div>
-
-    <!-- Copyright -->
-    <div class="footer-custom-bottom">
-        <p>&copy; {{ date('Y') }} <span id="copyright-company-name">{{ $info->company_name }}</span>. Todos los derechos reservados.</p>
-    </div>
+        <div class="container footer-bottom">
+            <span>© {{ date('Y') }} IFE Educabol. Todos los derechos reservados.</span>
+            <span>Educación que abre oportunidades.</span>
+        </div>
     </footer>
 
-    <!-- Nuevo JS específico del header -->
-    <script src="{{ asset('welcome/js/header.js') }}?v=2"></script>
-    <script src="{{ asset('welcome/js/welcome.js') }}?v=2"></script>
-    <script src="{{ asset('welcome/js/redes.js') }}?v=2"></script>
-    <script src="{{ asset('welcome/js/footer.js') }}?v=2"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-  const quotes = [
-    "La educación es el arma más poderosa para cambiar el mundo. — Nelson Mandela",
-    "La educación no cambia el mundo, cambia a las personas que van a cambiar el mundo. — Paulo Freire",
-    "Dime y lo olvido, enséñame y lo recuerdo, involúcrame y lo aprendo. — Benjamin Franklin",
-    "La educación es el pasaporte hacia el futuro, el mañana pertenece a aquellos que se preparan para él hoy. — Malcolm X",
-    "Educar la mente sin educar el corazón no es educación en absoluto. — Aristóteles",
-    "Enseñar es aprender dos veces. — Joseph Joubert",
-    "La educación es lo que sobrevive cuando lo aprendido ha sido olvidado. — B.F. Skinner"
-  ];
+    <a class="whatsapp-float js-whatsapp" href="#" target="_blank" rel="noopener noreferrer" aria-label="Contactar a IFE Educabol por WhatsApp">
+        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+        <span>¿Te ayudamos?</span>
+    </a>
 
-  const quoteElement = document.querySelector('[data-quotes]');
-  if (!quoteElement) return;
-
-  let currentIndex = 0;
-
-  function showNextQuote() {
-    // Quitar clase active
-    quoteElement.classList.remove('active');
-
-    // Cambiar texto después de la transición de salida
-    setTimeout(() => {
-      currentIndex = (currentIndex + 1) % quotes.length;
-      quoteElement.textContent = `"${quotes[currentIndex]}"`;
-      quoteElement.classList.add('active');
-    }, 600); // Tiempo para que termine la transición de salida
-  }
-
-  // Mostrar la primera cita inmediatamente
-  quoteElement.textContent = `"${quotes[0]}"`;
-  quoteElement.classList.add('active');
-
-  // Cambiar cada 7 segundos
-  setInterval(showNextQuote, 7000);
-});  
-
-</script>
-    
+    <script src="{{ asset('welcome/js/welcome.js') }}?v=ife-1" defer></script>
 </body>
 </html>

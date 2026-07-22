@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modalidades de {{ $product->nombre }}</title>
+    <title>{{ $product->nombre }} | IFE Educabol</title>
+    <meta name="description" content="Conoce las modalidades de {{ $product->nombre }} disponibles en IFE Educabol.">
+    <link rel="icon" type="image/png" href="{{ asset('images/icono-ife-educabol.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <!-- Font Awesome para iconos de WhatsApp y PDF -->
     <!-- Font Awesome desde CDN (CSS) para evitar CORS del kit -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
-        :root { --brand-teal: rgb(38,186,165); --brand-blue: rgb(55,95,122); }
         :root { --brand-teal: rgb(38,186,165); --brand-blue: rgb(55,95,122); }
         .card-header {
             display: flex;
@@ -70,45 +71,6 @@
             box-shadow: 0 2px 10px rgba(55,95,122,0.13);
         }
 
-        <!-- Script de reservar SIEMPRE cargado -->
-        <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var reservarBtns = document.querySelectorAll('.btn-reservar');
-            reservarBtns.forEach(function(btn) {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    // Modalidad
-                    var modalidad = btn.getAttribute('data-modalidad');
-                    // Días seleccionados (chips) SOLO de la modalidad actual
-                    var dias = [];
-                    var tr = btn.closest('tr');
-                    if (tr) {
-                        var chipGroup = tr.querySelectorAll('.chip-dia-group.chip-selected span');
-                        chipGroup.forEach(function(chip) {
-                            dias.push(chip.textContent.trim());
-                        });
-                    }
-                    // Horario seleccionado (global)
-                    var horario = null;
-                    var horarioRadio = document.querySelector('input[name^="horario_"]:checked');
-                    if (horarioRadio) {
-                        horario = horarioRadio.value;
-                    }
-                    // Construir requerimiento
-                    var requerimiento = '';
-                    if (modalidad) requerimiento += 'Modalidad: ' + modalidad + '\n';
-                    if (dias.length) requerimiento += 'Días: ' + dias.join(', ') + '\n';
-                    if (horario) requerimiento += 'Horario: ' + horario + '\n';
-                    // Redirigir con parámetros GET (siempre con modalidad)
-                    var url = new URL("{{ route('registro.create') }}", window.location.origin);
-                    url.searchParams.set('requerimiento', requerimiento);
-                    console.log('Redirigiendo a:', url.toString());
-                    window.location.href = url.toString();
-                });
-            });
-        });
-        </script>
-        }
         .desc-cell { display: flex; flex-direction: column; min-width: 220px; }
         .desc-text { font-size: .9rem; }
         .desc-actions { margin-top: .5rem; align-self: flex-end; }
@@ -170,12 +132,14 @@
 
     </style>
 </head>
-<body>
+<body data-page-name="Modalidades de {{ $product->nombre }} en IFE Educabol">
         
     <div class="container mt-4">
         <div class="rounded-4 p-4 mb-4" style="background: linear-gradient(135deg, rgba(38,186,165,.12), rgba(55,95,122,.12)); border: 1px solid rgba(55,95,122,.15);">
             <div class="d-flex align-items-center gap-3">
-                <img src="{{ url('images/logo.png') }}" alt="Logotipo" style="height:54px; width:auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,.15));">
+                <a href="{{ route('home') }}" aria-label="Volver a IFE Educabol">
+                    <img src="{{ asset('images/logo-ife-educabol-ofical-instituto-de-formacion-educabol.png') }}" alt="IFE Educabol" style="height:64px; width:auto; max-width:180px; object-fit:contain;">
+                </a>
                 <div>
                     <h1 class="mb-1" style="color: var(--brand-blue);">{{ $product->nombre }}</h1>
                     <div class="text-muted">Explora horarios, modalidades, contenidos y materiales</div>
@@ -495,14 +459,15 @@
 
     <script>
         function whatsappModalidad(modalidadId, modalidad, inversion) {
-            const phoneNumber = "{{$info->code ?? ''}}{{$info->phone ?? ''}}"; // Usa datos de $info si están disponibles
+            const phoneNumber = "59175553338";
             const selected = document.querySelector(`input[name="opcion_${modalidadId}"]:checked`);
             const opcion = selected ? selected.value : null;
             const opcionLinea = opcion ? `\nOpción: *${opcion}*` : '';
             const selHorario = document.querySelector(`input[name="horario_{{ $product->id }}"]:checked`);
             const horario = selHorario ? selHorario.value : null;
             const horarioLinea = horario ? `\nHorario: *${horario}*` : '';
-            const message = `Hola, quiero este servicio: *${modalidad}*\nNivel: *{{$product->nombre}}*\nInversión: *Bs ${inversion}*${opcionLinea}${horarioLinea}`;
+            const pageName = document.body.dataset.pageName || document.title;
+            const message = `Hola, vengo de ${pageName} y quisiera más información.\nServicio: *${modalidad}*\nNivel: *{{$product->nombre}}*\nInversión: *Bs ${inversion}*${opcionLinea}${horarioLinea}`;
             console.log("Mensaje WhatsApp:", phoneNumber);
             const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');

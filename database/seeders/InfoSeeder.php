@@ -14,13 +14,13 @@ class InfoSeeder extends Seeder
     public function run(): void
     {
         DB::table('infos')->insert([
-            'company_name' => 'ITE',
-            'logo' => 'logo.png',
-            'slogan' => 'Facilitamos tu educación',
-            'description' => 'ITE es el lugar donde tu aprendizaje cobra vida. Ofrecemos cursos innovadores en programación, matemáticas y más, con docentes expertos para impulsar tu éxito. ¡Descubre todo lo que podemos hacer por ti! ',
+            'company_name' => 'IFE Educabol',
+            'logo' => 'images/logo-ife-educabol-ofical-instituto-de-formacion-educabol.png',
+            'slogan' => 'Formación que transforma',
+            'description' => 'IFE Educabol es el lugar donde tu aprendizaje cobra vida. Ofrecemos formación práctica y acompañamiento cercano para impulsar tu desarrollo académico y tecnológico.',
             'address' => 'Villa 1 de mayo calle 16 oeste #9',
             'code' => '591',
-            'phone' => '71039910',
+            'phone' => '75553338',
         ]);
     }
 }

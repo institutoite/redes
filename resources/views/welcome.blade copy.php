@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>itelinker</title>
+    <title>IFE Educabol</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
@@ -720,8 +720,8 @@ a{
                     <div class="row pt-2">
                         <div class="col-12">
                             <p class="text-left text-light">
-                                Copyright &copy; 2024 ite educabol 
-                                | Diseñado por <a rel="sponsored" href="https://ite.com.bo" target="_blank">David Flores</a>
+                                Copyright &copy; 2024 IFE Educabol
+                                | Diseñado por <a rel="sponsored" href="https://ife.bo" target="_blank">David Flores</a>
                             </p>
                         </div>
                     </div>

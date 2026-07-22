@@ -79,7 +79,7 @@
 <body>
     <div class="pdf-container">
         <div class="header">
-            <img src="{{ public_path('images/logo.png') }}" alt="Logo" class="logo">
+            <img src="{{ public_path('images/logo-ife-educabol-ofical-instituto-de-formacion-educabol.png') }}" alt="IFE Educabol" class="logo">
             <span class="brand-title">Comprobante de Reserva</span>
         </div>
         <div class="section">

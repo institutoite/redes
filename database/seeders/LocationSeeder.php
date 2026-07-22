@@ -15,7 +15,7 @@ class LocationSeeder extends Seeder
     {
         DB::table('locations')->insert([
             [
-                'titulo' => 'ITE CENTRAL',
+                'titulo' => 'IFE EDUCABOL CENTRAL',
                 'latitud'  => '-17.802003',
                 'longitud' => '-63.136256',
                 'zoom' => 15,

@@ -37,8 +37,8 @@ class AdminPanelProvider extends PanelProvider
                 'warning' => Color::Orange,
             ])
             ->font('Montserrat')
-            // ->brandName('itelinker')
-            ->brandLogo(asset('images/logo.png'))
+            // ->brandName('IFE Educabol')
+            ->brandLogo(asset('images/logo-ife-educabol-ofical-instituto-de-formacion-educabol.png'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')// menu
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -66,7 +66,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ])->favicon(asset('images/logo.png'))
+            ])->favicon(asset('images/icono-ife-educabol.png'))
             ->profile();
     }
 }

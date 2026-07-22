@@ -49,7 +49,7 @@ const redesSociales = [];
 //         nombre: 'WhatsApp',
 //         icono: 'fab fa-whatsapp',
 //         color: '#25d366',
-//         url: 'https://wa.me/5551234567',
+//         url: 'https://wa.me/59175553338',
 //         descripcion: 'Contacto directo',
 //         seguidores: 'Chat disponible',
 //         id: 'whatsapp'

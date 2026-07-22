@@ -79,7 +79,7 @@
     <!-- Imagen de fondo -->
     @php
         $logoJpg = public_path('images/logo.jpg');
-        $logoPng = public_path('images/logo.png');
+        $logoPng = public_path('images/logo-ife-educabol-ofical-instituto-de-formacion-educabol.png');
         $bgStyle = '';
         if (file_exists($logoJpg)) {
             $bgStyle = "background: url('file://$logoJpg') no-repeat center; background-size: contain; opacity: 0.1;";
@@ -101,12 +101,12 @@
             <img src="file://{{ $logoHeader }}" alt="Logotipo">
         @endif
         <div style="text-align:left; margin-left:20px; color: rgb(55,95,122);">
-            <div style="font-size:18px; font-weight:bold;">Instituto ITE</div>
+            <div style="font-size:18px; font-weight:bold;">IFE Educabol</div>
             @if(isset($location))
                 <div style="font-size:12px;">{{ $location->address ?? '' }} — {{ $location->city ?? '' }}</div>
             @endif
             @if(isset($info))
-                <div style="font-size:12px;">WhatsApp: +{{ $info->code }} {{ $info->phone }} · Web: {{ $info->web ?? 'www.institutoite.bo' }}</div>
+                <div style="font-size:12px;">WhatsApp: +591 75553338 · Web: ife.bo</div>
                 <div style="font-size:12px;">Email: {{ $info->email ?? '' }}</div>
             @endif
             @if(isset($socials) && $socials->count())
@@ -189,7 +189,7 @@
 
         <div style="position: fixed; bottom: 10px; left: 20px; right: 20px; font-size: 11px; color: rgb(55,95,122); border-top: 1px solid rgba(55,95,122,0.4); padding-top: 6px;">
             @if(isset($info))
-                WhatsApp: +{{ $info->code }} {{ $info->phone }} · Web: {{ $info->web ?? 'www.institutoite.bo' }} · Email: {{ $info->email ?? '' }}
+                WhatsApp: +591 75553338 · Web: ife.bo · Email: {{ $info->email ?? '' }}
             @endif
             @if(isset($socials) && $socials->count())
                 · Redes:
